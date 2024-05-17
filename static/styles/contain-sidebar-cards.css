@@ -1,0 +1,10 @@
+.contain-sidebar-cards
+{
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    /* align-items: center; */
+    margin: 70px auto;
+    margin-left: 245px;
+    justify-content: space-between;
+}

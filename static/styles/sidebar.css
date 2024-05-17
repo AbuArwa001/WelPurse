@@ -1,0 +1,153 @@
+/* Import Open Sans font */
+@import url('https://fonts.googleapis.com/css2?family=Open+Sans&display=swap');
+
+/* Reset and font settings */
+* {
+  list-style: none;
+  text-decoration: none;
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'Open Sans', sans-serif;
+}
+
+/* Sidebar styles */
+.wrapper .sidebar {
+  background: rgb(47, 104, 190);
+  position: fixed;
+  top: 60px;
+  left: 0;
+  width: 225px;
+  padding: 20px 0;
+  transition: all 0.5s ease;
+  margin-left: 10px;
+  margin-right: 70px;
+  border-radius: 30px;
+  overflow-y: auto;
+  bottom: 50px;
+}
+
+/* Profile styles */
+.wrapper .sidebar .profile {
+  margin-bottom: 30px;
+  text-align: center;
+}
+
+.wrapper .sidebar .profile img {
+  display: block;
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+  margin: 0 auto;
+}
+
+.wrapper .sidebar .profile h3 {
+  color: #ffffff;
+  margin: 10px 0 5px;
+}
+
+.wrapper .sidebar .profile p {
+  color: rgb(206, 240, 253);
+  font-size: 14px;
+}
+
+/* Link styles */
+.wrapper .sidebar ul li a {
+  display: block;
+  padding: 13px 30px;
+  border-bottom: 1px solid #10558d;
+  color: rgb(241, 237, 237);
+  font-size: 16px;
+  position: relative;
+  border-radius: 30px;
+}
+
+.wrapper .sidebar ul li a .icon {
+  color: #dee4ec;
+  width: 30px;
+  display: inline-block;
+}
+
+/* Hover and active link styles */
+.wrapper .sidebar ul li a:hover,
+.wrapper .sidebar ul li a.active {
+  color: #0c7db1;
+  background: rgb(171 0 0 / 73%);
+  border-right: 2px solid rgb(5, 68, 104);
+}
+
+.wrapper .sidebar ul li a:hover .icon,
+.wrapper .sidebar ul li a.active .icon {
+  color: #0c7db1;
+}
+
+/* Section styles */
+.wrapper .section {
+  width: calc(100% - 225px);
+  margin-left: 225px;
+  transition: all 0.5s ease;
+}
+
+/* Container styles */
+.wrapper .section .container {
+  margin-top: 80px;
+  /* Adjusted to ensure it doesn't go under the navbar */
+  background: #d0b997;
+  padding: 50px;
+  line-height: 28px;
+  /* Removed the conflicting margin property */
+  margin-left: 30px;
+  margin-right: 30px;
+}
+
+/* Active state styles */
+body.active .wrapper .sidebar {
+  left: -225px;
+}
+
+body.active .wrapper .section {
+  flex: 1;
+  /* Take up remaining space */
+  padding-top: 60px;
+  /* Height of the navbar */
+  margin-left: 0;
+  width: 100%;
+}
+
+/* 
+STYLE SCROLBAR
+*/
+/* Style the scrollbar - light/dark theme */
+.wrapper .sidebar::-webkit-scrollbar {
+  width: 12px;
+  /* Scrollbar width */
+}
+
+.wrapper .sidebar::-webkit-scrollbar-track {
+  background: #f11313;
+  /* Track color */
+  border-radius: 20px;
+  /* Track border radius */
+}
+
+.wrapper .sidebar::-webkit-scrollbar-thumb {
+  background: #888;
+  /* Thumb color */
+  border-radius: 20px;
+  /* Thumb border radius */
+  border: 3px solid #f1f1f1;
+  /* Creates padding around the thumb */
+}
+
+.wrapper .sidebar::-webkit-scrollbar-thumb:hover {
+  background: #555;
+  /* Thumb color on hover */
+}
+
+.wrapper .sidebar {
+  scrollbar-width: thin;
+  /* Scrollbar width */
+  scrollbar-color: #888 #f1f1f1;
+  /* Thumb and track color */
+  scrollbar-width: none
+}

@@ -1,0 +1,153 @@
+.my-welfares{
+    /* margin-left: 750px; */
+    top: 60px;
+    right: 1rem;
+    transition: all 0.5s ease;
+    width: 250px;
+    background-color: antiquewhite;
+    border-radius: 15px;
+    margin-left: 10px;
+    position: fixed;
+    overflow-y: auto;
+    bottom: 50px;
+}
+.overview-h3{
+    margin: 10px;
+}
+/* .list-cards{
+    background: rgb(47, 104, 190);
+    position: fixed;
+    top: 60px;
+    right: 0;
+    width: 225px;
+    padding: 20px 0;
+    transition: all 0.5s ease;
+    margin-left: 10px;
+    margin-right: 70px;
+    border-radius: 30px;
+    overflow-y: auto;
+    bottom: 50px;
+} */
+/* 
+STYLE SCROLBAR
+*/
+/* Style the scrollbar - light/dark theme */
+.wrapper .my-welfares::-webkit-scrollbar {
+    width: 12px;
+    /* Scrollbar width */
+  }
+  
+  .wrapper .my-welfares::-webkit-scrollbar-track {
+    background: #f11313;
+    /* Track color */
+    border-radius: 20px;
+    /* Track border radius */
+  }
+  
+  .wrapper .my-welfares::-webkit-scrollbar-thumb {
+    background: #888;
+    /* Thumb color */
+    border-radius: 20px;
+    /* Thumb border radius */
+    border: 3px solid #f1f1f1;
+    /* Creates padding around the thumb */
+  }
+  
+  .wrapper .my-welfares::-webkit-scrollbar-thumb:hover {
+    background: #555;
+    /* Thumb color on hover */
+  }
+  
+  .wrapper .my-welfares {
+    scrollbar-width: thin;
+    /* Scrollbar width */
+    scrollbar-color: #888 #f1f1f1;
+    /* Thumb and track color */
+    scrollbar-width: none
+  }
+  /* 
+  CONTRIBUTION GRAPH
+  */
+ #columnchart_material{
+    max-width: 400px;
+    max-height: 300px;
+    background-color: #d0b997;
+  }
+  .contribution-summary{
+    background-color: #d0b997;
+    border-radius: 10px;
+  }
+  /*
+  PROGRESS BAR 
+ */
+ .progress-bar{
+    width: 90%;
+    height: 2em;
+    background-color:rgb(47, 104, 190);
+    border-radius: 1em;
+    align-content: center;
+    position: relative;
+    margin-top: .5em;
+    margin-left: .5em;
+    color: white;
+ }
+ .progress-bar::before{
+    content: attr(data-label);
+    display: flex;
+    align-items: center;
+    position: absolute;
+    width: calc(var(--width, 0) * 1%);
+    left: .5em;
+    top: .3em;
+    bottom: .3em;
+    min-width: 2rem;
+    max-width: calc(100% - 1em);
+    background-color:rgb(171 0 0 / 73%);
+    border-radius: .5em;
+    padding: .5em;
+ }
+
+ /* 
+ INTASEND
+ */
+ .intaSendPayButton{
+  background-color: rgb(47, 104, 190);
+  margin: .5em;
+  border-radius: 0.5em;
+  padding: 0.5em;
+ }
+ .intaSendPayButton:hover{
+  background-color: rgb(171 0 0 / 73%);
+ }
+ /* 
+ CALENDAR
+ */
+ .cal-cont{
+  margin: 2px;
+  background-color: #d0b997;
+  border-radius: 15px;
+  /* max-width: 400px;
+  max-height: 450px; */
+  margin-left: 30px;
+ }
+ #calendar{
+  min-width: 400px;
+  min-height: 456px;
+ }
+ /* 
+ CONTAINER FOR CALENDER AND CONTR-SUMMARY
+ */
+ .contr-calendar{
+  display: flex;
+  justify-content: space-between;
+ }
+
+.span-text{
+  color: rgb(37, 39, 124);
+  font-size: x-large;
+  font-family: 'Times New Romans';
+  font-weight: bolder;
+ }
+ .span-total {
+  margin: .5em;
+ }
