@@ -1,5 +1,28 @@
 # Welpurse Web Application
 
+## WelPurse: Empowering Community Welfare
+### Overview
+WelPurse is an innovative platform designed to strengthen community bonds by facilitating the creation, management, and operation of welfare groups. With a focus on supporting members during significant life events such as weddings, funerals, or health emergencies, WelPurse offers a digital solution to traditional community funds.
+
+### Project Justification
+In many communities, supporting one another during times of need is a core value. However, managing contributions, benefits, and financial transparency can be challenging without a centralized system. WelPurse addresses this need by providing a user-friendly interface that simplifies these processes, ensuring that support is timely and effectively distributed.
+
+### Objectives
+To create a seamless experience for community leaders to establish and administer welfare groups.
+To enable members to make secure and straightforward contributions.
+To provide treasurers with tools for financial oversight and reporting.
+To facilitate the fair and efficient distribution of benefits to members in need.
+To ensure data security and privacy for all users.
+### Phases of Work
+WelPurse will be developed in phases, starting with core functionality like group creation, member management, and contribution tracking, followed by advanced features such as financial reporting and benefit distribution.
+
+### Metrics for Evaluating and Monitoring
+Success will be measured by user adoption rates, the volume of transactions processed, user satisfaction scores, and the platform’s ability to maintain data integrity and security.
+
+### Timeline
+The initial launch of WelPurse is planned for Q4 2024, with subsequent updates and feature releases scheduled throughout 2025.
+
+
 ## Architecture Overview
 
 ### DNS Resolution
