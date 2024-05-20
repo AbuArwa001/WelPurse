@@ -1,0 +1,11 @@
+.container-cards {
+    display: flex;
+    flex-wrap: wrap;
+    /* justify-content: space-around; */
+    align-items: flex-start; /* Align items to the start of the cross axis */
+    margin-right: auto; /* Right margin for the container */
+    margin-left: 20%; /* Left margin to account for the sidebar width */
+    justify-content: flex-start;
+    /* z-index: -1; */
+  }
+  

@@ -1,0 +1,172 @@
+:root {
+  --primary-color: rgb(11, 78, 179);
+}
+
+body {
+  font-family: 'Times New Roman', serif; /* Corrected font family name */
+  font-weight: 100;
+}
+
+/* Global Stylings */
+label {
+  display: block;
+  margin-bottom: 0.5rem;
+  color: var(--primary-color); /* Use primary color for labels */
+}
+
+input,
+textarea,
+select {
+  display: block;
+  width: calc(100% - 1.5rem); /* Full width minus padding */
+  padding: 0.75rem;
+  border: 2px solid #ccc;
+  border-radius: 25px;
+  margin-bottom: 1rem; /* Added margin-bottom for spacing */
+}
+
+/* Progressbar */
+.progressbar {
+  position: relative;
+  display: flex;
+  justify-content: space-between;
+  counter-reset: step;
+  margin: 2rem 0;
+}
+
+.progressbar::before,
+.progress {
+  content: "";
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  height: 4px;
+  width: 100%;
+  background-color: var(--primary-color); /* Use primary color */
+  z-index: -1;
+}
+
+.progress {
+  background-color: var(--primary-color);
+  width: 0%;
+  transition: width 0.3s; /* Animate width only */
+}
+
+.progress-step {
+  width: 2.1875rem;
+  height: 2.1875rem;
+  background-color: #dcdcdc;
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  transition: background-color 0.3s; /* Animate background color */
+}
+
+.progress-step::before {
+  counter-increment: step;
+  content: counter(step);
+  color: var(--primary-color); /* Use primary color for numbers */
+}
+
+.progress-step::after {
+  content: attr(data-title);
+  position: absolute;
+  top: calc(100% + 0.5rem);
+  font-size: 0.85rem;
+  color: var(--primary-color); /* Use primary color for titles */
+}
+
+.progress-step-active {
+  background-color: var(--primary-color);
+  color: white; /* Improved contrast */
+}
+
+/* Form */
+.form {
+  width: 70%;
+  margin: 30px auto; /* Center form on the page */
+  border: 1px solid #ccc;
+  background-color: #fff; /* Changed to a white background for better readability */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  border-radius: 25px;
+  padding: 1.5rem;
+  position: relative; /* Changed from fixed to relative */
+  overflow-y: auto;
+}
+
+.form-step {
+  display: none;
+  animation: animate 0.5s;
+}
+
+.form-step-active {
+  display: block;
+}
+
+/* Button */
+.btns-group {
+  display: flex;
+  justify-content: space-between; /* Changed from grid to flex for better control */
+  margin-top: 1rem; /* Added margin-top for spacing */
+}
+
+.btn {
+  padding: 0.75rem 1.5rem; /* Increased padding for a larger clickable area */
+  background-color: var(--primary-color);
+  color: white;
+  text-align: center;
+  border-radius: 25px;
+  cursor: pointer;
+  transition: background-color 0.3s, transform 0.3s; /* Added transform to transition properties */
+}
+
+.btn:hover {
+  background-color: darken(var(--primary-color), 10%); /* Darken button on hover */
+  transform: translateY(-2px); /* Lift button on hover */
+}
+
+/* Form Group */
+.group-details {
+  padding: 1rem;
+  border-radius: 25px;
+  border: 2px solid var(--primary-color); /* Use primary color for border */
+  background: #f9f9f9; /* Slightly off-white background for the fieldset */
+}
+
+.group-details legend {
+  padding: 0 0.5rem; /* Add horizontal padding */
+  color: var(--primary-color); /* Use primary color for legend text */
+}
+
+.group-details .input-group {
+  display: flex;
+  flex-direction: column; /* Stack label and input vertically */
+  margin-bottom: 1rem; /* Added margin-bottom for spacing */
+}
+
+.group-details label {
+  margin-bottom: 0.5rem; /* Added margin-bottom for spacing between label and input */
+}
+
+.group-details input,
+.group-details textarea,
+.group-details select {
+  flex: 1; /* Removed as it's unnecessary with flex-direction: column */
+}
+
+/* Select CSS */
+.group-details .input-group select {
+  padding: 0.5em;
+  border: 1px solid #ccc;
+  border-radius: 25px;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  background-color: white;
+  cursor: pointer;
+  background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="grey" d="M7 10l5 5 5-5z"/></svg>');
+  background-repeat: no-repeat;
+  background-position: right 0.75em center;
+  background-size: 1em auto;
+}
