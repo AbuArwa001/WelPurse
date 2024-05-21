@@ -66,3 +66,65 @@ reqired fileds
   font-size: 80%;
   color: #dc3545; /* Red text to match the input border */
 }
+
+/* Main theme colors */
+:root {
+  --primary-color: #d0b997; /* Beige */
+  --secondary-color: rgb(47, 104, 190); /* Blue */
+  --accent-color: rgba(171, 0, 0, 0.73); /* Red with transparency */
+}
+
+/* Apply the theme colors to the body and text */
+/* body {
+  background-color: var(--primary-color);
+  color: var(--secondary-color);
+} */
+
+/* Style for the dashboard title */
+.dashboard-title {
+  color: var(--secondary-color);
+}
+
+/* Style for form elements */
+.form-control {
+  background-color: var(--secondary-color);
+  color: var(--primary-color);
+  border: 1px solid var(--accent-color);
+}
+
+.form-control::placeholder {
+  color: var(--primary-color);
+}
+
+/* Style for the submit button */
+.btn-success.btn-round {
+  background-color: var(--accent-color);
+  color: var(--primary-color);
+  border-radius: 20px; /* Rounded corners for the button */
+  border: none;
+  padding: 10px 20px;
+}
+
+/* Hover effect for the submit button */
+.btn-success.btn-round:hover {
+  background-color: var(--secondary-color);
+  color: var(--primary-color);
+}
+
+/* Dropdown arrow color */
+select.form-control {
+  appearance: none;
+  background-image: url('data:image/svg+xml;utf8,<svg fill="%23d0b997" height="24" viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg"><path d="M7 10l5 5 5-5z"/></svg>');
+  background-repeat: no-repeat;
+  background-position: right 0.7em top 50%;
+  background-size: 24px;
+}
+
+/* Adjustments for other interactive elements */
+a, button {
+  color: var(--accent-color);
+}
+
+a:hover, button:hover {
+  color: var(--secondary-color);
+}

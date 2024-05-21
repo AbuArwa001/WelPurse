@@ -32,11 +32,12 @@ def login():
     set_access_cookies(response, access_token)
     return response
 
-@auth_blueprint.route("/logout", methods=["POST"])
-def logout():
-    response = jsonify({"msg": "logout successful"})
-    unset_jwt_cookies(response)
-    return response
+# @app.route("/logout", methods=["DELETE"])
+# @jwt_required()
+# def logout():
+#     jti = get_jwt()["jti"]
+#     jwt_redis_blocklist.set(jti, "", ex=ACCESS_EXPIRES)
+#     return jsonify(msg="Access token revoked")
 
 # Register a callback function that takes whatever object is passed in as the
 # identity when creating JWTs and converts it to a JSON serializable format.

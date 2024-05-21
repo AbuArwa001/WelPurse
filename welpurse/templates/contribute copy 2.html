@@ -1,0 +1,59 @@
+{% extends 'layout.html' %}
+
+{% block content %}
+<div class="container-fluid">
+    <div class="container">
+        <!-- Dashboard Header -->
+        <div class="row">
+            <div class="col-12">
+                <h2 class="dashboard-title">WelPurse Dashboard</h2>
+            </div>
+        </div>
+
+        <!-- Welfare Groups Section -->
+        <div class="row">
+            <div class="col-12">
+                <h3>Your Welfare Groups</h3>
+                <div class="welfare-groups-list">
+                    <!-- Dynamically list groups with Jinja2 -->
+                    {% for group in user_welfare_groups %}
+                    <div class="welfare-group">
+                        <span>{{ group.name }}</span>
+                        <button onclick="selectGroup('{{ group.id }}')">Contribute</button>
+                    </div>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+
+        <!-- Contribution Form -->
+        <div class="row">
+            <div class="col-12">
+                <h3>Make a Contribution</h3>
+                <form id="contribution-form" action="#" method="post">
+                    <div class="input-group mb-3">
+                        <input type="number" name="amount" class="form-control" placeholder="Enter amount" required>
+                    </div>
+                    <div class="input-group mb-3">
+                        <select name="payment_method" class="form-control">
+                            <option value="credit_card">Credit Card</option>
+                            <option value="paypal">PayPal</option>
+                            <!-- Add more payment methods as needed -->
+                        </select>
+                    </div>
+                    <div class="input-group center mb-3">
+                        <button type="submit" class="btn btn-success btn-round">Contribute</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+// JavaScript function to handle group selection
+function selectGroup(groupId) {
+    // Implement the logic to select a group and update the form action or data
+}
+</script>
+{% endblock content %}

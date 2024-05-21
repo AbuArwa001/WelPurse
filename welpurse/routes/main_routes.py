@@ -1,8 +1,11 @@
-from flask import render_template
+#welpurese/routes/main_routess.py
+from flask import render_template,redirect, url_for
 import uuid 
 # from welpurse import calendar
+from welpurse.utils import login_required
 from welpurse.routes import app_routes
-from flask_jwt_extended import jwt_required
+from welpurse import jwt
+from flask_jwt_extended import jwt_required, current_user, get_current_user
 
 calendar = [
   {
@@ -45,17 +48,38 @@ def home():
 #                            title=title,
 #                            cache_id=uuid.uuid4())
 
-@jwt_required()
 @app_routes.route('/dashboard', strict_slashes=False)
+@login_required  # Use custom login_required decorator
 def dashboard():
     title = 'dashboard'
     amount_contributed = 70000
     target = 200000
-    progress= (  amount_contributed  / target) * 100
-    print(progress)
+    progress = (amount_contributed / target) * 100
+    
+    # Render the dashboard page if authenticated
     return render_template('dashboard.html',
-                           calendar = calendar,
+                           calendar=calendar,
                            title=title,
                            total=amount_contributed,
                            progress=progress,
                            cache_id=uuid.uuid4())
+# # Custom error handler for JWT errors
+# @jwt.unauthorized_loader
+# def unauthorized_callback(callback):
+#     # Redirect unauthorized users to the login page
+#     return redirect(url_for('app_routes.login'))
+
+# @jwt.expired_token_loader
+# def expired_token_callback(jwt_header, jwt_payload):
+#     # Redirect users with expired tokens to the login page
+#     return redirect(url_for('app_routes.login'))
+
+# @jwt.invalid_token_loader
+# def invalid_token_callback(callback):
+#     # Redirect users with invalid tokens to the login page
+#     return redirect(url_for('app_routes.login'))
+
+# Handle any other JWT errors
+# @app.errorhandler(NoAuthorizationError)
+# def handle_no_authorization_error(error):
+#     return redirect(url_for('login'))

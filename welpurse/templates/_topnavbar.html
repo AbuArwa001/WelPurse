@@ -1,13 +1,29 @@
 <div class="section">
     <div class="top_navbar">
-        <div class="hamburger" style="display: flex;">
+        <div class="hamburger">
             <a href="#">
                 <i class="fas fa-bars"></i>
             </a>
-            <a href="{{ url_for('app_routes.login') }}" style="right:0; margin-right: 5px; align-self: flex-end;">
-                <i class="fas fa-user" ></i>
-            </a>
+            <nav>
+                <ul>
+                    <li><a href="{{ url_for('app_routes.dashboard') }}">Home</a></li>
+                    <li><a href="#about">About</a></li>
+                    <!-- Social Media Icons -->
+                    <li><a href="https://facebook.com"><i class="fab fa-facebook-f"></i></a></li>
+                    <li><a href="https://twitter.com"><i class="fab fa-twitter"></i></a></li>
+                    <li><a href="https://instagram.com"><i class="fab fa-instagram"></i></a></li>
+                    <!-- User Dropdown -->
+                    <li class="user-dropdown">
+                        <a href="#" class="user-icon">
+                            <i class="fas fa-user"></i>
+                        </a>
+                        <div class="user-menu">
+                            <a href="{{ url_for('app_routes.logout') }}">Account</a>
+                            <a href="{{ url_for('app_routes.logout') }}">Logout</a>
+                        </div>
+                    </li>
+                </ul>
+            </nav>
         </div>
     </div>
-
 </div>

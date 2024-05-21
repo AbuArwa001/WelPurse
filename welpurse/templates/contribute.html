@@ -1,0 +1,53 @@
+{% extends 'layout.html' %}
+
+{% block content %}
+<div class="container-fluid wel-purse-bg">
+    <div class="container">
+        <!-- Dashboard Header -->
+        <div class="row">
+            <div class="col-12">
+                <h2 class="dashboard-title">WelPurse Dashboard</h2>
+            </div>
+        </div>
+
+        <!-- Contribution Form -->
+        <div class="row">
+            <div class="col-12">
+                <h3 class="contribution-header">Make a Contribution</h3>
+                <form id="contribution-form" action="#" method="post">
+                    <!-- Dropdown for selecting welfare group -->
+                    <div class="input-group mb-3">
+                        <select name="welfare_group" class="form-control wel-purse-select" required>
+                            <option value="" disabled selected>Select WelfareS Group</option>
+                            <option value="welfare1">welfare1</option>
+                            <option value="welfare2">welfare1</option>
+                        </select>
+                    </div>
+                    <!-- Input for contribution amount -->
+                    <div class="input-group mb-3">
+                        <input type="number" name="amount" class="form-control wel-purse-input" placeholder="Enter amount" required>
+                    </div>
+                    <!-- Dropdown for payment method -->
+                    <div class="input-group mb-3">
+                        <select name="payment_method" id="payment-method" class="form-control wel-purse-select">
+                            <option value="credit_card">Credit Card</option>
+                            <option value="paypal">PayPal</option>
+                            <option value="mpesa">MPesa</option>
+                            <!-- Add more payment methods as needed -->
+                        </select>
+                    </div>
+                    <!-- Input for MPesa number (hidden by default) -->
+                    <div class="input-group mb-3" id="mpesa-number" style="display: none;">
+                        <input type="tel" name="mpesa_number" class="form-control wel-purse-input" placeholder="Enter MPesa number">
+                    </div>
+                    <!-- Submit button -->
+                    <div class="input-group center mb-3">
+                        <button type="submit" class="intaSendPayButton btn wel-purse-btn">Contribute</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock content %}

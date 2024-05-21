@@ -1,0 +1,47 @@
+.wel-purse-bg {
+    background-color: #d0b997; /* Your primary theme color */
+    color: rgb(47, 104, 190); /* Your secondary theme color */
+}
+
+.dashboard-title {
+    color: rgb(47, 104, 190); /* Your secondary theme color */
+}
+
+.contribution-header {
+    color: rgb(171, 0, 0, 0.73); /* Your accent theme color */
+}
+
+.wel-purse-select, .wel-purse-input {
+    /* background-color: rgb(47, 104, 190); */
+    color: #d0b997; /* Your primary theme color */
+    border: none;
+}
+
+.wel-purse-select::placeholder, .wel-purse-input::placeholder {
+    color: #d0b997; /* Your primary theme color */
+}
+
+.wel-purse-btn {
+    background-color: rgb(171, 0, 0, 0.73); /* Your accent theme color */
+    color: #d0b997; /* Your primary theme color */
+    border-radius: 20px; /* Rounded corners for the button */
+    border: none;
+    padding: 10px 20px;
+}
+.wel-purse-input{
+    color: black;
+}
+.wel-purse-btn:hover {
+    background-color: #d0b997; /* Your primary theme color */
+    color: rgb(47, 104, 190); /* Your secondary theme color */
+}
+.wel-purse-bg {
+    /* padding: 0px; */
+    margin-bottom: 30px;
+    background-color: #d0b997;
+    margin-left: 20%;
+    margin: auto 20%;
+    border-radius: 25px;
+    box-shadow: 1px 0.em;
+    box-shadow: -0.5em 0.2em 6px #e9ecef;
+}

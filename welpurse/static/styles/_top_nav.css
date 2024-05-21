@@ -1,20 +1,113 @@
+/* Base styles for the navbar */
 .wrapper .section .top_navbar {
-    background: rgb(47, 104, 190);
-    height: 50px;
-    display: flex;
-    align-items: center;
-    padding: 10px 20px;
-    /* padding: 0 30px; */
-    position: fixed; /* Make the navbar fixed */
-    width: 100%; /* Adjust the width */
-    z-index: 1000; /* Ensure it's above other elements */
-    top: 0; /* Position at the top */
-    right: 0; /* Align to the right */
-    transition: all 0.5s ease;
-    border-radius: 30px;
+  background: rgb(47, 104, 190); /* Blue background */
+  height: 50px;
+  display: flex;
+  align-items: center;
+  padding: 10px 20px;
+  position: fixed;
+  width: 100%;
+  z-index: 1000;
+  top: 0;
+  right: 0;
+  transition: all 0.5s ease;
+  border-radius: 30px; /* Rounded corners */
+}
+
+/* Style adjustments when the sidebar is active */
+body.active .wrapper .section .top_navbar {
+  width: calc(100% - 250px); /* Adjust width based on sidebar size */
+}
+
+/* Navbar links */
+.wrapper .section .top_navbar nav ul {
+  list-style: none;
+  display: flex;
+  margin: 0;
+  padding: 0;
+}
+
+.wrapper .section .top_navbar nav ul li {
+  margin-right: 20px; /* Spacing between links */
+}
+
+.wrapper .section .top_navbar nav ul li a {
+  color: white; /* Text color */
+  text-decoration: none; /* No underline */
+  font-weight: bold; /* Make the text bold */
+  transition: color 0.3s ease; /* Smooth color transition */
+}
+
+.wrapper .section .top_navbar nav ul li a:hover {
+  color: #dfe6e9; /* Lighter color on hover */
+}
+
+/* Hamburger icon and user icon */
+.wrapper .section .top_navbar .hamburger a {
+  color: white; /* Icon color */
+  margin-right: auto; /* Push everything else to the right */
+}
+
+.wrapper .section .top_navbar .hamburger a:last-child {
+  margin-right: 5px; /* Spacing for the last icon */
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .wrapper .section .top_navbar nav ul {
+      flex-direction: column; /* Stack links vertically */
+      align-items: flex-start; /* Align links to the start */
   }
-  
-  /* Adjust the top_nav when the sidebar is active */
-  body.active .wrapper .section .top_navbar {
-    width: 100%; /* Full width when sidebar is not visible */
+
+  .wrapper .section .top_navbar nav ul li {
+      width: 100%; /* Full width links */
+      margin: 5px 0; /* Spacing between stacked links */
   }
+
+  .wrapper .section .top_navbar .hamburger a {
+      margin: 0 10px; /* Adjust spacing for icons */
+  }
+}
+/* Dropdown Menu Styles */
+.wrapper .section .top_navbar .user-dropdown {
+  position: relative;
+  float: right; /* Align to the right */
+}
+
+.wrapper .section .top_navbar .user-dropdown .user-menu {
+  display: none;
+  position: absolute;
+  right: 0;
+  background-color: #f9f9f9;
+  min-width: 160px;
+  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+  z-index: 1;
+}
+
+.wrapper .section .top_navbar .user-dropdown .user-menu a {
+  color: black;
+  padding: 12px 16px;
+  text-decoration: none;
+  display: block;
+}
+
+.wrapper .section .top_navbar .user-dropdown .user-menu a:hover {
+  background-color: #f1f1f1;
+}
+
+.wrapper .section .top_navbar .user-dropdown:hover .user-menu {
+  display: block; /* Show dropdown */
+}
+
+/* Social Media Icons */
+.wrapper .section .top_navbar nav ul li a i {
+  margin-right: 8px; /* Spacing between icon and text */
+}
+
+/* Responsive adjustments for social media icons */
+@media (max-width: 768px) {
+  .wrapper .section .top_navbar nav ul li a i {
+      display: block; /* Stack icons vertically on smaller screens */
+      margin: 0 auto; /* Center icons */
+  }
+}

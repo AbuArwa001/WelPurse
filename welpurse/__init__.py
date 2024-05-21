@@ -1,22 +1,19 @@
-#!/usr/bin/env python3
-"welpurse app"
-from flask import Flask, render_template
-import os
-import uuid
-from welpurse.routes import app_routes
+# welpurse/__init__.py
+from flask import Flask
 from flask_jwt_extended import JWTManager
 
 app = Flask(__name__)
-app.config['SECRET_KEY'] = '1545d4c68638f11975345058719b854f'
-app.config['JWT_SECRET_KEY'] = '1545d4c68638f11975345058719b854f'  # Replace with your actual secret key
-app.config['JWT_TOKEN_LOCATION'] = ['headers', 'cookies']  # Specify where to look for the token
+jwt = JWTManager()
 
-jwt = JWTManager(app)
-app.register_blueprint(app_routes)
+def create_app():
+    app.config['SECRET_KEY'] = 'e94d628d5bc552207aa4c4b1f6e87cb1'
+    app.config['JWT_SECRET_KEY'] = 'e94d628d5bc552207aa4c4b1f6e87cb1'
+    app.config['JWT_TOKEN_LOCATION'] = ['headers', 'cookies']
 
+    jwt.init_app(app)
 
+    from welpurse.routes import app_routes
+    app.register_blueprint(app_routes)
 
-def css(css_file):
-    return render_template(f'{css_file}.css.jinja'), 200, {'Content-Type': 'text/css'}
-
+    return app
 
