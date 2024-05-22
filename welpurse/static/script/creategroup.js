@@ -1,38 +1,37 @@
-$(document).ready(function() {
-  let formStepsNum = 0;
+$(document).ready(function () {
+  var steps = $('.form-step');
+  var nextBtn = $('.btn-next');
+  var prevBtn = $('.btn-prev');
+  var progress = $('#progress');
+  var progressSteps = $('.progress-step');
 
-  $(".btn-next").on("click", function() {
-    formStepsNum++;
-    updateFormSteps();
-    updateProgressbar();
+  var currentStep = 0;
+
+  nextBtn.click(function () {
+      currentStep++;
+      updateFormSteps();
+      updateProgressBar();
   });
 
-  $(".btn-prev").on("click", function() {
-    formStepsNum--;
-    updateFormSteps();
-    updateProgressbar();
+  prevBtn.click(function () {
+      currentStep--;
+      updateFormSteps();
+      updateProgressBar();
   });
 
   function updateFormSteps() {
-    $(".form-step").each(function() {
-      $(this).removeClass("form-step-active");
-    });
-    $(".form-step").eq(formStepsNum).addClass("form-step-active");
+      steps.removeClass('form-step-active');
+      steps.eq(currentStep).addClass('form-step-active');
   }
 
-  function updateProgressbar() {
-    $(".progress-step").each(function(idx) {
-      if (idx < formStepsNum + 1) {
-        $(this).addClass("progress-step-active");
-      } else {
-        $(this).removeClass("progress-step-active");
-      }
-    });
-
-    const progressActive = $(".progress-step-active").length;
-    const progressTotal = $(".progress-step").length;
-    const progressWidth = ((progressActive - 1) / (progressTotal - 1)) * 100;
-
-    $("#progress").css("width", progressWidth + "%");
+  function updateProgressBar() {
+      progressSteps.each(function (idx, step) {
+          if (idx <= currentStep) {
+              $(step).addClass('progress-step-active');
+          } else {
+              $(step).removeClass('progress-step-active');
+          }
+      });
+      progress.css('width', ((currentStep + 1) / progressSteps.length) * 100 + '%');
   }
 });

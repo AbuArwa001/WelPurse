@@ -76,14 +76,14 @@ def user_lookup_callback(_jwt_header, jwt_data):
 #     # return response
 #     return jsonify(access_token=access_token)
 
-# @auth_blueprint.route('/refresh', methods=['POST'])
-# @jwt_required(refresh=True)
-# def refresh():
-#     current_user = get_jwt_identity()
-#     new_access_token = create_access_token(identity=current_user)
-#     response = jsonify({'refresh': True})
-#     set_access_cookies(response, new_access_token)
-#     return response
+@auth_blueprint.route('/refresh', methods=['POST'])
+@jwt_required(refresh=True)
+def refresh():
+    current_user = get_jwt_identity()
+    new_access_token = create_access_token(identity=current_user)
+    response = jsonify({'refresh': True})
+    set_access_cookies(response, new_access_token)
+    return response
 
 
 @auth_blueprint.after_request
@@ -91,7 +91,10 @@ def refresh_expiring_jwts(response):
     try:
         exp_timestamp = get_jwt()["exp"]
         now = datetime.now(timezone.utc)
-        target_timestamp = datetime.timestamp(now + timedelta(minutes=30))
+        target_timestamp = datetime.timestamp(now + timedelta(minutes=10))
+        response.headers["Current-Tk-Time"] = target_timestamp
+        response.headers["Current-Rm-Time"] = target_timestamp - exp_timestamp
+        exp_timestamp
         if target_timestamp > exp_timestamp:
             current_user = get_jwt_identity()
             new_access_token = create_access_token(identity=current_user)

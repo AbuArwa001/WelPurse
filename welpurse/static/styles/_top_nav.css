@@ -1,80 +1,92 @@
 /* Base styles for the navbar */
-.wrapper .section .top_navbar {
+.top_navbar {
+  grid-area: header;
   background: rgb(47, 104, 190); /* Blue background */
-  height: 50px;
-  display: flex;
-  align-items: center;
-  padding: 10px 20px;
-  position: fixed;
   width: 100%;
   z-index: 1000;
-  top: 0;
-  right: 0;
   transition: all 0.5s ease;
-  border-radius: 30px; /* Rounded corners */
+  border-radius: 20px; 
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 20px; /* Add padding for better spacing */
 }
 
 /* Style adjustments when the sidebar is active */
-body.active .wrapper .section .top_navbar {
+body.active .top_navbar {
   width: calc(100% - 250px); /* Adjust width based on sidebar size */
 }
 
+/* Left navigation including hamburger and links */
+.left-nav {
+  display: flex;
+  /* width: 25%; */
+  /* align-items: center; */
+  justify-content: space-between;
+}
+
+/* Hamburger icon */
+.hamburger a {
+  color: white; /* Icon color */
+  margin-right: 20px; /* Push the rest of the items to the right */
+}
+
+.hamburger a:last-child {
+  margin-right: 5px; /* Spacing for the last icon */
+}
+
 /* Navbar links */
-.wrapper .section .top_navbar nav ul {
+.left-nav ul {
   list-style: none;
   display: flex;
   margin: 0;
   padding: 0;
 }
 
-.wrapper .section .top_navbar nav ul li {
+.left-nav ul li {
   margin-right: 20px; /* Spacing between links */
 }
 
-.wrapper .section .top_navbar nav ul li a {
+.left-nav ul li a {
   color: white; /* Text color */
   text-decoration: none; /* No underline */
   font-weight: bold; /* Make the text bold */
   transition: color 0.3s ease; /* Smooth color transition */
 }
 
-.wrapper .section .top_navbar nav ul li a:hover {
+.left-nav ul li a:hover {
   color: #dfe6e9; /* Lighter color on hover */
 }
 
-/* Hamburger icon and user icon */
-.wrapper .section .top_navbar .hamburger a {
-  color: white; /* Icon color */
-  margin-right: auto; /* Push everything else to the right */
+/* Navbar links and user dropdown */
+.nav-item ul {
+  list-style: none;
+  display: flex;
+  margin: 0;
+  padding: 0;
 }
 
-.wrapper .section .top_navbar .hamburger a:last-child {
-  margin-right: 5px; /* Spacing for the last icon */
+.nav-item ul li {
+  margin-right: 20px; /* Spacing between links */
 }
 
-/* Responsive adjustments */
-@media (max-width: 768px) {
-  .wrapper .section .top_navbar nav ul {
-      flex-direction: column; /* Stack links vertically */
-      align-items: flex-start; /* Align links to the start */
-  }
-
-  .wrapper .section .top_navbar nav ul li {
-      width: 100%; /* Full width links */
-      margin: 5px 0; /* Spacing between stacked links */
-  }
-
-  .wrapper .section .top_navbar .hamburger a {
-      margin: 0 10px; /* Adjust spacing for icons */
-  }
+.nav-item ul li a {
+  color: white; /* Text color */
+  text-decoration: none; /* No underline */
+  font-weight: bold; /* Make the text bold */
+  transition: color 0.3s ease; /* Smooth color transition */
 }
-/* Dropdown Menu Styles */
-.wrapper .section .top_navbar .user-dropdown {
+
+.nav-item ul li a:hover {
+  color: #dfe6e9; /* Lighter color on hover */
+}
+
+/* User dropdown */
+.user-dropdown {
   position: relative;
-  float: right; /* Align to the right */
 }
 
-.wrapper .section .top_navbar .user-dropdown .user-menu {
+.user-dropdown .user-menu {
   display: none;
   position: absolute;
   right: 0;
@@ -84,30 +96,59 @@ body.active .wrapper .section .top_navbar {
   z-index: 1;
 }
 
-.wrapper .section .top_navbar .user-dropdown .user-menu a {
+.user-dropdown .user-menu a {
   color: black;
   padding: 12px 16px;
   text-decoration: none;
   display: block;
 }
 
-.wrapper .section .top_navbar .user-dropdown .user-menu a:hover {
+.user-dropdown .user-menu a:hover {
   background-color: #f1f1f1;
 }
 
-.wrapper .section .top_navbar .user-dropdown:hover .user-menu {
+.user-dropdown:hover .user-menu {
   display: block; /* Show dropdown */
 }
 
 /* Social Media Icons */
-.wrapper .section .top_navbar nav ul li a i {
+.nav-item ul li a i {
   margin-right: 8px; /* Spacing between icon and text */
 }
 
-/* Responsive adjustments for social media icons */
 @media (max-width: 768px) {
-  .wrapper .section .top_navbar nav ul li a i {
-      display: block; /* Stack icons vertically on smaller screens */
-      margin: 0 auto; /* Center icons */
+  /* Responsive adjustments for the entire navbar */
+  .top_navbar {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .left-nav ul {
+    flex-direction: column; /* Stack links vertically */
+    align-items: flex-start; /* Align links to the start */
+  }
+
+  .left-nav ul li {
+    width: 100%; /* Full width links */
+    margin: 5px 0; /* Spacing between stacked links */
+  }
+
+  .hamburger a {
+    margin: 0 10px; /* Adjust spacing for icons */
+  }
+
+  .nav-item ul {
+    flex-direction: column; /* Stack links vertically */
+    align-items: flex-start; /* Align links to the start */
+  }
+
+  .nav-item ul li {
+    width: 100%; /* Full width links */
+    margin: 5px 0; /* Spacing between stacked links */
+  }
+
+  .nav-item ul li a i {
+    display: block; /* Stack icons vertically on smaller screens */
+    margin: 0 auto; /* Center icons */
   }
 }

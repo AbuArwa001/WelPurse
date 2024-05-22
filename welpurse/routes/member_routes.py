@@ -63,9 +63,9 @@ def login():
     
     return render_template('login.html', title=title, form=form)
 
-@app_routes.route('/logout', strict_slashes=False, methods=['GET', 'POST'])
+
 def logout():
-    url = 'http://127.0.0.1:5001/auth/login'
+    url = 'http://127.0.0.1:5001/auth/login/'
     res = requests.delete(url=url)
 
 @app_routes.route('/creategroup', strict_slashes=False)

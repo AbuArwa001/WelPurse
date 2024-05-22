@@ -7,13 +7,11 @@ from flask import session
 from flask_jwt_extended import decode_token, get_jwt_identity
 from datetime import datetime
 import requests
-
 def is_logged_in():
     try:
         # Check if the tokens are present in the session
         access_token_cookie = session.get('access_token_cookie')
         csrf_access_token = session.get('csrf_access_token')
-        # print(access_token_cookie)
         if not access_token_cookie or not csrf_access_token:
             return False
 
@@ -29,6 +27,10 @@ def is_logged_in():
         headers = {'Authorization': f'Bearer {access_token_cookie}'}
         res = requests.get(url=url, headers=headers)
         if res.status_code == 200:
+            timestamp = res.headers.get('Current-Tk-Time')
+            timestamp2 = float(timestamp)
+            dt_object = datetime.fromtimestamp(timestamp2)
+            print(dt_object)
             return True
         else:
             return False
@@ -43,10 +45,3 @@ def login_required(f):
             return redirect(url_for('app_routes.login'))
         return f(*args, **kwargs)
     return decorated_function
-
-
-def logout():
-    # Clear the session to remove JWT tokens
-    session.pop('access_token_cookie', None)
-    session.pop('csrf_access_token', None)
-    

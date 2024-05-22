@@ -1,4 +1,4 @@
-.card {
+.card-wf {
     font-family: Arial, sans-serif;
     background-color: #d0b997;
     border-radius: 25px;
@@ -6,15 +6,15 @@
     /* color: #333;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); */
     color: #333;
-    max-width: 300px;
+    max-width: 28%;
     margin: 10px;
     padding: 20px;
     /* align-items: start; */
   }
-  .card h1, .card h2, .card h3, .card p {
+  .card-wf h1, .card-wf h2, .card-wf h3, .card-wf p {
     margin: 10px 0;
   }
-  .card .button {
+  .card-wf .button {
     display: block;
     width: 100%;
     text-align: center;
@@ -40,11 +40,12 @@ ADD CARD BUTTON
     border-radius: 25px;
     box-shadow: -13px 6px 8px rgba(0, 0, 0, 0.1);
     color: #333;
-    width: 300px; /* Match the width of other cards */
+    max-width: 28%;
+    /* width: 300px;  */
     /* height: 200px;  */
-    margin: 10px;
-    padding: 20px;
-    position: relative;
+    /* margin: 10px;
+    padding: 20px; */
+    /* position: relative; */
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -64,14 +65,14 @@ ADD CARD BUTTON
     transition: opacity 0.3s;
     min-width: 250px;
     text-align: center;
-    margin-bottom: 10px;
+    /* margin-bottom: 10px; */
   }
-  /* .create-group-text {
+  .create-group-text {
     font-size: 16px;
     opacity: 0; 
     transition: opacity 0.3s;
     margin-top: 10px;
-  } */
+  }
   .create-group-text {
     display: inline-block;
     padding: 10px 20px;
@@ -89,3 +90,22 @@ ADD CARD BUTTON
     background-color: #2980b9; /* Darker shade on hover */
     transform: scale(1.05); /* Slightly larger on hover */
   }
+
+  /* .card:nth-child(1){
+    grid-area: c1;
+  }
+  .card:nth-child(2){
+    grid-area: c2;
+  }
+  .card:nth-child(3){
+    grid-area: c3;
+  }
+  .card:nth-child(4){
+    grid-area: c4;
+  }
+  .card:nth-child(5){
+    grid-area: c5;
+  }
+  .card:nth-child(6){
+    grid-area: c3;
+  } */

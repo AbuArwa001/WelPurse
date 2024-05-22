@@ -1,4 +1,3 @@
-// Your chart.js file with jQuery
 $(document).ready(function() {
     google.charts.load('current', {'packages':['bar']});
     google.charts.setOnLoadCallback(drawChart);
@@ -21,13 +20,26 @@ $(document).ready(function() {
         ]);
 
         var options = {
+            width: '100%',
+            height: '100%',
             chart: {
                 title: 'Contributions Performance YEAR 2024',
                 subtitle: 'TOTAL, Top Contributors, and Contribution Goals',
+            },
+            backgroundColor: '#E4E4E4', // Sets the background color for the entire chart
+            chartArea: {
+                backgroundColor: {
+                    fill: '#F4F4F4', // The fill color for the chart area
+                    fillOpacity: 0.8, // Optional: The fill opacity for the chart area
+                },
+                left: "50%", // Adjust as needed
+                top: "50%", // Adjust as needed
+                width: '80%', // Adjust as needed
+                height: '80%' // Adjust as needed
             }
         };
 
-        var chart = new google.charts.Bar($('#columnchart_material')[0]);
+        var chart = new google.charts.Bar(document.getElementById('columnchart_material'));
         chart.draw(data, google.charts.Bar.convertOptions(options));
     }
 });

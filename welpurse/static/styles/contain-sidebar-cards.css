@@ -1,15 +1,16 @@
 .contain-sidebar-cards
 {
-    display: flex;
+    /* display: flex; */
     position: relative;
     flex-direction: row;
     flex-wrap: wrap;
     /* align-items: center; */
     /* margin: 70px auto; */
-    margin-top: 70px;
-    margin-bottom: 50px;
+    /* margin-top: 70px; */
+    /* margin-bottom: 50px; */
     /* margin-left: 100px; */
     margin-right: 2px;
+
     /* margin-left: 20%; */
     /* margin-right: 18%; */
     justify-content: space-between;

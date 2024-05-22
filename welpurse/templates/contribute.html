@@ -1,7 +1,7 @@
 {% extends 'layout.html' %}
 
 {% block content %}
-<div class="container-fluid wel-purse-bg">
+<div class="wel-purse-bg">
     <div class="container">
         <!-- Dashboard Header -->
         <div class="row">
@@ -12,7 +12,7 @@
 
         <!-- Contribution Form -->
         <div class="row">
-            <div class="col-12">
+            <div class="col-12-row">
                 <h3 class="contribution-header">Make a Contribution</h3>
                 <form id="contribution-form" action="#" method="post">
                     <!-- Dropdown for selecting welfare group -->
@@ -42,7 +42,8 @@
                     </div>
                     <!-- Submit button -->
                     <div class="input-group center mb-3">
-                        <button type="submit" class="intaSendPayButton btn wel-purse-btn">Contribute</button>
+                        <button class="intaSendPayButton" data-amount="1" data-currency="KES">Contribute Now</button>
+                        <!-- <button type="submit" class="intaSendPayButton btn wel-purse-btn"  data-amount="1" data-currency="KES">Contribute</button> -->
                     </div>
                 </form>
             </div>

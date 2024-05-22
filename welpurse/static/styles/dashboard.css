@@ -1,3 +1,89 @@
+
+.dash-content {
+  grid-area: main;
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  grid-template-rows: repeat(4, minmax(0, 1fr));
+  grid-template-areas: 
+    "c1 c2 c3 c4"
+    "c5 c5 c6 c6"
+    "c5 c5 c6 c6"
+    "c7 c7 c8 c8";
+    gap: 10px;
+}
+
+.dash-card {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  /* background-color: #f0f0f0; */
+  background-color: #f0f0f0;
+  border-radius: 10px;
+  box-shadow: -13px 6px 8px rgba(0, 0, 0, 0.1);
+  text-align: center;
+}
+
+.dash-card:nth-child(1) {
+  grid-area: c1;
+  padding: 60px;
+  /* margin: 10px; */
+  flex-wrap: wrap;
+}
+
+.dash-card:nth-child(2) {
+  grid-area: c2;
+  padding: 60px;
+  flex-wrap: wrap;
+}
+
+.dash-card:nth-child(3) {
+  grid-area: c3;
+  padding: 60px;
+  /* margin: 10px; */
+  flex-wrap: wrap;
+}
+
+.dash-card:nth-child(4) {
+  grid-area: c4;
+  padding: 60px;
+  /* margin: 10px; */
+  flex-wrap: wrap;
+}
+
+.dash-card:nth-child(5) {
+  grid-area: c5;
+}
+
+.dash-card:nth-child(6) {
+  grid-area: c6;
+}
+
+.dash-card:nth-child(7) {
+  grid-area: c7;
+}
+.dash-card:nth-child(8) {
+  grid-area: c8;
+}
+.c6 {
+  grid-area: c6;
+  padding: 10px;
+  box-sizing: border-box;
+}
+/* Accessibility improvements */
+.dash-card {
+  color: #333; /* Improved text color for readability */
+}
+
+/* Visual hierarchy example */
+.dash-card h2 {
+  font-size: 1.0em;
+  color: #007bff; /* Highlighting titles */
+}
+.graph-container {
+  grid-area: c5;
+  width: 100%;
+  height: 100%;
+}
 .my-welfares{
     /* margin-left: 750px; */
     top: 60px;
@@ -71,10 +157,10 @@ STYLE SCROLBAR
  #columnchart_material{
     /* max-width: 400px;
     max-height: 300px; */
-    background-color: #d0b997;
+    /* background-color: #d0b997; */
   }
   .contribution-summary{
-    background-color: #d0b997;
+    /* background-color: #d0b997; */
     border-radius: 10px;
     min-width: 40%;
   }

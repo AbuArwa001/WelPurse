@@ -53,24 +53,44 @@
     {%endif%}
 </head>
 <body>
+  <div class="wrapper">
     {% if title == 'Login'  or title == 'Register'%}
-    <div class="body-div-1">
       {% include '_topnavbar.html' %}
       {% block login %}
+          {% with messages = get_flashed_messages(with_categories=true) %}
+          {% if messages %}
+            {% for category, message in messages %}
+              <div class="alert alert-{{ category }}">
+                {{ message }}
+              </div>
+            {% endfor %}
+          {% endif %}
+        {% endwith %}
       {% endblock login %}
       {% block register %}
       {% endblock register %}
       {% include '_footer.html' %}
-    </div>
     {% else %}
-    <div class="body-div-2">
       {% include '_topnavbar.html' %}
+      <div class="contain-sidebar-cards">
         {% include '_sidebar.html' %}
+        {% with messages = get_flashed_messages(with_categories=true) %}
+        {% if messages %}
+          {% for category, message in messages %}
+            <div class="alert alert-{{ category }}">
+              {{ message }}
+            </div>
+          {% endfor %}
+        {% endif %}
+      {% endwith %}
         {% block content %}
         {% endblock %}
-      {% include '_footer.html' %}
       </div>
+      {% include '_footer.html' %}
     {% endif %}
+  </div>
+  
+
     <script src="{{ url_for('static', filename='script/charts.js', cache_id=cache_id) }}"></script>
     <script src="{{ url_for('static', filename='assets/js/jquery-3.2.1.min.js', cache_id=cache_id) }}"></script>
     <script src="{{ url_for('static', filename='assets/js/popper.min.js', cache_id=cache_id) }}"></script>

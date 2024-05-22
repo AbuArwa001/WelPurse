@@ -1,11 +1,17 @@
 .container-cards {
     display: flex;
+    grid-area: main;
+    grid-template-columns: 1fr 1fr 1fr;
+    grid-template-rows: 1fr 1fr 1fr;
+    /* padding: 20px; */
+    /* gap:20px; */
+    /* grid-template-areas: 
+    "c1 c2 c3"
+    "c4 c4 c5"
+    "c4 c4 c6"; */
+
     flex-wrap: wrap;
-    /* justify-content: space-around; */
-    align-items: flex-start; /* Align items to the start of the cross axis */
-    margin-right: auto; /* Right margin for the container */
-    margin-left: 20%; /* Left margin to account for the sidebar width */
-    justify-content: flex-start;
-    /* z-index: -1; */
+    /* align-items: flex-start;
+    justify-content: flex-start; */
   }
   

@@ -1,48 +1,47 @@
 {% extends 'layout.html'%}
 {% block content%}
-<div class="contr-calendar">
-  <div class="contribution-summary">
-    <h2 style="color: blue;">Contribution Summary</h2>
-    <!-- Graphs and progress bars go here -->
+<div class="dash-content">
+  <div class="dash-card">
+    <h2>TODAY'S MONEY</h2>
+    <p>$53,000</p>
+    <p>+55% since yesterday</p>
+  </div>
+  <div class="dash-card">
+    <h2>TODAY'S USERS</h2>
+    <p>2,300</p>
+    <p>+3% since last week</p>
+  </div>
+  <div class="dash-card">
+    <h2>NEW CLIENTS</h2>
+    <p>+3,462</p>
+    <p>-2% since last quarter</p>
+  </div>
+  <div class="dash-card">
+    <h2>SALES</h2>
+    <p>$103,430</p>
+    <p>+5% than last month</p>
+  </div>
+  <div class="dash-card">
+
+  </div>
+  <div class="dash-card">
+    <!--CALENDAR-->
+    {% include 'calendar.html' %}
+  </div>
+  <div class="dash-card"></div>
+  <div class="dash-card"></div>
+  <div class="dash-card"></div>
+  <div class="dash-card"></div>
+  <div class="dash-card"></div>
+  <div class="dash-card"></div>
+  <div class="dash-card"></div>
+  <div class="dash-card">
     <div class="graph-container">
-        <!-- <div id="columnchart_material" style="width: 800px; height: 500px;"></div> -->
-        <div id="columnchart_material"></div>
-      <!-- Replace with actual graph implementation -->
-      <!-- <p style="color: blue;">Graph Placeholder</p> -->
+      <div id="columnchart_material"></div>
     </div>
-    <div class="progress-container">
-    <div class="progress-bar" style="--width: {{progress}}" data-label="Progress..">
-    </div>
-      <!-- Replace with actual progress bar implementation -->
-      <!-- <p style="color: red;">Progress Bar Placeholder</p> -->
-    </div>
-    <button class="intaSendPayButton" data-amount="1" data-currency="KES">Contribute Now</button>
-    <div class="key-statistics">
-      <strong class="span-total">Total Contributions:</strong> <span class="span-text">{{total}} KSH/=</span>
-    </div>
-  </div><!--CALENDAR-->{% include 'calendar.html' %}
+  </div>
+  <div class="dash-card"></div>
+  <div class="dash-card"></div>
+  <div class="dash-card"></div>
 </div>
-<aside class="my-welfares">
-    <h3 class="overview-h3">Groups Overview:</h3>
-    <ul class="list-cards">
-        <li>
-            <!-- Welfare Group Card 1 -->
-            <div class="card">
-                <h4>Welfare Group: Burial Ceremonies</h4>
-                <h6>Purpose</h6>
-                <p>Providing Burial Ceremonies to Bereaved persons.</p>
-                <a class="button blue-button info-btn">About Welfare</a>        
-            </div>
-        </li>
-        <li>
-            <div class="card">
-                <h4>Welfare Group: Education Aid Fund</h4>
-                <h6>Purpose</h6>
-                <p>Providing scholarships to underprivileged students.</p>
-                <a class="button blue-button info-btn">About Welfare</a>        
-            </div>
-        </li>
-    </ul>
-    <!-- Add more welfare group cards as needed -->
-  </aside>
 {% endblock content%}
