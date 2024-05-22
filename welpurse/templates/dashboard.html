@@ -2,46 +2,48 @@
 {% block content%}
 <div class="dash-content">
   <div class="dash-card">
-    <h2>TODAY'S MONEY</h2>
+    <h2>My Savings</h2>
     <p>$53,000</p>
-    <p>+55% since yesterday</p>
+    <p>Since 2021</p>
   </div>
   <div class="dash-card">
-    <h2>TODAY'S USERS</h2>
-    <p>2,300</p>
-    <p>+3% since last week</p>
+    <h2>Month's Event</h2>
+    <p>23,300</p>
+    <p>+3% Since Last Week</p>
   </div>
   <div class="dash-card">
-    <h2>NEW CLIENTS</h2>
-    <p>+3,462</p>
-    <p>-2% since last quarter</p>
+    <h2>New Members</h2>
+    <p>+6</p>
+    <p>1% Increase Since Last Quarter</p>
   </div>
   <div class="dash-card">
-    <h2>SALES</h2>
+    <h2>Total Disbursement</h2>
     <p>$103,430</p>
-    <p>+5% than last month</p>
+    <p>Since 2022</p>
   </div>
   <div class="dash-card">
-
-  </div>
-  <div class="dash-card">
-    <!--CALENDAR-->
+    <h2>Upcoming Events</h2>
+    <!-- Calendar -->
     {% include 'calendar.html' %}
   </div>
-  <div class="dash-card"></div>
-  <div class="dash-card"></div>
-  <div class="dash-card"></div>
-  <div class="dash-card"></div>
-  <div class="dash-card"></div>
-  <div class="dash-card"></div>
-  <div class="dash-card"></div>
   <div class="dash-card">
+    <h2>Recent Activities</h2>
+    <ul>
+      <li>Activity 1</li>
+      <li>Activity 2</li>
+      <li>Activity 3</li>
+    </ul>
+  </div>
+  <div class="dash-card">
+    <h2>Contribution Summary</h2>
     <div class="graph-container">
       <div id="columnchart_material"></div>
     </div>
   </div>
-  <div class="dash-card"></div>
-  <div class="dash-card"></div>
-  <div class="dash-card"></div>
+  <div class="dash-card">
+    <h2>Goals</h2>
+    <p>Goal 1: <progress value="70" max="100"></progress> 70%</p>
+    <p>Goal 2: <progress value="50" max="100"></progress> 50%</p>
+  </div>
 </div>
 {% endblock content%}

@@ -21,6 +21,7 @@
   border-radius: 10px;
   box-shadow: -13px 6px 8px rgba(0, 0, 0, 0.1);
   text-align: center;
+  flex-wrap: wrap;
 }
 
 .dash-card:nth-child(1) {
