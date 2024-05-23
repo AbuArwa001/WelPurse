@@ -44,8 +44,8 @@ INSERT INTO `wallets` (welfareId, balance) VALUES
 (1, 1000.00),
 (2, 1500.00);
 
--- Insert dummy data into `transactions`
-INSERT INTO `transactions` (walletId, amount, transactionType, dateTransaction) VALUES
+-- Insert dummy data into `wallet_transactions`
+INSERT INTO `wallet_transactions` (walletId, amount, transactionType, dateTransaction) VALUES
 (1, 100.00, 'Donation', '2024-05-05'),
 (2, 200.00, 'Donation', '2024-05-06');
 

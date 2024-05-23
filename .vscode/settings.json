@@ -1,5 +1,8 @@
 {
     "cSpell.words": [
-        "HBNB"
+        "HBNB",
+        "memberroles",
+        "sqlalchemy",
+        "welfaremembers"
     ]
 }

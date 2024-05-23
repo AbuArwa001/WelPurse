@@ -15,7 +15,7 @@ import hashlib
 def get_members():
     """ Get all Members """
     all_members = {}
-    all_members = storage.all(Member)
+    all_members = storage.all("Member")
     members = []
     for member in all_members.values():
         members.append(member.to_dict())

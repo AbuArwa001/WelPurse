@@ -1,9 +1,15 @@
 #!/usr/bin/python3
 
-from sqlalchemy import Column, String, Integer
-from sqlalchemy.orm import relationship
+from sqlalchemy import Column, String, Integer, ForeignKey, Table
+from sqlalchemy.orm import relationship, backref
 from hashlib import md5
 from welpurse.models.base_model import BaseModel, Base
+from welpurse.models.beneficiary import Beneficiary
+from welpurse.models.benefits import Benefit
+from welpurse.models.contribution import Contribution
+from welpurse.models.dependent import Dependent
+from welpurse.models.role import Role
+
 
 class Member(BaseModel, Base):
     __tablename__ = 'members'
@@ -11,6 +17,13 @@ class Member(BaseModel, Base):
     name = Column(String(255))
     email = Column(String(255))
     password = Column(String(255))
+    beneficiaries = relationship('Beneficiary', back_populates='member', cascade='all, delete-orphan')
+    benefits = relationship('Benefit', backref='member', cascade='all, delete-orphan')
+    contributions = relationship('Contribution', backref='member', cascade='all, delete-orphan')
+    dependents = relationship('Dependent', backref='member', cascade='all, delete-orphan')
+    roles = relationship('Role', secondary='memberroles', back_populates='members')
+    welfares = relationship('Welfare', secondary='welfaremembers', back_populates='members')
+
 
     def __init__(self, *args, **kwargs):
         """initializes user"""
@@ -22,12 +35,4 @@ class Member(BaseModel, Base):
             value = md5(value.encode()).hexdigest()
         super().__setattr__(name, value)
 
-
-# class Contribution(db.Model):
-#     __tablename__ = 'contributions'
-#     contributnId = db.Column(db.Integer, primary_key=True)
-#     memberId = db.Column(db.Integer, db.ForeignKey('members.memberId'))
-#     amount = db.Column(db.Numeric(10, 2))
-#     dateContributed = db.Column(db.Date)
-
-
+from welpurse.models.welfare import Welfare

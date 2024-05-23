@@ -11,7 +11,7 @@ SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,N
 
 -- -----------------------------------------------------
 -- Schema welpurse
-
+-- DROP DATABASE  `welpures`;
 
 CREATE SCHEMA IF NOT EXISTS `welpurse` DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci ;
 USE `welpurse` ;
@@ -205,9 +205,9 @@ COLLATE = utf8mb4_0900_ai_ci;
 
 
 -- -----------------------------------------------------
--- Table `welpurse`.`transactions`
+-- Table `welpurse`.  `wallet_transactions`
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `welpurse`.`transactions` (
+CREATE TABLE IF NOT EXISTS `welpurse`.  `wallet_transactions` (
   `id` VARCHAR(60) NOT NULL,
   `amount` DECIMAL(10,2) NULL DEFAULT NULL,
   `transactionType` VARCHAR(255) NULL DEFAULT NULL,
@@ -251,7 +251,7 @@ CREATE TABLE IF NOT EXISTS `welpurse`.`transactiontransactiontypes` (
   INDEX `typeId` (`typeId` ASC) VISIBLE,
   CONSTRAINT `transactiontransactiontypes_ibfk_1`
     FOREIGN KEY (`transactionId`)
-    REFERENCES `welpurse`.`transactions` (`id`),
+    REFERENCES `welpurse`.  `wallet_transactions` (`id`),
   CONSTRAINT `transactiontransactiontypes_ibfk_2`
     FOREIGN KEY (`typeId`)
     REFERENCES `welpurse`.`transactiontypes` (`id`))
