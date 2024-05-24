@@ -8,3 +8,5 @@ from api.v1.views.index import *
 from api.v1.mpesa.mpesa import *
 from api.v1.intasend.intasend import *
 from api.v1.views.member import *
+from api.v1.views.welfare import *
+from api.v1.views.wallet import *

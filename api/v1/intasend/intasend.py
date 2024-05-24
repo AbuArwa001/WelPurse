@@ -6,31 +6,35 @@ from api.v1.views import app_views
 from flask import abort, jsonify, make_response, request
 from flasgger.utils import swag_from
 from intasend import APIService
+from dotenv import load_dotenv, dotenv_values 
+# loading variables from .env file
+load_dotenv() 
+import os 
 
-token = "ISSecretKey_test_609b3704-801f-4bf0-ab22-5ee656c13f43"
-publishable_key = "ISPubKey_test_c35935db-78d3-4b6f-8ec3-221edb0abae1"
+token = os.getenv("TOKEN") 
+publishable_key = os.getenv("PUBLISHABLE_KEY")
 service = APIService(token=token, publishable_key=publishable_key, test=True)
 
 
 # Retrieve Wallets
-@app_views.route('/wallets', methods=['GET'], strict_slashes=False)
-def get_wallets():
+@app_views.route('/wallet', methods=['GET'], strict_slashes=False)
+def get_wallet():
     response = service.wallets.retrieve()
     # print(response)
         # print(f"Failed to get access token: {response.status_code}")
     return jsonify(response)
 
-@app_views.route('/wallets/<wallet_id>', methods=['GET'], strict_slashes=False)
-def get_wallet_by_id(wallet_id):
-    response = service.wallets.details(wallet_id)
+@app_views.route('/wallet/<wallets_id>', methods=['GET'], strict_slashes=False)
+def get_wallet_by_id(wallets_id):
+    response = service.wallets.details(wallets_id)
     # print(response)
         # print(f"Failed to get access token: {response.status_code}")
     return jsonify(response)
 
 # CREATE WALLETS
-@app_views.route('/wallets/', methods=['POST'], strict_slashes=False)
-def create_wallet():
-    response = service.wallets.create(currency="KES", label="EDUFUND", can_disburse=True)
+@app_views.route('/wallets/<label>', methods=['POST'], strict_slashes=False)
+def create_wallet(label):
+    response = service.wallets.create(currency="KES", label=label, can_disburse=True)
     # print(response)
         # print(f"Failed to get access token: {response.status_code}")
     return jsonify(response)

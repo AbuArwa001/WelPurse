@@ -179,6 +179,6 @@ Distributed under the MIT License. See LICENSE for more information.
 ### Contact
 - Khalfan Athman - [@athman_khalfan](https://x.com/athman_khalfan) - khalfanathman12@yahoo.com
 - Magdalene Njeri - []() - mkirii@gmail.com
-- Chioma  - []() - khalfanathman12@yahoo.com
+- Chioma Okpala - []() - Perpetualchioma00@gmail.com
 
 Project Link: https://github.com/AbuArwa001/welpurse.git

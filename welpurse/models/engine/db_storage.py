@@ -2,14 +2,16 @@
 """
 Contains the class DBStorage
 """
+import welpurse
 from welpurse.models.base_model import BaseModel, Base
 from welpurse.models.member import Member
+from welpurse.models.welfare import Welfare
 from os import getenv
 import sqlalchemy
 from sqlalchemy import create_engine
 from sqlalchemy.orm import scoped_session, sessionmaker
 
-classes = {"Member": Member}
+classes = {"Member": Member, "Welfare": Welfare}
 
 
 class DBStorage:
@@ -77,7 +79,7 @@ class DBStorage:
         if cls not in classes.values():
             return None
 
-        all_cls = models.storage.all(cls)
+        all_cls = welpurse.models.storage.all(cls)
         for value in all_cls.values():
             if (value.id == id):
                 return value

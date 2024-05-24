@@ -12,7 +12,7 @@ def register_member():
     reg_url = 'http://127.0.0.1:5001/api/v1/members'
     form = RegistrationForm()
     title = 'Register'
-    if isLogedin():
+    if is_logged_in():
        return redirect(url_for('app_routes.dashboard'))
     if form.validate_on_submit():
         data = {
@@ -46,7 +46,7 @@ def login():
             'remember': form.remember.data,
         }
         res = requests.post(url, json=data)
-        
+        print(res.json())
         if res.status_code == 200:
             cookies = res.cookies
             # To get a dictionary of cookies

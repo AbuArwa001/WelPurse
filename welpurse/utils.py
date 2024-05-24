@@ -7,6 +7,22 @@ from flask import session
 from flask_jwt_extended import decode_token, get_jwt_identity
 from datetime import datetime
 import requests
+
+
+def refresh_token():
+    refresh_token = session.get('refresh_token')
+    if not refresh_token:
+        return False
+    url = "http://127.0.0.1:5001/auth/refresh"
+    headers = {'Authorization': f'Bearer {refresh_token}'}
+    res = requests.post(url=url, headers=headers)
+    if res.status_code == 200:
+        new_tokens = res.json()
+        session['access_token_cookie'] = new_tokens['access_token']
+        session['csrf_access_token'] = new_tokens['csrf_access_token']
+        return True
+    return False
+
 def is_logged_in():
     try:
         # Check if the tokens are present in the session
@@ -20,7 +36,9 @@ def is_logged_in():
 
         # Check the token expiry
         if decoded_token['exp'] < datetime.timestamp(datetime.now()):
-            return False
+            # Attempt to refresh the token if it has expired
+            if not refresh_token():
+                return False
 
         # Optionally, make a request to the `/who_am_i` endpoint to validate the token server-side
         url = "http://127.0.0.1:5001/auth/who_am_i"

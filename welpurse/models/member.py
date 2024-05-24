@@ -9,7 +9,7 @@ from welpurse.models.benefits import Benefit
 from welpurse.models.contribution import Contribution
 from welpurse.models.dependent import Dependent
 from welpurse.models.role import Role
-
+from .associations import welfaremembers, memberroles
 
 class Member(BaseModel, Base):
     __tablename__ = 'members'
