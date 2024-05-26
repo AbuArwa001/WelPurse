@@ -33,7 +33,6 @@ def get_beneficiaries():
     """ Get all Beneficiaries """
     all_beneficiaries = {}
     all_beneficiaries = storage.all(Beneficiary)
-    print(all_beneficiaries)
     beneficiaries = []
     for beneficiary in all_beneficiaries.values():
         beneficiaries.append(beneficiary.to_dict())
@@ -90,7 +89,6 @@ def update_beneficiary(beneficiary_id):
     Updates a State
     """
     beneficiary = storage.get(Beneficiary, beneficiary_id)
-    print(beneficiary)
     if not beneficiary:
         abort(404)
 

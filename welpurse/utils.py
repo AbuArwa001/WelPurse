@@ -48,7 +48,6 @@ def is_logged_in():
             timestamp = res.headers.get('Current-Tk-Time')
             timestamp2 = float(timestamp)
             dt_object = datetime.fromtimestamp(timestamp2)
-            print(dt_object)
             return True
         else:
             return False

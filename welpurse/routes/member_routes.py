@@ -46,7 +46,6 @@ def login():
             'remember': form.remember.data,
         }
         res = requests.post(url, json=data)
-        print(res.json())
         if res.status_code == 200:
             cookies = res.cookies
             # To get a dictionary of cookies
@@ -55,7 +54,6 @@ def login():
             csrf_token = cookies_dict.get('csrf_access_token')
             session['access_token_cookie'] = token
             session['csrf_access_token'] = csrf_token
-            # print("CSRF", csrf_token)
             flash('You have been logged in!', 'success')
             return redirect(url_for('app_routes.dashboard'))
         else:
@@ -74,7 +72,6 @@ def crete_group():
     amount_contributed = 70000
     target = 200000
     progress= (  amount_contributed  / target) * 100
-    print("RequestsCookieJar",progress)
     return render_template('creategroup.html',
                            calendar = calendar,
                            title=title,

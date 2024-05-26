@@ -23,7 +23,7 @@ def get_wallets():
     """ Get all Wallets """
     all_wallets = {}
     all_wallets = storage.all("Wallet")
-    print(all_wallets)
+
     wallets = []
     for wallet in all_wallets.values():
         wallets.append(wallet.to_dict())

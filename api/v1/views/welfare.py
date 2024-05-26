@@ -32,7 +32,7 @@ def get_welfares():
     """ Get all Members """
     all_welfares = {}
     all_welfares = storage.all(Welfare)
-    print(all_welfares)
+
     welfares = []
     for welfare in all_welfares.values():
         welfares.append(welfare.to_dict())
@@ -47,7 +47,6 @@ def create_wallet(label, welfare_id):
     try:
         logging.info("Attempting to create wallet with label: %s", label)
         response = service.wallets.create(currency="KES", label=label, can_disburse=True)
-        print(response)
         # if response.status_code != 200:
         #     logging.error("Failed to create wallet, status code: %d", response.status_code)
         #     return None, "Failed to create wallet"
@@ -109,20 +108,16 @@ def create_welfare():
     if code == 200:
         finall_data = {}
         if isinstance(data, Response):
-            print("saving data....")
             json_data = data.json()  # Convert the Response object to a JSON dictionary
             finall_data.update(json_data)
             instance.save()
             wallet = Wallet(**finall_data)
             wallet.save()
-            print("save complete")
         else:
             instance.save()
             finall_data.update(data)
             wallet = Wallet(**finall_data)
             wallet.save()
-
-        print("save complete")
 
     return make_response(jsonify(instance.to_dict()), 201)
 
@@ -133,7 +128,6 @@ def update_welfare(welfare_id):
     Updates a State
     """
     welfare = storage.get(Welfare, welfare_id)
-    print(welfare)
     if not welfare:
         abort(404)
 

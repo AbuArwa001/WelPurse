@@ -100,7 +100,6 @@ class DBStorage:
 
         all_cls = welpurse.models.storage.all(cls)
         for value in all_cls.values():
-            print(value)
             if (value.id == id):
                 return value
 
