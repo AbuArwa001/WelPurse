@@ -136,7 +136,7 @@ To get a local copy up and running, follow these simple steps.
 
 ## Data Modelling
 
-[![e900cce8087d53d38a4c761e88eb1ae0.md.png](https://www.img2link.com/images/2024/05/26/e900cce8087d53d38a4c761e88eb1ae0.md.png)](https://www.img2link.com/image/wep.kgUbt)
+[![97df979fda42ea631bb1b2086e922233.md.png](https://www.img2link.com/images/2024/05/26/97df979fda42ea631bb1b2086e922233.md.png)](https://www.img2link.com/image/finalWELF.kgzre)
 ### USER STORIES
 
 **User Story 1: Create a Welfare Group**

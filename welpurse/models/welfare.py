@@ -5,6 +5,7 @@ from welpurse.models.base_model import BaseModel, Base
 from welpurse.models.event import Event
 from welpurse.models.member import Member
 from welpurse.models.wallet import Wallet
+from welpurse.models.donation_request import DonationRequest
 
 
 class Welfare(BaseModel, Base):
@@ -32,3 +33,6 @@ class Welfare(BaseModel, Base):
     events = relationship('Event', backref='welfare', cascade='all, delete-orphan')
     members = relationship('Member', secondary='welfaremembers', back_populates='welfares')
     wallet = relationship('Wallet', uselist=False, back_populates='welfare', cascade='all, delete-orphan')
+    requests = relationship('DonationRequest',
+                                     back_populates='welfare',
+                                     cascade='all, delete-orphan')

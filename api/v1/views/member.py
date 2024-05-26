@@ -4,6 +4,7 @@
 from api.v1.views import app_views
 from welpurse.models import storage
 from welpurse.models.member import Member
+from welpurse.models.role import Role
 from flask import abort, jsonify, make_response, request
 from flasgger.utils import swag_from
 import jwt
@@ -20,6 +21,15 @@ def get_members():
     for member in all_members.values():
         members.append(member.to_dict())
     res = jsonify(members)
+    return make_response(res, 200)
+
+@app_views.route('/members/<member_id>', methods=['GET'], strict_slashes=False)
+def get_member(member_id):
+    """ Get all Members """
+    member = storage.get(Member, member_id)
+    if not member:
+        abort(404)
+    res = jsonify(member.to_dict())
     return make_response(res, 200)
 
 @app_views.route('/members', methods=['POST'], strict_slashes=False)
@@ -88,3 +98,73 @@ def get_member_beneficiaries(member_id):
     beneficiaries_list = [beneficiary.to_dict() for beneficiary in beneficiaries]
 
     return make_response(jsonify(beneficiaries_list), 200)
+
+"""
+ADJUST ROLES TO MEMBER
+"""
+@app_views.route('/members/<member_id>/roles/<role_id>', methods=['POST'], strict_slashes=False)
+def add_role_to_member(member_id, role_id):
+    member = storage.get(Member, member_id)
+    role = storage.get(Role, role_id)
+    if member is None or role is None:
+        abort(404)
+    if role not in member.roles:
+        member.roles.append(role)
+        storage.save()
+    
+    # Convert member to dictionary and include roles
+    member_dict = member.to_dict()
+    member_dict['roles'] = [role.to_dict() for role in member.roles]
+
+    return jsonify(member_dict), 200
+
+@app_views.route('/members/<member_id>/roles/<role_id>', methods=['DELETE'], strict_slashes=False)
+def remove_role_from_member(member_id, role_id):
+    member = storage.get(Member, member_id)
+    role = storage.get(Role, role_id)
+    if member is None or role is None:
+        abort(404)
+
+    if role in member.roles:
+        member.roles.remove(role)
+        storage.save()
+
+    member_dict = member.to_dict()
+    member_dict['roles'] = [role.to_dict() for role in member.roles]
+    return jsonify(member_dict), 200
+
+@app_views.route('/members/<member_id>/roles/', methods=['PUT'], strict_slashes=False)
+def edit_member_roles(member_id):
+    data = request.get_json()
+    if data is None or 'roles' not in data:
+        abort(400, 'Roles data not provided')
+
+    member = storage.get(Member, member_id)
+    if member is None:
+        abort(404)
+
+    new_roles_ids = data['roles']
+    new_roles = [storage.get(Role, role_id) for role_id in new_roles_ids]
+    if None in new_roles:
+        abort(404, 'One or more roles not found')
+
+    # Convert Role objects to dictionaries before assigning to member.roles
+    member.roles = [role for role in new_roles if hasattr(role, 'to_dict')]
+    storage.save()
+
+    # Convert the member object to a dictionary and include the roles
+    member_dict = member.to_dict()
+    member_dict['roles'] = [role.to_dict() for role in member.roles]
+
+    return jsonify(member_dict), 200
+
+
+@app_views.route('/members/<member_id>/roles/', methods=['GET'], strict_slashes=False)
+def get_member_roles(member_id):
+    member = storage.get(Member, member_id)
+    if member is None:
+        abort(404)
+
+    roles = [role.to_dict() for role in member.roles if hasattr(role, 'to_dict')]
+
+    return jsonify(roles), 200

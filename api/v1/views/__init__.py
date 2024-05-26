@@ -18,3 +18,4 @@ from api.v1.views.benefits import *
 from api.v1.views.role import *
 from api.v1.views.transaction import *
 from api.v1.views.transactiontype import *
+from api.v1.views.donation_requests import *

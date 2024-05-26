@@ -15,10 +15,12 @@ from welpurse.models.benefit import Benefit
 from welpurse.models.role import Role 
 from welpurse.models.transaction import WalletTransaction 
 from welpurse.models.transactiontype import TransactionType 
+from welpurse.models.donation_request import DonationRequest 
 from os import getenv
 import sqlalchemy
 from sqlalchemy import create_engine
 from sqlalchemy.orm import scoped_session, sessionmaker
+from sqlalchemy.exc import SQLAlchemyError
 
 classes = {"Member": Member,
            "Welfare": Welfare,
@@ -30,7 +32,8 @@ classes = {"Member": Member,
            "Benefit": Benefit,
             "Role": Role,
            "WalletTransaction": WalletTransaction,
-           "TransactionType": TransactionType
+           "TransactionType": TransactionType,
+           "DonationRequest": DonationRequest
            }
 
 
@@ -72,7 +75,14 @@ class DBStorage:
 
     def save(self):
         """commit all changes of the current database session"""
-        self.__session.commit()
+        try:
+            self.__session.commit()
+        except SQLAlchemyError as e:
+            self.__session.rollback()
+            raise
+        finally:
+            self.__session.close()
+    
 
     def delete(self, obj=None):
         """delete from the current database session obj if not None"""
