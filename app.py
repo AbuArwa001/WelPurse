@@ -3,7 +3,7 @@ from welpurse import create_app
 from dotenv import load_dotenv, dotenv_values 
 # loading variables from .env file
 load_dotenv() 
-import os 
+from os import getenv
 
 app = create_app()
 

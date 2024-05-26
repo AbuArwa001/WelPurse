@@ -32,22 +32,15 @@ def get_wallets():
 
 @app_views.route('/wallets/<wallet_id>', methods=['GET'], strict_slashes=False)
 @swag_from('documentation/user/post_member.yml', methods=['POST'])
-def get_one_wallet():
+def get_one_wallet(wallet_id):
     """
     GET ONE WALLET a user
     """
-    if not request.get_json():
-        abort(400, description="Not a JSON")
-
-    if 'email' not in request.get_json():
-        abort(400, description="Missing email")
-    if 'password' not in request.get_json():
-        abort(400, description="Missing password")
-
-    data = request.get_json()
-    instance = Member(**data)
-    instance.save()
-    return make_response(jsonify(instance.to_dict()), 201)
+    wallet = storage.get(Wallet, wallet_id)
+    if not wallet:
+        abort(404)
+    res = jsonify(wallet.to_dict())
+    return make_response(res, 200)
 
 @app_views.route('/wallets/<wallet_id>', methods=['POST'], strict_slashes=False)
 @swag_from('documentation/user/post_member.yml', methods=['POST'])

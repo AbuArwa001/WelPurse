@@ -5,7 +5,7 @@ from sqlalchemy.orm import relationship, backref
 from hashlib import md5
 from welpurse.models.base_model import BaseModel, Base
 from welpurse.models.beneficiary import Beneficiary
-from welpurse.models.benefits import Benefit
+from welpurse.models.benefit import Benefit
 from welpurse.models.contribution import Contribution
 from welpurse.models.dependent import Dependent
 from welpurse.models.role import Role

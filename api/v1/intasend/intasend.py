@@ -7,12 +7,11 @@ from flask import abort, jsonify, make_response, request
 from flasgger.utils import swag_from
 from intasend import APIService
 from dotenv import load_dotenv, dotenv_values 
-# loading variables from .env file
-load_dotenv() 
-import os 
+load_dotenv()
+from os import getenv
 
-token = os.getenv("TOKEN") 
-publishable_key = os.getenv("PUBLISHABLE_KEY")
+token = getenv("TOKEN")
+publishable_key = getenv("PUBLISHABLE_KEY")
 service = APIService(token=token, publishable_key=publishable_key, test=True)
 
 

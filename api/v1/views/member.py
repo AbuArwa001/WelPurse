@@ -55,4 +55,36 @@ def check_email():
     return make_response(jsonify({"email_exists": email_exists}), 200)
 
 
+# get dependents for a user
 
+"""
+MEMBER WITH RELATION TO OTHER TABLES
+CRUD
+"""
+#  MEMBER DEPENDENTS
+@app_views.route('/members/<member_id>/dependents/', methods=['GET'], strict_slashes=False)
+def get_member_dependents(member_id):
+    """ Get all Members """
+    member = storage.get(Member, member_id)
+    if not member:
+        abort(404)
+    dependents = member.dependents
+
+    # Prepare the response data
+    dependents_list = [dependent.to_dict() for dependent in dependents]
+
+    return make_response(jsonify(dependents_list), 200)
+
+# BENEFCIARIES
+@app_views.route('/members/<member_id>/beneficiaries/', methods=['GET'], strict_slashes=False)
+def get_member_beneficiaries(member_id):
+    """ Get all Member's beneficiaries"""
+    member = storage.get(Member, member_id)
+    if not member:
+        abort(404)
+    beneficiaries = member.beneficiaries
+
+    # Prepare the response data
+    beneficiaries_list = [beneficiary.to_dict() for beneficiary in beneficiaries]
+
+    return make_response(jsonify(beneficiaries_list), 200)

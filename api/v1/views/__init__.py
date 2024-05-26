@@ -10,3 +10,11 @@ from api.v1.intasend.intasend import *
 from api.v1.views.member import *
 from api.v1.views.welfare import *
 from api.v1.views.wallet import *
+from api.v1.views.beneficiary import *
+from api.v1.views.dependent import *
+from api.v1.views.events import *
+from api.v1.views.contrribution import *
+from api.v1.views.benefits import *
+from api.v1.views.role import *
+from api.v1.views.transaction import *
+from api.v1.views.transactiontype import *

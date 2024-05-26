@@ -6,12 +6,32 @@ import welpurse
 from welpurse.models.base_model import BaseModel, Base
 from welpurse.models.member import Member
 from welpurse.models.welfare import Welfare
+from welpurse.models.wallet import Wallet
+from welpurse.models.beneficiary import Beneficiary 
+from welpurse.models.dependent import Dependent 
+from welpurse.models.event import Event 
+from welpurse.models.contribution import Contribution 
+from welpurse.models.benefit import Benefit 
+from welpurse.models.role import Role 
+from welpurse.models.transaction import WalletTransaction 
+from welpurse.models.transactiontype import TransactionType 
 from os import getenv
 import sqlalchemy
 from sqlalchemy import create_engine
 from sqlalchemy.orm import scoped_session, sessionmaker
 
-classes = {"Member": Member, "Welfare": Welfare}
+classes = {"Member": Member,
+           "Welfare": Welfare,
+           "Wallet": Wallet,
+           "Beneficiary": Beneficiary,
+           "Dependent": Dependent,
+           "Event": Event,
+           "Contribution": Contribution,
+           "Benefit": Benefit,
+            "Role": Role,
+           "WalletTransaction": WalletTransaction,
+           "TransactionType": TransactionType
+           }
 
 
 class DBStorage:
@@ -26,7 +46,6 @@ class DBStorage:
         MYSQL_HOST = getenv('MYSQL_HOST')
         MYSQL_DB = getenv('MYSQL_DB')
         ENV = getenv('ENV')
-        print("ENV IS", ENV)
         self.__engine = create_engine('mysql+mysqldb://{}:{}@{}/{}'.
                                       format(MYSQL_USER,
                                              MYSQL_PWD,
@@ -81,6 +100,7 @@ class DBStorage:
 
         all_cls = welpurse.models.storage.all(cls)
         for value in all_cls.values():
+            print(value)
             if (value.id == id):
                 return value
 

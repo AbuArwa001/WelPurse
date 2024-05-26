@@ -5,7 +5,7 @@ from api.v1.views import app_views
 from welpurse.models import storage
 from welpurse.models.member import Welfare
 from welpurse.models.wallet import Wallet
-from flask import abort, jsonify, make_response, request
+from flask import abort, jsonify, make_response, request, Response
 from flasgger.utils import swag_from
 from intasend import APIService
 import intasend
@@ -47,24 +47,26 @@ def create_wallet(label, welfare_id):
     try:
         logging.info("Attempting to create wallet with label: %s", label)
         response = service.wallets.create(currency="KES", label=label, can_disburse=True)
-        if response.status_code != 200:
-            logging.error("Failed to create wallet, status code: %d", response.status_code)
-            return None, "Failed to create wallet"
+        print(response)
+        # if response.status_code != 200:
+        #     logging.error("Failed to create wallet, status code: %d", response.status_code)
+        #     return None, "Failed to create wallet"
     except IntaSendBadRequest as e:
         try:
             error_data = json.loads(e.args[0])
             logging.error("IntaSendBadRequest error: %s", error_data)
-            if 'errors' in error_data and error_data['errors'][0]['code'] == 'invalid_request_data':
-                detail = error_data['errors'][0]['detail']
-                return 400, f"Invalid request data: {detail}"
+            # if 'errors' in error_data and error_data['errors'][0]['code'] == 'invalid_request_data':
+            #     detail = error_data['errors'][0]['detail']
+            return 400, f"Invalid request data:"
         except (json.JSONDecodeError, IndexError, KeyError) as parse_error:
             logging.exception("Error parsing IntaSendBadRequest response: %s", parse_error)
             return 400, "An unexpected error occurred"
     except Exception as e:
         logging.exception("An unexpected error occurred: %s", e)
         return 400, "An unexpected error occurred"
-
-    return response.json(), None
+    response.pop("updated_at", None)
+    response["welfare_id"] = welfare_id
+    return 200, response
 
 @app_views.route('/welfares', methods=['POST'], strict_slashes=False)
 def create_welfare():
@@ -99,12 +101,28 @@ def create_welfare():
     instance = Welfare(**data)
     
     try:
-        data , message = create_wallet(instance.name, instance.id)
+         code, data = create_wallet(instance.name, instance.id)
     except Exception as e:
         abort(400, description=str(e))
 
     # Save the Welfare instance
-    instance.save()
+    if code == 200:
+        finall_data = {}
+        if isinstance(data, Response):
+            print("saving data....")
+            json_data = data.json()  # Convert the Response object to a JSON dictionary
+            finall_data.update(json_data)
+            instance.save()
+            wallet = Wallet(**finall_data)
+            wallet.save()
+            print("save complete")
+        else:
+            instance.save()
+            finall_data.update(data)
+            wallet = Wallet(**finall_data)
+            wallet.save()
+
+        print("save complete")
 
     return make_response(jsonify(instance.to_dict()), 201)
 
@@ -130,3 +148,17 @@ def update_welfare(welfare_id):
             setattr(welfare, key, value)
     storage.save()
     return make_response(jsonify(welfare.to_dict()), 200)
+
+@app_views.route('/welfares/<welfare_id>', methods=['DELETE'], strict_slashes=False)
+@swag_from('documentation/welfare/delete_welfare.yml', methods=['PUT'])
+def delete_welfare(welfare_id):
+    """
+    Updates a State
+    """
+    welfare = storage.get(Welfare, welfare_id)
+    if not welfare:
+        abort(404)
+
+    storage.delete(welfare)
+    storage.save()
+    return make_response(jsonify({}), 204)
