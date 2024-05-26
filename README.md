@@ -136,8 +136,7 @@ To get a local copy up and running, follow these simple steps.
 
 ## Data Modelling
 
-![database](https://www.dropbox.com/scl/fi/m3zxsy11yc4wrs5n0fe1g/WelfPurse.png?rlkey=uu9bjokkulu7p5ak7wyfgy2kn&st=rp7kkqi0&dl=0)
-
+[![e900cce8087d53d38a4c761e88eb1ae0.md.png](https://www.img2link.com/images/2024/05/26/e900cce8087d53d38a4c761e88eb1ae0.md.png)](https://www.img2link.com/image/wep.kgUbt)
 ### USER STORIES
 
 **User Story 1: Create a Welfare Group**
