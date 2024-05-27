@@ -27,16 +27,27 @@ service = APIService(token=token, publishable_key=publishable_key, test=True)
 intasend.http_client = requests.Session()
 intasend.http_client.request = lambda *args, **kwargs: requests.request(*args, timeout=10, **kwargs)
 
+
 @app_views.route('/welfares', methods=['GET'], strict_slashes=False)
 def get_welfares():
-    """ Get all Members """
-    all_welfares = {}
+    """Get all Welfares with member counts"""
+    from flask import jsonify
+    obj = {}
     all_welfares = storage.all(Welfare)
 
     welfares = []
+    total_groups = len(all_welfares)
+    obj["total_groups"] = total_groups
     for welfare in all_welfares.values():
-        welfares.append(welfare.to_dict())
-    res = jsonify(welfares)
+        member_count = len(welfare.members)
+        welfare_dict = welfare.to_dict()
+        welfare_dict["member_count"] = member_count
+        welfare_dict["members"] = [member.to_dict() for member in welfare.members]  # Convert members to dicts
+        welfares.append(welfare_dict)
+
+    obj["data"] = welfares
+
+    res = jsonify(obj)
     return make_response(res, 200)
 
 

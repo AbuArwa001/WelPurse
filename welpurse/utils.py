@@ -46,14 +46,19 @@ def is_logged_in():
         res = requests.get(url=url, headers=headers)
         if res.status_code == 200:
             timestamp = res.headers.get('Current-Tk-Time')
-            timestamp2 = float(timestamp)
-            dt_object = datetime.fromtimestamp(timestamp2)
-            return True
+            if timestamp is not None:
+                timestamp2 = float(timestamp)
+                dt_object = datetime.fromtimestamp(timestamp2)
+                return True
+            else:
+                print("Authentication error: 'Current-Tk-Time' header is missing or None")
+                return False
         else:
             return False
     except Exception as e:
         print(f"Authentication error: {e}")  # Log the error for debugging
         return False
+
 
 def login_required(f):
     @wraps(f)

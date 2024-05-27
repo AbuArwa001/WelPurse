@@ -2,6 +2,7 @@ from api.v1.views import app_views
 from welpurse.models import storage
 from welpurse.models.welfare import Welfare
 from welpurse.models.member import Member
+from welpurse.models.contribution import Contribution
 from welpurse.models.donation_request import DonationRequest
 from flask import abort, jsonify, make_response, request
 from flask_jwt_extended import (create_access_token,
@@ -110,3 +111,71 @@ def user_is_admin():
             return True
     return False
     # return user and user.role == 'administrator'
+
+
+@app_views.route('/donate/', methods=['POST'], strict_slashes=False)
+def donate():
+    data = request.get_json()
+    if not request.is_json:
+        abort(400, description="Not a JSON")
+
+    # Required fields for donation
+    required_fields = ['amount', 'member_id', 'welfare_id', 'contribution_type', 'wallet_id', 'email', 'phone']
+    for field in required_fields:
+        if field not in data:
+            abort(400, description=f"Missing {field}")
+
+    welfare = storage.get(Welfare, data["welfare_id"])
+    if not welfare:
+        abort(404, description="Welfare not found")
+
+    member = storage.get(Member, data["member_id"])
+    if not member:
+        abort(404, description="Member not found")
+
+    if member not in welfare.members:
+        abort(404, description="Member does not belong to the specified welfare")
+
+    if data['contribution_type'] not in ['monthly', 'event']:
+        abort(400, description="Invalid contribution type")
+    
+    event_id = data.get('event_id')
+    if data['contribution_type'] == 'event':
+        if not event_id:
+            abort(400, description="Missing event ID for event-specific contribution")
+        event = storage.get(Event, event_id)
+        if not event or event.welfare_id != data["welfare_id"]:
+            abort(404, description="Invalid event ID")
+
+    # Fund the wallet
+    amount = data['amount']
+    email = data['email']
+    phone = data['phone']
+    wallet_id = data['wallet_id']
+
+    response = service.wallets.fund(
+        wallet_id=wallet_id,
+        email=email,
+        phone_number=phone,
+        amount=amount,
+        currency="KES",
+        narrative="Donation",
+        mode="MPESA-STK-PUSH"
+    )
+
+    if response.get('status') != 'success':
+        abort(500, description="Failed to fund wallet")
+
+    # Create the contribution
+    contribution_data = {
+        'member_id': data['member_id'],
+        'welfare_id': data['welfare_id'],
+        'amount': data['amount'],
+        'contribution_type': data['contribution_type'],
+        'event_id': event_id if data['contribution_type'] == 'event' else None
+    }
+    contribution = Contribution(**contribution_data)
+    storage.new(contribution)
+    storage.save()
+
+    return jsonify(contribution.to_dict()), 201

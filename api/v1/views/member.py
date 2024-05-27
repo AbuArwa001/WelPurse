@@ -4,6 +4,8 @@
 from api.v1.views import app_views
 from welpurse.models import storage
 from welpurse.models.member import Member
+from welpurse.models.welfare import Welfare
+from welpurse.models.associations import welfaremembers
 from welpurse.models.role import Role
 from flask import abort, jsonify, make_response, request
 from flasgger.utils import swag_from
@@ -168,3 +170,54 @@ def get_member_roles(member_id):
     roles = [role.to_dict() for role in member.roles if hasattr(role, 'to_dict')]
 
     return jsonify(roles), 200
+
+"""
+MAKE MEMBER JOIN THE GROUP
+"""
+@app_views.route('/join_group', methods=['POST'], strict_slashes=False)
+def join_group():
+    data = request.get_json()
+    if not data:
+        abort(400, description="Not a JSON")
+
+    # Fetch the member and welfare instances
+    member = storage.get(Member, data["member_id"])
+    welfare = storage.get(Welfare, data["welfare_id"])
+
+    if not member or not welfare:
+        return jsonify({'error': 'Member or Welfare not found'}), 404
+
+    # Che ck if the member is already part of the welfare
+    if member in welfare.members:
+        return jsonify({'error': 'Member already part of the Welfare'}), 400
+
+    # Create a new WelfareMember association
+    new_welfare_member = welfare.members.append(member)
+    storage.save()
+    return jsonify({'message': 'Member successfully added to Welfare'}), 200
+
+"""
+GET MEMBERS FROM WELFARE
+"""
+@app_views.route('/welfares/<welfare_id>', methods=['GET'], strict_slashes=False)
+def get_members_for_welfare(welfare_id):   
+    welfare = storage.get(Welfare, welfare_id)
+    if not welfare:
+         abort(404, description="WELFARE NOT FOUND")
+    members = []
+    for member in welfare.members:
+        members.append(member.to_dict())
+    res = jsonify(members)
+    return make_response(res, 200)
+
+@app_views.route('/welfares/<welfare_id>/members/<member_id>', methods=['PUT'], strict_slashes=False)
+def remove_member_for_welfare(welfare_id, member_id):
+
+    welfare = storage.get(Welfare, welfare_id)
+    if not welfare:
+         abort(404, description="WELFARE NOT FOUND")
+    member = storage.get(Member, member_id)
+    members = welfare.members
+    if member in members:
+        members.remove(member)
+    return make_response({}, 200)

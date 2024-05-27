@@ -48,8 +48,8 @@ def home():
 #                            title=title,
 #                            cache_id=uuid.uuid4())
 
+# @login_required  # Use custom login_required decorator
 @app_routes.route('/dashboard', strict_slashes=False)
-@login_required  # Use custom login_required decorator
 def dashboard():
     title = 'dashboard'
     amount_contributed = 70000
