@@ -1,11 +1,11 @@
 #welpurese/routes/main_routess.py
 from flask import render_template,redirect, url_for
 import uuid 
-# from welpurse import calendar
 from welpurse.utils import login_required
 from welpurse.routes import app_routes
 from welpurse import jwt
 from flask_jwt_extended import jwt_required, current_user, get_current_user
+import requests
 
 calendar = [
   {
@@ -37,9 +37,13 @@ calendar = [
 def home():
     """ Prints a Message when / is called """
     css_file = 'index.css.jinja'  # The .jinja extension indicates that this is a Jinja2 template
+    url = "http://127.0.0.1:5001/api/v1/welfares"
+    res = requests.get(url=url)
+    welfares = res.json()
     return render_template('index.html',
                            css_file=css_file,
-                           cache_id=uuid.uuid4()
+                           cache_id=uuid.uuid4(),
+                           welfares=welfares
                            )
 # @app_routes.route('/login', strict_slashes=False)
 # def login():
@@ -51,11 +55,12 @@ def home():
 @app_routes.route('/dashboard', strict_slashes=False)
 @login_required  # Use custom login_required decorator
 def dashboard():
+   
     title = 'dashboard'
     amount_contributed = 70000
     target = 200000
     progress = (amount_contributed / target) * 100
-    
+
     # Render the dashboard page if authenticated
     return render_template('dashboard.html',
                            calendar=calendar,

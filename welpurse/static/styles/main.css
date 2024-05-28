@@ -1,4 +1,3 @@
-/* Import Open Sans font */
 @import url('https://fonts.googleapis.com/css2?family=Open+Sans&display=swap');
 
 /* Reset and font settings */
@@ -10,43 +9,56 @@
   box-sizing: border-box;
   font-family: 'Open Sans', sans-serif;
 }
-  body {
-    display: grid;
-    font-family: 'Times New Romans';
-    /* margin: 0; */
-    /* place-items: center; */
-    height: 100vh;
-  }
-  .body-div-1{
-    display: grid;
-    grid-template-columns: 1fr  1fr;
-    grid-template-rows: 60px auto 60px;
-    grid-template-areas: 
-        "header header"
-        "main main"
-        "footer footer";
-        gap: 4em;
-  }
-  .body-div-2{
-    display: grid;
-    grid-template-columns: 300px 1fr;
-    grid-template-rows: 60px 1fr 60px;
-    grid-template-areas: 
-        "header header"
-        "sidebar main"
-        "footer footer";
-        gap: 1em;
-  }
-  /* .wrapper {
-    min-height: 100%;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    min-height: 100vh;
-  } */
-  /* ALERTS */
 
-  /* Flash message styles */
+body {
+  font-family: 'Open Sans', sans-serif;
+  height: 100vh;
+  display: grid;
+  align-items: center;
+  /* justify-items: center; */
+}
+
+/* Layout for body-div-1 */
+.body-div-1 {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  grid-template-rows: 60px auto 60px;
+  align-items: center;
+  grid-template-areas:
+    "header header"
+    "main main"
+    "footer footer";
+  gap: 1em;
+}
+
+/* Responsive layout for body-div-2 */
+.body-div-2 {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-template-rows: 60px auto 60px;
+  align-items: start; /* Changed from center to start */
+  grid-template-areas:
+    "header header"
+    "sidebar main"
+    "footer footer";
+  gap: 1em;
+  height: 100vh; /* This will make sure that .body-div-2 is full viewport height */
+}
+
+
+@media (min-width: 768px) {
+  .body-div-2 {
+    grid-template-columns: 300px 1fr auto;
+    grid-template-rows: 60px 1fr 60px;
+    grid-template-areas:
+      "header header header"
+      "sidebar main c5"
+      "footer footer footer";
+  }
+}
+
+/* ALERTS */
+/* Flash message styles */
 .alert {
   padding: 10px;
   margin-bottom: 15px;
@@ -69,9 +81,7 @@
   border-color: #ebccd1;
 }
 
-/* 
-reqired fileds
-*/
+/* Required fields */
 .is-invalid {
   border-color: #dc3545; /* Red border to indicate error */
   padding-right: calc(1.5em + 0.75rem); /* Space for error icon */
@@ -97,10 +107,10 @@ reqired fileds
 }
 
 /* Apply the theme colors to the body and text */
-/* body {
+body {
   background-color: var(--primary-color);
   color: var(--secondary-color);
-} */
+}
 
 /* Style for the dashboard title */
 .dashboard-title {

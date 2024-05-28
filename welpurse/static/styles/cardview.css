@@ -35,35 +35,37 @@
 ADD CARD BUTTON
 */
 .add-card {
-    font-family: Arial, sans-serif;
-    background-color: #d0b997;
-    border-radius: 25px;
-    box-shadow: -13px 6px 8px rgba(0, 0, 0, 0.1);
-    color: #333;
-    max-width: 28%;
-    /* width: 300px;  */
-    /* height: 200px;  */
-    /* margin: 10px;
-    padding: 20px; */
-    /* position: relative; */
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    transition: background-color 0.3s;
-    cursor: pointer;
-  }
+  max-width: 28%;
+  margin: 10px;
+  padding: 20px;
+  font-family: Arial, sans-serif;
+  background-color: #d0b997;
+  border-radius: 25px;
+  box-shadow: -13px 6px 8px rgba(0, 0, 0, 0.1);
+  color: #333;
+  /* max-width: 200px; */
+  /* width: 300px; */
+  /* height: 200px; */
+  /* position: relative; */
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  transition: background-color 0.3s;
+  cursor: pointer;
+  border: solid 2px;
+}
   .add-card:hover .plus-sign,
   .add-card:hover .create-group-text {
     opacity: 1;
   }
   .plus-sign {
-    border: solid 2px;
+    /* border: solid 2px; */
     border-radius: 10px;
     font-size: 160px;
     opacity: 0.3;
     transition: opacity 0.3s;
-    min-width: 250px;
+    min-width: 100%;
     text-align: center;
     /* margin-bottom: 10px; */
   }

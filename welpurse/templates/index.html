@@ -1,7 +1,16 @@
 {% extends 'layout.html'%}
 {% block content%}
  <section class="container-cards">
-    <div class="card-wf">
+    {%for welfare in welfares.data%}
+        <div class="card-wf">
+            <h4>Welfare Group: {{welfare["name"]}}</h4>
+            <h6>Purpose</h6>
+            <p>{{welfare["purpose"]}}.</p>
+            <a class="button red-button join-btn" data-groupId="{{welfare['id']}}">Become a Contributor</a>
+            <a class="button blue-button info-btn">About Education Aid Fund</a>        
+        </div>
+    {%endfor%}
+    <!-- <div class="card-wf">
         <h4>Welfare Group: Education Aid Fund</h4>
         <h6>Purpose</h6>
         <p>Providing scholarships to underprivileged students.</p>
@@ -28,7 +37,7 @@
         <p>Providing scholarships to underprivileged students.</p>
         <a class="button red-button join-btn">Become a Contributor</a>
         <a class="button blue-button info-btn">About Welfare</a>        
-    </div>
+    </div> -->
     <div class="add-card" onclick="window.location.href='/creategroup';">
       <div class="plus-sign">
             +
