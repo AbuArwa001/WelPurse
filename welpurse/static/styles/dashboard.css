@@ -17,7 +17,7 @@
   align-items: center;
   justify-content: center;
   /* background-color: #f0f0f0; */
-  background-color: #f0f0f0;
+  background-color: #d0b977;
   border-radius: 40px;
   box-shadow: -13px 6px 8px rgba(0, 0, 0, 0.1);
   text-align: center;
@@ -26,29 +26,34 @@
 
 .dash-card:nth-child(1) {
   grid-area: c1;
-  padding: 60px;
+  /* padding: 60px; */
   /* margin: 10px; */
   flex-wrap: wrap;
+  max-height: 150px;
+  /* gap: 30px; */
 }
 
 .dash-card:nth-child(2) {
   grid-area: c2;
-  padding: 60px;
+  /* padding: 60px; */
   flex-wrap: wrap;
+  max-height: 150px;
 }
 
 .dash-card:nth-child(3) {
   grid-area: c3;
-  padding: 60px;
+  /* padding: 60px; */
   /* margin: 10px; */
   flex-wrap: wrap;
+  max-height: 150px;
 }
 
 .dash-card:nth-child(4) {
   grid-area: c4;
-  padding: 60px;
+  /* padding: 60px; */
   /* margin: 10px; */
   flex-wrap: wrap;
+  max-height: 150px;
 }
 
 .dash-card:nth-child(5) {

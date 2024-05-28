@@ -25,6 +25,7 @@
         "header header"
         "main main"
         "footer footer";
+        gap: 4em;
   }
   .body-div-2{
     display: grid;

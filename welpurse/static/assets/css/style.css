@@ -92,11 +92,11 @@ p {
 }
 
 .container-fluid {
-  grid-column: 1 / -1; /* Span across all columns */
+  grid-column: 1 / -1; 
   justify-self: center;
-  padding: 0px;
+  /* padding: 0px;
   margin-bottom: 30px;
-  margin-left: 30px;
+  margin-left: 30px; */
 }
 
 h1, h2, h3, h4, h5, h6 {
@@ -470,7 +470,7 @@ REMEMBER ME BUTTON
 /* 
 FORGOT PASSWORD
 */
-.row .forget-p {
+ .forget-p {
   margin-left: 5%;
   font-size: 16px; /* Adjust the size as needed */
   color: #007bff; /* Bootstrap primary color for links */
@@ -482,6 +482,9 @@ FORGOT PASSWORD
 }
 
 /* Hover effect for the forget password text */
-.row .forget-p:hover {
+.forget-p:hover {
   color: #0056b3; /* Darken the color on hover for feedback */
+}
+.row {
+  justify-content: center;
 }

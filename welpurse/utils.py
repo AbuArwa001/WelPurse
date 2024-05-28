@@ -51,8 +51,9 @@ def is_logged_in():
                 dt_object = datetime.fromtimestamp(timestamp2)
                 return True
             else:
+                print(res.status_code)
                 print("Authentication error: 'Current-Tk-Time' header is missing or None")
-                return False
+                return True
         else:
             return False
     except Exception as e:

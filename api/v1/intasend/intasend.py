@@ -10,7 +10,7 @@ from dotenv import load_dotenv, dotenv_values
 load_dotenv()
 from os import getenv
 
-token = getenv("TOKEN")
+token = getenv("TOKEN") 
 publishable_key = getenv("PUBLISHABLE_KEY")
 service = APIService(token=token, publishable_key=publishable_key, test=True)
 
