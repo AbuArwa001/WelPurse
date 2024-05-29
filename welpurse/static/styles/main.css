@@ -11,7 +11,7 @@
 }
 
 body {
-  font-family: 'Open Sans', sans-serif;
+  font-family: 'Arial', sans-serif;
   height: 100vh;
   display: grid;
   align-items: center;
@@ -35,7 +35,7 @@ body {
 .body-div-2 {
   display: grid;
   grid-template-columns: 1fr 1fr;
-  grid-template-rows: 60px auto 60px;
+  grid-template-rows: 60px 1fr 60px;
   align-items: start; /* Changed from center to start */
   grid-template-areas:
     "header header"
@@ -102,7 +102,7 @@ body {
 /* Main theme colors */
 :root {
   --primary-color: #d0b997; /* Beige */
-  --secondary-color: rgb(47, 104, 190); /* Blue */
+  --secondary-color:#2a5b87; /* Blue */
   --accent-color: rgba(171, 0, 0, 0.73); /* Red with transparency */
 }
 

@@ -1,7 +1,7 @@
 /* footer.css */
 .footer {
     grid-area: footer;
-    background-color: rgb(47, 104, 190); /* Footer background color */
+    background-color:#2a5b87; /* Footer background color */
     color: #fff; /* Footer text color */
     text-align: center;
     /* padding: 10px 0; Footer padding */

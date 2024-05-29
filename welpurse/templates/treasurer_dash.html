@@ -1,0 +1,146 @@
+{% extends 'layout.html' %}
+{% block content %}
+<div class="treasurer-dashboard">
+  <h1>Treasurer Dashboard</h1>
+  <div class="dashboard-section">
+    <h2>Overview</h2>
+    <p>Total Contributions: {{ total_contributions }}</p>
+    <p>Pending Requests: {{ pending_requests }}</p>
+  </div>
+  <div class="dashboard-section">
+    <h2>Recent Transactions</h2>
+    <table class="styled-table">
+      <thead>
+        <tr>
+          <th>Date</th>
+          <th>Amount</th>
+          <th>Event</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for transaction in transactions %}
+        <tr>
+          <td>{{ transaction.date }}</td>
+          <td>{{ transaction.amount }}</td>
+          <td>{{ transaction.event_name }}</td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+  <div class="dashboard-section">
+    <h2>Pending Requests</h2>
+    <table class="styled-table">
+      <thead>
+        <tr>
+          <th>Event</th>
+          <th>Amount Requested</th>
+          <th>Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for request in pending_requests %}
+        <tr>
+          <td>{{ request.event_name }}</td>
+          <td>{{ request.amount }}</td>
+          <td>
+            <form action="{{ url_for('approve_request', request_id=request.id) }}" method="post" style="display:inline;">
+              <button type="submit" class="btn">Approve</button>
+            </form>
+            <form action="{{ url_for('reject_request', request_id=request.id) }}" method="post" style="display:inline;">
+              <button type="submit" class="btn">Reject</button>
+            </form>
+          </td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+</div>
+{% endblock content %}
+
+<style>
+.treasurer-dashboard {
+  max-width: 1000px;
+  margin: 0 auto;
+  padding: 1em;
+  background: #f5f5f5;
+  border-radius: 5px;
+  font-family: 'Arial', sans-serif;
+}
+
+.treasurer-dashboard h1 {
+  text-align: center;
+  color: #2a5b87;
+}
+
+.dashboard-section {
+  margin-bottom: 2em;
+}
+
+.dashboard-section h2 {
+  color: #2a5b87;
+  margin-bottom: 0.5em;
+}
+
+.dashboard-section p {
+  font-size: 1em;
+  color: #333;
+}
+
+.styled-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 25px 0;
+  font-size: 0.9em;
+  min-width: 400px;
+  border-radius: 5px 5px 0 0;
+  overflow: hidden;
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.15);
+}
+
+.styled-table thead tr {
+  background-color: #2a5b87;
+  color: #ffffff;
+  text-align: left;
+}
+
+.styled-table th, .styled-table td {
+  padding: 12px 15px;
+}
+
+.styled-table tbody tr {
+  border-bottom: 1px solid #dddddd;
+}
+
+.styled-table tbody tr:nth-of-type(even) {
+  background-color: #f3f3f3;
+}
+
+.styled-table tbody tr:nth-of-type(odd) {
+  background-color: #d0b997;
+}
+
+.styled-table tbody tr:last-of-type {
+  border-bottom: 2px solid #2a5b87;
+}
+
+.styled-table tbody tr:hover {
+  background-color: #ddd;
+}
+
+.btn {
+  padding: .5em 1em;
+  border: none;
+  background: #2a5b87;
+  color: white;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 1em;
+  margin-right: 5px;
+}
+
+.btn:hover {
+  background: #2a5b87;
+}
+</style>

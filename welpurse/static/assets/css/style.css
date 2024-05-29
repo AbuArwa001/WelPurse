@@ -202,7 +202,7 @@ body {
 /* SIGN IN BUTTON */
 .btn-success:hover {
   background-color: rgb(171 0 0 / 73%) !important;
-  border-color: rgb(47, 104, 190) !important;
+  border-color:#2a5b87 !important;
 }
 
 .btn-success:active {
@@ -258,7 +258,7 @@ body {
 
 .form-control:focus {
   box-shadow: none;
-  border: 2px solid rgb(47, 104, 190) !important;
+  border: 2px solid#2a5b87 !important;
 }
 
 .form-control {
@@ -384,11 +384,11 @@ body {
   margin: auto;
   margin-bottom: 10px;
   font-size: 13px;
-  background-color: rgb(47, 104, 190);
+  background-color:#2a5b87;
 }
 
 .box-de {
-  background-color: rgb(47, 104, 190);
+  background-color:#2a5b87;
   display: flex;
 }
 

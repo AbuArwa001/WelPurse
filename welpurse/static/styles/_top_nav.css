@@ -1,7 +1,7 @@
 /* Base styles for the navbar */
 .top_navbar {
   grid-area: header;
-  background: rgb(47, 104, 190); /* Blue background */
+  background:#2a5b87; /* Blue background */
   width: 100%;
   z-index: 1000;
   transition: all 0.5s ease;

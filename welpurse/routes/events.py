@@ -15,26 +15,26 @@ from welpurse.forms.donation_req import DonationRequestForm
 
 
 # @login_required 
-@app_routes.route('/donation_request', methods=['GET', 'POST'])
-def donation_request():
-    title = "Donation Request"
+@app_routes.route('/events', methods=['GET', 'POST'])
+def events():
+    title = "Event Requests"
     form = DonationRequestForm()
-    return render_template('donation.html',
+    return render_template('event_list.html',
                            title=title,
                            form=form)
 
-@app_routes.route('/donations', methods=['GET', 'POST'])
-def donation_request_view():
-    title = "Donation Request View"
+@app_routes.route('/events_view', methods=['GET', 'POST'])
+def events_view():
+    title = "View Event"
     form = DonationRequestForm()
-    return render_template('donation_req_view.html',
+    return render_template('event_view.html',
                            title=title,
                            form=form)
 
-@app_routes.route('/donation_list', methods=['GET', 'POST'])
-def donation_request_list():
-    title = "Donation Request List"
+@app_routes.route('/create_event', methods=['GET', 'POST'])
+def create_event():
+    title = "Create Event"
     form = DonationRequestForm()
-    return render_template('donation_req_list.html',
+    return render_template('create_event.html',
                            title=title,
                            form=form)

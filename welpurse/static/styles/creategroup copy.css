@@ -45,12 +45,12 @@
     transform: translateY(-50%);
     height: 4px;
     width: 100%;
-    background-color: rgb(47, 104, 190);
+    background-color:#2a5b87;
     z-index: -1;
   }
   
   .progress {
-    background-color: rgb(47, 104, 190);
+    background-color:#2a5b87;
     width: 0%;
     transition: 0.3s;
   }

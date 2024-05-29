@@ -14,7 +14,7 @@
 /* Sidebar styles */
   .sidebar {
   grid-area: sidebar; 
-  background: rgb(47, 104, 190);
+  background:#2a5b87;
   border-radius: 30px;
   position: fixed;
   overflow-y: auto;

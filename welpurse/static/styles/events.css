@@ -1,0 +1,243 @@
+
+.treasurer-dashboard {
+  display: grid;
+  grid-area: main;
+  grid-template-areas: 
+    "overview"
+    "recent-transactions"
+    "event-progress"
+    "donors-list"
+    "pending-requests";
+  grid-gap: 20px;
+  min-width: 80%;
+  margin: 0 auto;
+  padding: 1em;
+  background: #f5f5f5;
+  border-radius: 5px;
+  font-family: 'Arial', sans-serif;
+}
+
+.treasurer-dashboard h1 {
+  text-align: center;
+  color: #2a5b87;
+}
+
+.dashboard-section {
+  background: #fff;
+  padding: 1em;
+  border-radius: 5px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.dashboard-section h2 {
+  color: #2a5b87;
+  margin-bottom: 0.5em;
+}
+
+.styled-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 25px 0;
+  font-size: 0.9em;
+  min-width: 400px;
+  border-radius: 5px 5px 0 0;
+  overflow: hidden;
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.15);
+}
+
+.styled-table thead tr {
+  background-color: #2a5b87;
+  color: #ffffff;
+  text-align: left;
+}
+
+.styled-table th, .styled-table td {
+  padding: 12px 15px;
+}
+
+.styled-table tbody tr {
+  border-bottom: 1px solid #dddddd;
+}
+
+.styled-table tbody tr:nth-of-type(even) {
+  background-color: #f3f3f3;
+}
+
+.styled-table tbody tr:nth-of-type(odd) {
+  background-color: #d0b997;
+}
+
+.styled-table tbody tr:last-of-type {
+  border-bottom: 2px solid #2a5b87;
+}
+
+.styled-table tbody tr:hover {
+  background-color: #ddd;
+}
+
+.btn {
+  padding: .5em 1em;
+  border: none;
+  background: #2a5b87;
+  color: white;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 1em;
+  margin-right: 5px;
+}
+
+.btn:hover {
+  background: #2a5b87;
+}
+
+.progress-bar {
+  width: 100%;
+  background-color: #d0b997;
+  border-radius: 5px;
+  overflow: hidden;
+  height: 20px;
+  margin-top: 10px;
+}
+
+.progress {
+  height: 100%;
+  background-color: #2a5b87;
+  transition: width 0.3s ease;
+}
+
+.donate-form {
+  margin-top: 10px;
+  display: flex;
+  align-items: center;
+}
+
+.donate-form input {
+  padding: 0.5em;
+  border: 1px solid #d0b997;
+  border-radius: 5px;
+  margin-right: 10px;
+  flex: 1;
+}
+/* 
+EVENTS LIST
+*/
+.events-list-view {
+    grid-area: main;
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 1em;
+    background: #f5f5f5;
+    border-radius: 5px;
+    font-family: 'Arial', sans-serif;
+  }
+  
+  .events-list-view h1 {
+    text-align: center;
+    color: #2a5b87;
+  }
+  
+  .styled-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 25px 0;
+    font-size: 0.9em;
+    min-width: 400px;
+    border-radius: 5px 5px 0 0;
+    overflow: hidden;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.15);
+  }
+  
+  .styled-table thead tr {
+    background-color: #2a5b87;
+    color: #ffffff;
+    text-align: left;
+  }
+  
+  .styled-table th, .styled-table td {
+    padding: 12px 15px;
+  }
+  
+  .styled-table tbody tr {
+    border-bottom: 1px solid #dddddd;
+  }
+  
+  .styled-table tbody tr:nth-of-type(even) {
+    background-color: #f3f3f3;
+  }
+  
+  .styled-table tbody tr:nth-of-type(odd) {
+    background-color: #d0b997;
+  }
+  
+  .styled-table tbody tr:last-of-type {
+    border-bottom: 2px solid #2a5b87;
+  }
+  
+  .styled-table tbody tr:hover {
+    background-color: #ddd;
+  }
+  
+  .btn {
+    padding: .5em 1em;
+    border: none;
+    background: #2a5b87;
+    color: white;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 1em;
+    margin-right: 5px;
+  }
+  
+  .btn:hover {
+    background: #2a5b87;
+  }
+  /* 
+  CREATE EVENT
+  */
+  .event-creation-form {
+    grid-area: main;
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 1em;
+    background: #f5f5f5;
+    border-radius: 5px;
+    font-family: 'Arial', sans-serif;
+  }
+  
+  .event-creation-form h1 {
+    text-align: center;
+    color: #2a5b87;
+  }
+  
+  .input-group {
+    margin-bottom: 1em;
+  }
+  
+  .input-group label {
+    display: block;
+    margin-bottom: .5em;
+    color: #2a5b87;
+    margin-left: 10px;
+  }
+  
+  .input-group input, .input-group textarea {
+    width: 100%;
+    padding: .5em;
+    border: 1px solid #d0b997;
+    border-radius: 4px;
+    box-sizing: border-box;
+  }
+  
+  .btn {
+    padding: .5em 1em;
+    border: none;
+    background: #2a5b87;
+    color: white;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 1em;
+  }
+  
+  .btn:hover {
+    background: #2a5b87;
+  }

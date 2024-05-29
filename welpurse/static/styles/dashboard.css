@@ -1,53 +1,102 @@
-
 .dash-content {
   grid-area: main;
   display: grid;
-  grid-template-columns: repeat(4, minmax(0, 1fr));
-  grid-template-rows:auto repeat(3, minmax(0, 1fr));
+  grid-template-columns: repeat(4, 1fr);
+  grid-template-rows: auto repeat(3, 1fr);
   grid-template-areas: 
     "c1 c2 c3 c4"
     "c5 c5 c6 c6"
     "c5 c5 c6 c6"
     "c7 c7 c8 c8";
-    gap: 10px;
+  gap: 10px;
 }
 
 .dash-card {
   display: flex;
-  flex-direction: column; /* Stack items vertically */
+  flex-direction: column;
   align-items: center;
   justify-content: center;
-  background-color: #d0b997; /* Golden color for the card background */
-  border-radius: 40px;
-  box-shadow: -13px 6px 8px rgba(0, 0, 0, 0.1);
+  background-color: #d0b997;
+  border-radius: 20px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   text-align: center;
-  padding: 20px; /* Padding adjusted for icon inclusion */
-  /* gap: 10px; Space between elements */
-  color: #333; /* Dark grey color for better readability */
+  padding: 20px;
+  color: #333;
 }
 
-/* Icon styles */
 .dash-card i {
-  font-size: 2em; /* Icon size */
-  margin-bottom: 0.5em; /* Space below the icon */
-  color: #007bff; /* Icon color */
+  font-size: 2em;
+  margin-bottom: 0.5em;
+  color: #2a5b87;
 }
 
-/* Specific styles for each card based on its child order */
-.dash-card:nth-child(1) { grid-area: c1; max-height: 150px; }
-.dash-card:nth-child(2) { grid-area: c2; max-height: 150px; }
-.dash-card:nth-child(3) { grid-area: c3; max-height: 150px; }
-.dash-card:nth-child(4) { grid-area: c4; max-height: 150px; }
+.dash-card h2 {
+  font-size: 1.5em;
+  color: #2a5b87;
+  margin-bottom: 0.5em;
+}
+
+.dash-card:nth-child(1) { grid-area: c1; }
+.dash-card:nth-child(2) { grid-area: c2; }
+.dash-card:nth-child(3) { grid-area: c3; }
+.dash-card:nth-child(4) { grid-area: c4; }
 .dash-card:nth-child(5) { grid-area: c5; }
 .dash-card:nth-child(6) { grid-area: c6; }
 .dash-card:nth-child(7) { grid-area: c7; }
 .dash-card:nth-child(8) { grid-area: c8; }
 
-/* Enhancing visual hierarchy */
-.dash-card h2 {
-  font-size: 1.2em; /* Slightly larger to emphasize titles */
-  color: #007bff; /* Blue color to highlight titles */
-  margin-bottom: 0.5em; /* Space below the title for separation */
+.progress-bar {
+  width: 90%;
+  height: 2em;
+  background-color: #2f68be;
+  border-radius: 1em;
+  position: relative;
+  margin-top: 0.5em;
+  color: white;
+}
+
+.progress-bar::before {
+  content: attr(data-label);
+  display: flex;
+  align-items: center;
+  position: absolute;
+  width: calc(var(--width, 0) * 1%);
+  left: 0.5em;
+  top: 0.3em;
+  bottom: 0.3em;
+  min-width: 2rem;
+  max-width: calc(100% - 1em);
+  background-color: rgba(171, 0, 0, 0.73);
+  border-radius: 0.5em;
+  padding: 0.5em;
+}
+
+@media (max-width: 768px) {
+  .dash-content {
+    grid-template-columns: 1fr;
+    grid-template-areas: 
+      "c1"
+      "c2"
+      "c3"
+      "c4"
+      "c5"
+      "c6"
+      "c7"
+      "c8";
+  }
+
+  .dash-card {
+    padding: 15px;
+    border-radius: 10px;
+  }
+
+  .dash-card i {
+    font-size: 1.5em;
+  }
+
+  .dash-card h2 {
+    font-size: 1.2em;
+  }
 }
 
 /* Additional responsive design for smaller screens */
@@ -88,7 +137,7 @@
     margin: 10px;
 }
 /* .list-cards{
-    background: rgb(47, 104, 190);
+    background:#2a5b87;
     position: fixed;
     top: 60px;
     right: 0;
@@ -185,7 +234,7 @@ STYLE SCROLBAR
  INTASEND
  */
  .intaSendPayButton{
-  background-color: rgb(47, 104, 190);
+  background-color:#2a5b87;
   margin: .5em;
   border-radius: 0.5em;
   padding: 0.5em;

@@ -7,6 +7,16 @@
     </div>
     <ul class="side-list">
         <li>
+            <div class="group-selection">
+                <h1>Select Active Welfare Group</h1>
+                <select id="group-select">
+                  {% for group in groups %}
+                  <option value="{{ group.id }}" {% if group.id == session.active_group %}selected{% endif %}>{{ group.name }}</option>
+                  {% endfor %}
+                </select>
+              </div>              
+        </li>
+        <li>
             <a href="{{url_for('app_routes.dashboard')}}" class="active">
                 <span class="icon"><i class="fas fa-home"></i></span>
                 <span class="item">Dashboard</span>
