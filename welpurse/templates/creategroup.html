@@ -1,29 +1,20 @@
+<!-- templates/create_welfare_group.html -->
 {% extends 'layout.html' %}
 
 {% block content %}
 <div class="wel-purse-bg">
     <div class="container">
-        <!-- Dashboard Header -->
-        <!-- <div class="row">
-            <div class="col-12">
-                <h2 class="dashboard-title">WelPurse Dashboard</h2>
-            </div>
-        </div> -->
-
         <!-- Form Container -->
         <div class="row">
             <div class="col-12">
-                <form action="#" class="form">
+                <form method="POST" action="{{ url_for('app_routes.create_welfare_group') }}" class="form">
+                    {{ form.hidden_tag() }}
                     <h1 class="text-center">Create Welfare Group</h1>
+                    
                     <!-- Progress bar -->
                     <div class="progressbar">
                       <div class="progress" id="progress"></div>
-                      
-                      <div
-                        class="progress-step progress-step-active"
-                        data-title="Intro"
-                      ></div>
-                      <div class="progress-step" data-title="Group Details"></div>
+                      <div class="progress-step progress-step-active" data-title="Group Details"></div>
                       <div class="progress-step" data-title="Settings"></div>
                       <div class="progress-step" data-title="Role Assignments"></div>
                       <div class="progress-step" data-title="Role Descriptions"></div>
@@ -36,58 +27,33 @@
                         <fieldset class="group-details">
                             <legend>Group Details</legend>
                             <div class="input-group">
-                                <label for="username">Welfare Name: </label>
-                                <input type="text" name="username" id="username" />
+                                {{ form.welfare_name.label }}
+                                {{ form.welfare_name(size=32) }}
                             </div>
                             <div class="input-group">
-                                <label for="description">Description: </label>
-                                <textarea></textarea>
+                                {{ form.description.label }}
+                                {{ form.description(rows=5) }}
                             </div>
                             <div class="input-group">
-                                <label for="purpose">Purpose for Group: </label>
-                                <textarea></textarea>
+                                {{ form.purpose.label }}
+                                {{ form.purpose(rows=5) }}
                             </div>
                         </fieldset>
                         <fieldset class="group-details">
                             <legend>Membership Criteria</legend>
                             <div class="input-group">
-                                <label for="min-contribution">Minimum Contribution:</label>
-                                <select name="min-contribution" id="min-contribution">
-                                  <option value="15000">15,000</option>
-                                  <option value="20000">20,000</option>
-                                  <option value="26000">26,000</option>
-                                  <option value="35000">35,000</option>
-                                  <option value="37000">37,000</option>
-                                  <option value="above">Above 37,000</option>
-                                </select>
-                              </div>
-                            <div class="input-group">
-                              <label>Eligibility Requirement:</label>
-                              <div>
-                                <input type="checkbox" id="income1" name="income" value="15000-20000">
-                                <label for="income1">15,000 - 20,000</label>
-                              </div>
-                              <div>
-                                <input type="checkbox" id="income2" name="income" value="26000-35000">
-                                <label for="income2">26,000 - 35,000</label>
-                              </div>
-                              <div>
-                                <input type="checkbox" id="income3" name="income" value="37000-above">
-                                <label for="income3">37,000 - Above</label>
-                              </div>
+                                {{ form.min_contribution.label }}
+                                {{ form.min_contribution() }}
                             </div>
                             <div class="input-group">
-                              <label>Membership Approval:</label>
-                              <div>
-                                <input type="radio" id="approvalYes" name="approval" value="yes">
-                                <label for="approvalYes">Yes</label>
-                              </div>
-                              <div>
-                                <input type="radio" id="approvalNo" name="approval" value="no">
-                                <label for="approvalNo">No</label>
-                              </div>
+                                {{ form.eligibility_requirements.label }}
+                                {{ form.eligibility_requirements() }}
                             </div>
-                          </fieldset>
+                            <div class="input-group">
+                                {{ form.membership_approval.label }}
+                                {{ form.membership_approval() }}
+                            </div>
+                        </fieldset>
                         <div class="">
                             <a href="#" class="btn btn-next width-50 ml-auto">Next</a>
                         </div>
@@ -97,33 +63,17 @@
                         <fieldset class="group-details">
                             <legend>Contribution Settings</legend>
                             <div class="input-group">
-                                <label for="contribution-frequency">Contribution Frequency:</label>
-                                <select name="contribution-frequency" id="contribution-frequency">
-                                  <option value="monthly">Monthly</option>
-                                  <option value="quarterly">Quarterly</option>
-                                  <option value="yearly">Per Annum</option>
-                                </select>
-                              </div>
-                              <div class="input-group">
-                                <label>Contribution Mode:</label>
-                                <div>
-                                  <input type="checkbox" id="mpesa" name="mpesa" value="mpesa">
-                                  <label for="mpesa">Mpesa</label>
-                                </div>
-                                <div>
-                                  <input type="checkbox" id="card" name="card" value="card">
-                                  <label for="card">Card</label>
-                                </div>
-                                <div>
-                                  <input type="checkbox" id="paypal" name="paypal" value="paypal">
-                                  <label for="paypal">PayPal</label>
-                                </div>
-                              </div>
-                              <div class="input-group">
-                                <label for="special-events">Special Events:</label>
-                                <input type="checkbox" id="special-events" name="special-events">
-                                <label for="special-events">Have Events (Contribution for specific event)</label>
-                              </div>
+                                {{ form.contribution_frequency.label }}
+                                {{ form.contribution_frequency() }}
+                            </div>
+                            <div class="input-group">
+                                {{ form.contribution_modes.label }}
+                                {{ form.contribution_modes() }}
+                            </div>
+                            <div class="input-group">
+                                {{ form.special_events.label }}
+                                {{ form.special_events() }}
+                            </div>
                         </fieldset>
                         <div class="btns-group">
                             <a href="#" class="btn btn-prev">Previous</a>
@@ -132,50 +82,31 @@
                     </div>
 
                     <div class="form-step">
-                        <!-- Role Assignments -->
                         <fieldset class="group-details">
                             <legend>Role Assignments</legend>
                             <div class="input-group">
-                                <label for="administrator">Administrator:</label>
-                                <select id="administrator" name="administrator">
-                                    <option>Select Member</option>
-                                    <!-- Add member options here -->
-                                </select>
+                                {{ form.administrator.label }}
+                                {{ form.administrator() }}
                             </div>
                             <div class="input-group">
-                                <label for="treasurer">Treasurer:</label>
-                                <select id="treasurer" name="treasurer">
-                                    <option>Select Member</option>
-                                    <!-- Add member options here -->
-                                </select>
+                                {{ form.treasurer.label }}
+                                {{ form.treasurer() }}
                             </div>
                             <div class="input-group">
-                                <label for="secretary">Secretary:</label>
-                                <select id="secretary" name="secretary">
-                                    <option>Select Member</option>
-                                    <!-- Add member options here -->
-                                </select>
+                                {{ form.secretary.label }}
+                                {{ form.secretary() }}
                             </div>
                             <div class="input-group">
-                                <label for="youth-rep">Youth Rep:</label>
-                                <select id="youth-rep" name="youth-rep">
-                                    <option>Select Member</option>
-                                    <!-- Add member options here -->
-                                </select>
+                                {{ form.youth_rep.label }}
+                                {{ form.youth_rep() }}
                             </div>
                             <div class="input-group">
-                                <label for="chairperson">Chairperson:</label>
-                                <select id="chairperson" name="chairperson">
-                                    <option>Select Member</option>
-                                    <!-- Add member options here -->
-                                </select>
+                                {{ form.chairperson.label }}
+                                {{ form.chairperson() }}
                             </div>
                             <div class="input-group">
-                                <label for="vice-chairperson">Vice Chairperson:</label>
-                                <select id="vice-chairperson" name="vice-chairperson">
-                                    <option>Select Member</option>
-                                    <!-- Add member options here -->
-                                </select>
+                                {{ form.vice_chairperson.label }}
+                                {{ form.vice_chairperson() }}
                             </div>
                         </fieldset>
                         <div class="btns-group">
@@ -188,29 +119,28 @@
                         <fieldset class="group-details">
                             <legend>Role Descriptions</legend>
                             <div class="input-group">
-                                <label for="chairperson">Chairperson:</label>
-                                <input type="text" id="chairperson" name="chairperson">
-                              </div>
-                              <div class="input-group">
-                                <label for="vice-chair">Vice Chair:</label>
-                                <input type="text" id="vice-chair" name="vice-chair">
-                              </div>
-                              <div class="input-group">
-                                <label for="treasurer">Treasurer:</label>
-                                <input type="text" id="treasurer" name="treasurer">
-                              </div>
-                              <div class="input-group">
-                                <label for="secretary">Secretary:</label>
-                                <input type="text" id="secretary" name="secretary">
-                              </div>
-                              <div class="input-group">
-                                <label for="youth-rep">Youth Rep:</label>
-                                <input type="text" id="youth-rep" name="youth-rep">
-                              </div>
+                                {{ form.role_description_chairperson.label }}
+                                {{ form.role_description_chairperson() }}
+                            </div>
+                            <div class="input-group">
+                                {{ form.role_description_vice_chair.label }}
+                                {{ form.role_description_vice_chair() }}
+                            </div>
+                            <div class="input-group">
+                                {{ form.role_description_treasurer.label }}
+                                {{ form.role_description_treasurer() }}
+                            </div>
+                            <div class="input-group">
+                                {{ form.role_description_secretary.label }}
+                                {{ form.role_description_secretary() }}
+                            </div>
+                            <div class="input-group">
+                                {{ form.role_description_youth_rep.label }}
+                                {{ form.role_description_youth_rep() }}
+                            </div>
                         </fieldset>
                         <div class="btns-group">
-                            <a href="#"
-                            class="btn btn-prev">Previous</a>
+                            <a href="#" class="btn btn-prev">Previous</a>
                             <a href="#" class="btn btn-next">Next</a>
                         </div>
                     </div>
@@ -219,23 +149,12 @@
                         <fieldset class="group-details">
                             <legend>Visibility</legend>
                             <div class="input-group">
-                                <label for="visibility">Group Visibility:</label>
-                                <select name="visibility" id="visibility">
-                                    <option value="public">Public</option>
-                                    <option value="private">Private</option>
-                                    <option value="restricted">Restricted</option>
-                                </select>
+                                {{ form.visibility.label }}
+                                {{ form.visibility() }}
                             </div>
                             <div class="input-group">
-                                <label for="searchable">Searchable:</label>
-                                <div>
-                                    <input type="radio" id="searchableYes" name="searchable" value="yes">
-                                    <label for="searchableYes">Yes</label>
-                                </div>
-                                <div>
-                                    <input type="radio" id="searchableNo" name="searchable" value="no">
-                                    <label for="searchableNo">No</label>
-                                </div>
+                                {{ form.searchable.label }}
+                                {{ form.searchable() }}
                             </div>
                         </fieldset>
                         <div class="btns-group">
@@ -243,31 +162,17 @@
                             <a href="#" class="btn btn-next">Next</a>
                         </div>
                     </div>
+
                     <div class="form-step">
                         <fieldset class="group-details">
                             <legend>Communication</legend>
                             <div class="input-group">
-                                <label for="communication">Preferred Communication Channel:</label>
-                                <select name="communication" id="communication">
-                                    <option value="email">Email</option>
-                                    <option value="sms">SMS</option>
-                                    <option value="app">In-App Messaging</option>
-                                </select>
+                                {{ form.preferred_communication_channel.label }}
+                                {{ form.preferred_communication_channel() }}
                             </div>
                             <div class="input-group">
-                                <label for="notification">Notification Preference:</label>
-                                <div>
-                                    <input type="checkbox" id="notificationsEmail" name="notifications" value="email">
-                                    <label for="notificationsEmail">Email</label>
-                                </div>
-                                <div>
-                                    <input type="checkbox" id="notificationsSMS" name="notifications" value="sms">
-                                    <label for="notificationsSMS">SMS</label>
-                                </div>
-                                <div>
-                                    <input type="checkbox" id="notificationsApp" name="notifications" value="app">
-                                    <label for="notificationsApp">In-App</label>
-                                </div>
+                                {{ form.notification_preferences.label }}
+                                {{ form.notification_preferences() }}
                             </div>
                         </fieldset>
                         <div class="btns-group">

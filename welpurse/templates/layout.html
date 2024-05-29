@@ -11,6 +11,13 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css">
     <script src="https://unpkg.com/intasend-inlinejs-sdk@4.0.0/build/intasend-inline.js"></script>
+    <!-- Include Bootstrap CSS -->
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Include jQuery and Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+
     <!--CALENDAR-->
     <!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.4.0/fullcalendar.css" />
     <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">-->
@@ -37,6 +44,7 @@
     <!--DASHBOARD-->
     <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='styles/dashboard.css', cache_id=cache_id) }}">
     <script src="{{ url_for('static', filename='script/intasend.js', cache_id=cache_id)}}"></script>
+    <script src="{{ url_for('static', filename='script/join_group.js', cache_id=cache_id)}}"></script>
     <!-- <script src="{{ url_for('static', filename='script/calendar.js', cache_id=cache_id)}}"></script> -->
     <!--CREATE GROUP-->
     <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='styles/creategroup.css', cache_id=cache_id) }}">
@@ -45,6 +53,8 @@
     <!--CONTRIBUTE-->
     <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='styles/contribute.css', cache_id=cache_id) }}">
     <script src="{{ url_for('static', filename='script/contribute.js', cache_id=cache_id)}}"></script>
+    <!--DONATION-->
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='styles/donate_req.css', cache_id=cache_id) }}">
 
     
     {% if title%}

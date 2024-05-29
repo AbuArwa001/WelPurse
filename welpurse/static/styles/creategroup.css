@@ -23,6 +23,7 @@
   display: block;
   margin-bottom: .5em;
   color: #2a5b87; /* Blue for titles */
+  margin-left: 10px;
 }
 
 .input-group input, .input-group select, .input-group textarea {
@@ -36,8 +37,11 @@
 /* Progress Bar */
 .progressbar {
   display: flex;
+  position: relative; 
   justify-content: space-between;
   margin-bottom: 2em;
+  width: 100%; /* Full width of the form */
+  height: 5px;
 }
 
 .progress {
@@ -45,7 +49,7 @@
   width: 0;
   height: 5px;
   background: #d0b997; /* Card background color */
-  top: 15px;
+  top: 150%;
   left: 0;
   transition: 0.2s;
 }
@@ -62,10 +66,11 @@
 .progress-step::before {
   content: attr(data-title);
   position: absolute;
-  top: -25px;
+  top: 25px;
   left: 50%;
   transform: translateX(-50%);
-  font-size: 0.85em;
+  text-align: center;
+  font-size: 0.80em;
   color: #2a5b87; /* Blue for titles */
 }
 
@@ -110,4 +115,11 @@
 .btn-prev:hover {
   background: #2a5b87; /* Blue for titles */
   color: white;
+}
+
+fieldset {
+  min-width: 0;
+  padding: 0;
+  margin-top: 60px;
+  border: 0;
 }

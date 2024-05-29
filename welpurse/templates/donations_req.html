@@ -1,0 +1,68 @@
+<!-- Administrator View for Managing Donation Requests -->
+{% extends 'layout.html' %}
+{% block content %}
+<div class="admin-view">
+  <h1>Donation Requests</h1>
+  <table>
+    <thead>
+      <tr>
+        <th>Welfare Group Name</th>
+        <th>Status</th>
+        <th>Amount Requested</th>
+        <th>Donation Purpose</th>
+        <th>Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for request in requests %}
+      <tr>
+        <td>{{ request.welfare_group_name }}</td>
+        <td>{{ request.status }}</td>
+        <td>{{ request.amount_requested }}</td>
+        <td>{{ request.donation_purpose }}</td>
+        <td>
+          <form action="{{ url_for('approve_request', request_id=request.id) }}" method="post">
+            <button type="submit">Approve</button>
+          </form>
+          <form action="{{ url_for('reject_request', request_id=request.id) }}" method="post">
+            <button type="submit">Reject</button>
+          </form>
+        </td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+</div>
+{% endblock content %}
+
+<!-- View for Donation Requests Waiting to be Launched as Events -->
+{% extends 'layout.html' %}
+{% block content %}
+<div class="event-requests-view">
+  <h1>Upcoming Donation Events</h1>
+  <table>
+    <thead>
+      <tr>
+        <th>Welfare Group Name</th>
+        <th>Amount Requested</th>
+        <th>Donation Purpose</th>
+        <th>Launch Event</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for event_request in event_requests %}
+      <tr>
+        <td>{{ event_request.welfare_group_name }}</td>
+        <td>{{ event_request.amount_requested }}</td>
+        <td>{{ event_request.donation_purpose }}</td>
+        <td>
+          <form action="{{ url_for('launch_event', request_id=event_request.id) }}" method="post">
+            <button type="submit">Launch Event</button>
+          </form>
+        </td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+</div>
+{% endblock content %}

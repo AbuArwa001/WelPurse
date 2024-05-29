@@ -1,11 +1,9 @@
-#welpurese/routes/main_routess.py
-from flask import render_template,redirect, url_for
+from flask import render_template,redirect, url_for, request, session
 import uuid 
 from welpurse.utils import login_required
 from welpurse.routes import app_routes
-from welpurse import jwt
-from flask_jwt_extended import jwt_required, current_user, get_current_user
 import requests
+
 
 calendar = [
   {
@@ -36,14 +34,34 @@ calendar = [
 @app_routes.route('/', strict_slashes=False)
 def home():
     """ Prints a Message when / is called """
+    session['access_token_cookie']
+    session['csrf_access_token'] 
+    wami = "http://127.0.0.1:5001/auth/who_am_i"
+    headers = {"Authorization": f"Bearer {session['access_token_cookie']}"}
+    req = requests.get(url=wami, headers=headers)
+    if req.status_code == 200:
+        member_id = req.json().get('id') # This will return the current user's ID
+    else:
+        user_id = None
+        pass
+        # Handle the case where there is no authenticated user
     css_file = 'index.css.jinja'  # The .jinja extension indicates that this is a Jinja2 template
     url = "http://127.0.0.1:5001/api/v1/welfares"
     res = requests.get(url=url)
     welfares = res.json()
+    data = welfares.get('data')
+    welfare_ids = []
+    print(member_id)
+    for welf in data:
+        if welf.get('members'):
+            welfare_ids.append(welf.get('id'))
+            print(welf.get('id'))
     return render_template('index.html',
                            css_file=css_file,
                            cache_id=uuid.uuid4(),
-                           welfares=welfares
+                           welfares=welfares,
+                           member_id=member_id,
+                           welfare_ids=welfare_ids
                            )
 # @app_routes.route('/login', strict_slashes=False)
 # def login():
@@ -55,7 +73,7 @@ def home():
 @app_routes.route('/dashboard', strict_slashes=False)
 @login_required  # Use custom login_required decorator
 def dashboard():
-   
+
     title = 'dashboard'
     amount_contributed = 70000
     target = 200000

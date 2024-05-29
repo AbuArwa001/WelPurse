@@ -35,7 +35,8 @@
     background-color: #d0b997; /* Your primary theme color */
     color: rgb(47, 104, 190); /* Your secondary theme color */
 }
-.wel-purse-bg {
+/* .wel-purse-bg {
+    grid-area: main;
     font-family: Arial, sans-serif;
     margin-bottom: 30px;
     background-color: #d0b997;
@@ -47,6 +48,14 @@
     color: #333;
     margin: 10px;
     padding: 20px;
-    max-width: 50%;
-    max-height: 60%;
+} */
+.wel-purse-bg {
+    grid-area: main;
+    font-family: Arial, sans-serif;
+    background-color: #d0b997;
+    margin: 10px; 
+    border-radius: 25px;
+    box-shadow: -13px 6px 8px rgba(0, 0, 0, 0.1);
+    color: #333;
+    padding: 20px;
 }

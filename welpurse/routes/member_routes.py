@@ -66,18 +66,18 @@ def logout():
     url = 'http://127.0.0.1:5001/auth/login/'
     res = requests.delete(url=url)
 
-@app_routes.route('/creategroup', strict_slashes=False)
-def crete_group():
-    title = 'Create Group'
-    amount_contributed = 70000
-    target = 200000
-    progress= (  amount_contributed  / target) * 100
-    return render_template('creategroup.html',
-                           calendar = calendar,
-                           title=title,
-                           total=amount_contributed,
-                           progress=progress,
-                           cache_id=uuid.uuid4())
+# @app_routes.route('/creategroup', strict_slashes=False)
+# def crete_group():
+#     title = 'Create Group'
+#     amount_contributed = 70000
+#     target = 200000
+#     progress= (  amount_contributed  / target) * 100
+#     return render_template('creategroup.html',
+#                            calendar = calendar,
+#                            title=title,
+#                            total=amount_contributed,
+#                            progress=progress,
+#                            cache_id=uuid.uuid4())
 
 @app_routes.route('/logout', strict_slashes=False)
 def logout_route():

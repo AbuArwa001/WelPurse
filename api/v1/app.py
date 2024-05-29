@@ -4,7 +4,7 @@ from dotenv import load_dotenv, dotenv_values
 load_dotenv()
 from os import getenv
 from .config import Config
-from .extensions import jwt, cors, swagger
+from .extensions import jwt, cors, swagger, login_manager
 from .views import app_views
 from .auth import auth_blueprint
 
@@ -16,7 +16,7 @@ def create_app():
     jwt.init_app(app)
     cors.init_app(app, resources={r"/api/v1/*": {"origins": "*"}})
     swagger.init_app(app)
-    
+    login_manager.init_app(app)
     
     app.register_blueprint(app_views)
     app.register_blueprint(auth_blueprint, url_prefix='/auth')

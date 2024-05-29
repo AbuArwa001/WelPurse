@@ -26,12 +26,28 @@ $(document).ready(function () {
 
   function updateProgressBar() {
       progressSteps.each(function (idx, step) {
-          if (idx <= currentStep) {
-              $(step).addClass('progress-step-active');
-          } else {
-              $(step).removeClass('progress-step-active');
-          }
-      });
-      progress.css('width', ((currentStep + 1) / progressSteps.length) * 100 + '%');
+        console.log("INDEX",idx)
+        console.log("CURRENT STEP",currentStep)
+        if (idx <= currentStep) {
+            $(step).addClass('progress-step-active');
+        } else {
+            $(step).removeClass('progress-step-active');
+        }
+    });
+    console.log("PROGRESS STEPS",progressSteps.length)
+    var newWidth = (currentStep / (progressSteps.length - 1)) * 100;
+    console.log("NEW WIDTH", newWidth)
+    progress.css('width', newWidth + '%');
   }
 });
+
+$(document).ready(function() {
+    $('form').on('submit', function(e) {
+      // Custom validation logic here
+      if (!this.checkValidity()) {
+        e.preventDefault(); // Prevent form submission
+        // Focus on the first invalid input
+        $(this).find(':input:invalid').first().focus();
+      }
+    });
+  });

@@ -18,10 +18,10 @@
   border-radius: 30px;
   position: fixed;
   overflow-y: auto;
-  top: 60px;
+  top: 50px;
   left: 0px;
-  bottom: 60px;
-  margin-left: 10px ;
+  bottom: 70px;
+  margin-left: 5px ;
 }
 
 /* Profile styles */
@@ -79,7 +79,7 @@
 }
 @media (min-width: 1200px) {
   .sidebar{
-    background-color: rgb(255, 255, 255);
+    /* background-color: rgb(255, 255, 255); */
     box-shadow: rgba(0, 0, 0, 0.05) 0rem 1.25rem 1.6875rem 0rem;
     margin-bottom: inherit;
     left: 0px;
