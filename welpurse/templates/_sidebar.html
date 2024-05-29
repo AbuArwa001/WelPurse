@@ -8,7 +8,7 @@
     <ul class="side-list">
         <li>
             <div class="group-selection">
-                <h1>Select Active Welfare Group</h1>
+                <span>Select Welfare Group</span>
                 <select id="group-select">
                   {% for group in groups %}
                   <option value="{{ group.id }}" {% if group.id == session.active_group %}selected{% endif %}>{{ group.name }}</option>
@@ -29,15 +29,21 @@
             </a>
         </li>
         <li>
-            <a href="#">
+            <a href="{{url_for('app_routes.events')}}">
                 <span class="icon"><i class="fas fa-user-friends"></i></span>
                 <span class="item">Events</span>
             </a>
         </li>
         <li>
-            <a href="#">
+            <a href="{{url_for('app_routes.donation_request_list')}}">
+                <span class="icon"><i class="fas fa-user-shield"></i></span>
+                <span class="item">Pending Requests</span>
+            </a>
+        </li>
+        <li>
+            <a href="{{url_for('app_routes.donation_request_view')}}">
                 <span class="icon"><i class="fas fa-tachometer-alt"></i></span>
-                <span class="item">Projects</span>
+                <span class="item">Approved Donations</span>
             </a>
         </li>
         <li>
@@ -50,12 +56,6 @@
             <a href="#">
                 <span class="icon"><i class="fas fa-chart-line"></i></span>
                 <span class="item">Reports</span>
-            </a>
-        </li>
-        <li>
-            <a href="#">
-                <span class="icon"><i class="fas fa-user-shield"></i></span>
-                <span class="item">Community Forum</span>
             </a>
         </li>
         <li>

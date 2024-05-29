@@ -2,24 +2,35 @@
 {% block content %}
 <div class="event-creation-form">
   <h1>Create a New Event</h1>
-  <form action="{{ url_for('app_routes.create_event') }}" method="post">
+  <form method="POST" action="{{ url_for('app_routes.create_event') }}">
+    {{ form.hidden_tag() }}
     <div class="input-group">
-      <label for="event_name">Event Name</label>
-      <input type="text" id="event_name" name="event_name" required>
+      {{ form.welfare_group_name.label }}
+      {{ form.welfare_group_name(class_="form-control") }}
     </div>
     <div class="input-group">
-      <label for="event_date">Event Date</label>
-      <input type="date" id="event_date" name="event_date" required>
+      {{ form.event_date.label }}
+      {{ form.event_date(class_="form-control") }}
     </div>
     <div class="input-group">
-      <label for="event_description">Event Description</label>
-      <textarea id="event_description" name="event_description" required></textarea>
+      {{ form.start_date.label }}
+      {{ form.start_date(class_="form-control") }}
     </div>
     <div class="input-group">
-      <label for="amount_needed">Amount Needed</label>
-      <input type="number" id="amount_needed" name="amount_needed" required>
+      {{ form.end_date.label }}
+      {{ form.end_date(class_="form-control") }}
     </div>
-    <button type="submit" class="btn">Create Event</button>
+    <div class="input-group">
+      {{ form.donation_purpose.label }}
+      {{ form.donation_purpose(class_="form-control") }}
+    </div>
+    <div class="input-group">
+      {{ form.amount_requested.label }}
+      {{ form.amount_requested(class_="form-control") }}
+    </div>
+    <div class="input-group">
+      {{ form.submit(class_="btn btn-primary") }}
+    </div>
   </form>
 </div>
 {% endblock content %}

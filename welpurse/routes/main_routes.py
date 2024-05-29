@@ -3,7 +3,7 @@ import uuid
 from welpurse.utils import login_required
 from welpurse.routes import app_routes
 import requests
-
+from datetime import datetime, timedelta
 
 calendar = [
   {
@@ -78,9 +78,21 @@ def dashboard():
     amount_contributed = 70000
     target = 200000
     progress = (amount_contributed / target) * 100
-
+    response = requests.get('http://127.0.0.1:5001/api/v1/events/')
+    events = response.json()
+    if response.status_code == 200:
+      # Format the data for FullCalendar
+      formatted_events = []
+      for event in events:
+          formatted_events.append({
+              'id': event['id'],
+              'title': event['title'],
+              # 'start': datetime.strptime(event['start_date'], '%Y-%m-%dT%H:%M:%S.%f').isoformat(),
+              # 'end': datetime.strptime(event['end_date'], '%Y-%m-%dT%H:%M:%S.%f').isoformat()
+          })
     # Render the dashboard page if authenticated
     return render_template('dashboard.html',
+                           events=formatted_events,
                            calendar=calendar,
                            title=title,
                            total=amount_contributed,

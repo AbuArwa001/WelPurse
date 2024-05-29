@@ -7,3 +7,5 @@ class Event(BaseModel, Base):
     title = Column(String(255), nullable=False)
     description = Column(Text, nullable=True)
     event_date = Column(Date, nullable=True)
+    start_date = Column(Date, nullable=True)
+    end_date = Column(Date, nullable=True)

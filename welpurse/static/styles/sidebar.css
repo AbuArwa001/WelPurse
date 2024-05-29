@@ -159,3 +159,53 @@ STYLE SCROLBAR
   /* Thumb and track color */
   scrollbar-width: none
 }
+
+
+/* 
+SELECTDROP DOWN
+*/
+/* Dropdown styles */
+.sidebar .group-selection {
+  padding: 13px 30px;
+  background: #2a5b87;
+  border-bottom: 1px solid #10558d;
+}
+
+.sidebar .group-selection label {
+  color: rgb(206, 240, 253);
+  margin-bottom: 5px;
+  display: block;
+}
+
+.sidebar .group-selection select {
+  width: 100%;
+  padding: 8px 16px;
+  border-radius: 20px;
+  border: 1px solid #10558d;
+  background-color: #ffffff;
+  color: #333;
+  font-size: 14px;
+  margin-top: 5px;
+}
+
+.sidebar .group-selection select:focus {
+  outline: none;
+  border-color: #0c7db1;
+}
+
+/* Adjust the color of the dropdown arrow */
+.sidebar .group-selection select {
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  background-image: url('data:image/svg+xml;utf8,<svg fill="rgb(206, 240, 253)" height="24" viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg"><path d="M7 10l5 5 5-5z"/></svg>');
+  background-repeat: no-repeat;
+  background-position: right 10px top 50%;
+  background-size: 12px;
+}
+
+/* Style for options */
+.sidebar .group-selection option {
+  background: #2a5b87;
+  color: #fff;
+}
