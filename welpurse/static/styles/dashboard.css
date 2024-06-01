@@ -233,13 +233,13 @@ STYLE SCROLBAR
  /* 
  INTASEND
  */
- .intaSendPayButton{
+ .contrbutton{
   background-color:#2a5b87;
   margin: .5em;
   border-radius: 0.5em;
   padding: 0.5em;
  }
- .intaSendPayButton:hover{
+ .contrbutton:hover{
   background-color: rgb(171 0 0 / 73%);
  }
  /* 

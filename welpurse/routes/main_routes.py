@@ -1,4 +1,4 @@
-from flask import render_template,redirect, url_for, request, session
+from flask import render_template,redirect, url_for, flash, session
 import uuid 
 from welpurse.utils import login_required
 from welpurse.routes import app_routes
@@ -31,35 +31,46 @@ calendar = [
     "end_event": "2024-05-13T00:00:00"
   }
 ]
+
 @app_routes.route('/', strict_slashes=False)
+@login_required
 def home():
     """ Prints a Message when / is called """
-    session['access_token_cookie']
-    session['csrf_access_token'] 
+    # Check if the session variables exist
+    access_token = session.get('access_token_cookie')
+    csrf_token = session.get('csrf_access_token')
+    
+    if not access_token or not csrf_token:
+        flash('Session tokens are missing.', 'error')
+        return redirect(url_for('auth.login'))
+
     wami = "http://127.0.0.1:5001/auth/who_am_i"
-    headers = {"Authorization": f"Bearer {session['access_token_cookie']}"}
+    headers = {"Authorization": f"Bearer {access_token}"}
     req = requests.get(url=wami, headers=headers)
+    member_id = None  # Initialize member_id to None
     if req.status_code == 200:
-        member_id = req.json().get('id') # This will return the current user's ID
-    else:
-        user_id = None
-        pass
-        # Handle the case where there is no authenticated user
-    css_file = 'index.css.jinja'  # The .jinja extension indicates that this is a Jinja2 template
+        member_id = req.json().get('id')  # This will return the current user's ID
+
+    css_file = 'index.css'  # Assuming this is a regular CSS file
     url = "http://127.0.0.1:5001/api/v1/welfares"
     res = requests.get(url=url)
+    if res.status_code != 200:
+        flash('Failed to retrieve welfares.', 'error')
+        return redirect(url_for('app_routes.login'))
+    
+    member = f"http://127.0.0.1:5001/api/v1/members/{member_id}"
+    resp = requests.get(url=member)
+    if resp.status_code == 200:
+        member = resp.json()
     welfares = res.json()
-    data = welfares.get('data')
-    welfare_ids = []
-    print(member_id)
-    for welf in data:
-        if welf.get('members'):
-            welfare_ids.append(welf.get('id'))
-            print(welf.get('id'))
+    data = welfares.get('data', [])
+    welfare_ids = [welf.get('id') for welf in data if welf.get('members')]
+    print(member)
     return render_template('index.html',
                            css_file=css_file,
                            cache_id=uuid.uuid4(),
                            welfares=welfares,
+                           member=member,
                            member_id=member_id,
                            welfare_ids=welfare_ids
                            )
@@ -92,7 +103,6 @@ def dashboard():
           })
     # Render the dashboard page if authenticated
     return render_template('dashboard.html',
-                           events=formatted_events,
                            calendar=calendar,
                            title=title,
                            total=amount_contributed,

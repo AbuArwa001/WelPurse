@@ -14,6 +14,8 @@ from welpurse.models.member import Member
 import hashlib
 from flask_jwt_extended import current_user
 from .extensions import jwt
+from .config import Config
+from .config import ACCESS_EXPIRES
 
 auth_blueprint = Blueprint('auth', __name__)
 
@@ -80,3 +82,19 @@ def protected():
         full_name=current_user.name,
         email=current_user.email,
     )
+
+@auth_blueprint.route("/logout", methods=["DELETE"])
+@jwt_required()
+def logout():
+    jti = get_jwt()["jti"]
+    Config.jwt_redis_blocklist.set(jti, "", ex=ACCESS_EXPIRES)
+    response = jsonify(msg="Access token revoked")
+    unset_jwt_cookies(response)  # Clear JWT cookies
+    return response
+
+# Callback function to check if a JWT exists in the redis blocklist
+@jwt.token_in_blocklist_loader
+def check_if_token_is_revoked(jwt_header, jwt_payload: dict):
+    jti = jwt_payload["jti"]
+    token_in_redis = Config.jwt_redis_blocklist.get(jti)
+    return token_in_redis is not None

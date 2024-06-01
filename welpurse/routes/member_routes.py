@@ -37,6 +37,7 @@ def login():
     title = 'Login'
 
     if is_logged_in():
+       print({"log": "IS LOGGED IN"})
        return redirect(url_for('app_routes.dashboard'))
 
     if form.validate_on_submit():
@@ -46,6 +47,7 @@ def login():
             'remember': form.remember.data,
         }
         res = requests.post(url, json=data)
+        print(res.json())
         if res.status_code == 200:
             cookies = res.cookies
             # To get a dictionary of cookies
@@ -62,25 +64,11 @@ def login():
     return render_template('login.html', title=title, form=form)
 
 
-def logout():
-    url = 'http://127.0.0.1:5001/auth/login/'
-    res = requests.delete(url=url)
-
-# @app_routes.route('/creategroup', strict_slashes=False)
-# def crete_group():
-#     title = 'Create Group'
-#     amount_contributed = 70000
-#     target = 200000
-#     progress= (  amount_contributed  / target) * 100
-#     return render_template('creategroup.html',
-#                            calendar = calendar,
-#                            title=title,
-#                            total=amount_contributed,
-#                            progress=progress,
-#                            cache_id=uuid.uuid4())
-
 @app_routes.route('/logout', strict_slashes=False)
-def logout_route():
-    logout()
+def logout():
+    url = 'http://127.0.0.1:5001/auth/logout/'  # Corrected endpoint
+    headers = {"Authorization": f"Bearer {session.get('access_token_cookie')}"}
+    res = requests.delete(url=url, headers=headers)
+    session.clear()
     flash('You have been logged out!', 'success')
     return redirect(url_for('app_routes.login'))

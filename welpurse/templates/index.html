@@ -22,17 +22,19 @@
   </div>
   
  <section class="container-cards">
+  {%if welfares%}
     {%for welfare in welfares.data%}
         <div class="card-wf">
             <h4>Welfare Group: {{welfare["name"]}}</h4>
             <h6>Purpose</h6>
             <p>{{welfare["purpose"]}}.</p>
-            {%if welfare['id'] not in welfare_ids%}
+            {%if member not in welfare['members']%}
                 <a class="button red-button join-btn" data-groupId="{{welfare['id']}}" data-memberId="{{member_id}}">Become a Contributor</a>
             {%endif%}
             <a class="button blue-button info-btn">About Education Aid Fund</a>        
         </div>
     {%endfor%}
+  {%endif%}
     <div class="add-card" onclick="window.location.href='/creategroup';">
       <div class="plus-sign">
             +

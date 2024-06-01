@@ -48,9 +48,10 @@ def wallet_transact(wallet_id):
 
 # FUND WALLET
 # Mpesa
-@app_views.route('/wallets/<wallet_id>', methods=['POST'], strict_slashes=False)
+@app_views.route('/wallet/<wallet_id>', methods=['POST'], strict_slashes=False)
 def fund_wallet_mpesa(wallet_id):
-    amount = 1
+    
+    amount = 10
     email = "khalfanathman12@gmail.com"
     phone = "254740403037"
     response = service.wallets.fund(wallet_id=wallet_id,

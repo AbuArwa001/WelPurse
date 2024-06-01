@@ -43,9 +43,28 @@ def get_welfares():
         welfare_dict = welfare.to_dict()
         welfare_dict["member_count"] = member_count
         welfare_dict["members"] = [member.to_dict() for member in welfare.members]  # Convert members to dicts
+        welfare_dict["wallet"] = welfare.wallet.to_dict() if welfare.wallet else None
         welfares.append(welfare_dict)
 
     obj["data"] = welfares
+
+    res = jsonify(obj)
+    return make_response(res, 200)
+
+@app_views.route('/welfares/<welfare_id>', methods=['GET'], strict_slashes=False)
+def get_welfare(welfare_id):
+    """Get all Welfares with member counts"""
+    from flask import jsonify
+    obj = {}
+    welfare = storage.get(Welfare, welfare_id)
+
+    if welfare:
+        member_count = len(welfare.members)
+        welfare_dict = welfare.to_dict()
+        welfare_dict["member_count"] = member_count
+        welfare_dict["members"] = [member.to_dict() for member in welfare.members]  # Convert members to dicts
+        welfare_dict["wallet"] = welfare.wallet.to_dict() if welfare.wallet else None
+        return make_response(jsonify(welfare_dict), 200)
 
     res = jsonify(obj)
     return make_response(res, 200)

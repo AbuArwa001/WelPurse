@@ -13,6 +13,7 @@ def create_app():
     app = Flask(__name__)
     app.config.from_object(Config)
     
+
     jwt.init_app(app)
     cors.init_app(app, resources={r"/api/v1/*": {"origins": "*"}})
     swagger.init_app(app)

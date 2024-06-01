@@ -199,7 +199,7 @@ def join_group():
 """
 GET MEMBERS FROM WELFARE
 """
-@app_views.route('/welfares/<welfare_id>', methods=['GET'], strict_slashes=False)
+@app_views.route('/welfares/<welfare_id>/members', methods=['GET'], strict_slashes=False)
 def get_members_for_welfare(welfare_id):   
     welfare = storage.get(Welfare, welfare_id)
     if not welfare:

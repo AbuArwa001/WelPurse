@@ -1,61 +1,34 @@
 .wel-purse-bg {
+    grid-area: main;
     background-color: #d0b997; /* Your primary theme color */
-    color:#2a5b87; /* Your secondary theme color */
+    color: #2a5b87; /* Your secondary theme color */
 }
 
 .dashboard-title {
-    color:#2a5b87; /* Your secondary theme color */
+    color: #2a5b87; /* Your secondary theme color */
 }
 
 .contribution-header {
-    color: rgb(171, 0, 0, 0.73); /* Your accent theme color */
+    color: rgba(171, 0, 0, 0.73); /* Your accent theme color */
 }
 
 .wel-purse-select, .wel-purse-input {
-    /* background-color:#2a5b87; */
-    color: #d0b997; /* Your primary theme color */
-    border: none;
-}
-
-.wel-purse-select::placeholder, .wel-purse-input::placeholder {
-    color: #d0b997; /* Your primary theme color */
+    color: #2a5b87; /* Your secondary theme color */
+    background-color: #f5f5f5; /* Light background for inputs */
+    border: 1px solid #d0b997; /* Border in primary theme color */
+    border-radius: 4px; /* Slightly rounded corners */
+    padding: 10px;
 }
 
 .wel-purse-btn {
-    background-color: rgb(171, 0, 0, 0.73); /* Your accent theme color */
+    background-color: rgba(171, 0, 0, 0.73); /* Your accent theme color */
     color: #d0b997; /* Your primary theme color */
     border-radius: 20px; /* Rounded corners for the button */
     border: none;
     padding: 10px 20px;
 }
-.wel-purse-input{
-    color: black;
-}
+
 .wel-purse-btn:hover {
     background-color: #d0b997; /* Your primary theme color */
-    color:#2a5b87; /* Your secondary theme color */
-}
-/* .wel-purse-bg {
-    grid-area: main;
-    font-family: Arial, sans-serif;
-    margin-bottom: 30px;
-    background-color: #d0b997;
-    margin-left: 20%;
-    margin: auto 20%;
-    border-radius: 25px;
-    box-shadow: 1px 0.em;
-    box-shadow: -13px 6px 8px rgba(0, 0, 0, 0.1);
-    color: #333;
-    margin: 10px;
-    padding: 20px;
-} */
-.wel-purse-bg {
-    grid-area: main;
-    font-family: Arial, sans-serif;
-    background-color: #d0b997;
-    margin: 10px; 
-    border-radius: 25px;
-    box-shadow: -13px 6px 8px rgba(0, 0, 0, 0.1);
-    color: #333;
-    padding: 20px;
+    color: #2a5b87; /* Your secondary theme color */
 }

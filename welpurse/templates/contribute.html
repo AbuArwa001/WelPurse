@@ -14,41 +14,49 @@
         <div class="row">
             <div class="col-12-row">
                 <h3 class="contribution-header">Make a Contribution</h3>
-                <form id="contribution-form" action="#" method="post">
+                <form id="contribution-form" method="POST" action="{{ url_for('app_routes.contribute') }}">
+                    {{ form.hidden_tag() }}
                     <!-- Dropdown for selecting welfare group -->
                     <div class="input-group mb-3">
-                        <select name="welfare_group" class="form-control wel-purse-select" required>
-                            <option value="" disabled selected>Select WelfareS Group</option>
-                            <option value="welfare1">welfare1</option>
-                            <option value="welfare2">welfare1</option>
-                        </select>
+                        {{ form.welfare_group.label(class_="form-label") }}
+                        {{ form.welfare_group(class_="form-control wel-purse-select") }}
                     </div>
                     <!-- Input for contribution amount -->
                     <div class="input-group mb-3">
-                        <input type="number" name="amount" class="form-control wel-purse-input" placeholder="Enter amount" required>
+                        {{ form.amount.label(class_="form-label") }}
+                        {{ form.amount(class_="form-control wel-purse-input", placeholder="Enter amount") }}
                     </div>
                     <!-- Dropdown for payment method -->
                     <div class="input-group mb-3">
-                        <select name="payment_method" id="payment-method" class="form-control wel-purse-select">
-                            <option value="credit_card">Credit Card</option>
-                            <option value="paypal">PayPal</option>
-                            <option value="mpesa">MPesa</option>
-                            <!-- Add more payment methods as needed -->
-                        </select>
+                        {{ form.payment_method.label(class_="form-label") }}
+                        {{ form.payment_method(class_="form-control wel-purse-select") }}
                     </div>
                     <!-- Input for MPesa number (hidden by default) -->
                     <div class="input-group mb-3" id="mpesa-number" style="display: none;">
-                        <input type="tel" name="mpesa_number" class="form-control wel-purse-input" placeholder="Enter MPesa number">
+                        {{ form.mpesa_number.label(class_="form-label") }}
+                        {{ form.mpesa_number(class_="form-control wel-purse-input", placeholder="Enter MPesa number") }}
                     </div>
                     <!-- Submit button -->
                     <div class="input-group center mb-3">
-                        <button class="intaSendPayButton" data-amount="1" data-currency="KES">Contribute Now</button>
-                        <!-- <button type="submit" class="intaSendPayButton btn wel-purse-btn"  data-amount="1" data-currency="KES">Contribute</button> -->
+                        {{ form.submit(class_="btn wel-purse-btn") }}
                     </div>
                 </form>
             </div>
         </div>
     </div>
 </div>
+
+{% block scripts %}
+<script>
+    document.getElementById('payment-method').addEventListener('change', function() {
+        const mpesaNumber = document.getElementById('mpesa-number');
+        if (this.value === 'mpesa') {
+            mpesaNumber.style.display = 'block';
+        } else {
+            mpesaNumber.style.display = 'none';
+        }
+    });
+</script>
+{% endblock %}
 
 {% endblock content %}
