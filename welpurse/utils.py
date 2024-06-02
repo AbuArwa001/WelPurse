@@ -1,8 +1,8 @@
 # utils.py
 from functools import wraps
 from flask import redirect, url_for, session
-from flask_jwt_extended import verify_jwt_in_request, get_jwt_identity, get_jwt
-import jwt
+# from flask_jwt_extended import verify_jwt_in_request, get_jwt_identity, get_jwt
+# import jwt
 from flask import session
 from flask_jwt_extended import decode_token, get_jwt_identity
 from datetime import datetime
@@ -68,3 +68,17 @@ def login_required(f):
             return redirect(url_for('app_routes.login'))
         return f(*args, **kwargs)
     return decorated_function
+
+
+def get_current_user():
+        access_token_cookie = session.get('access_token_cookie')
+        if not access_token_cookie:
+            return None  # or handle as appropriate
+
+        url = "http://127.0.0.1:5001/auth/who_am_i"
+        headers = {"Authorization": f"Bearer {access_token_cookie}"}
+        response = requests.get(url, headers=headers)
+        if response.status_code == 200:
+            return response.json()  # This will contain the user's information
+        else:
+            return None  # or handle as appropriate

@@ -1,10 +1,11 @@
 $(document).ready(function() {
-    window.openForm = function openForm(eventName, amount, description, welfareId) {
+    window.openForm = function openForm(eventId, eventName, amount, description, welfareId) {
       $("#popupForm").css("display", "flex");
-      $('select[name="welfare_group"]').val(eventName);
+      $('input[name="welfare_group"]').val(eventName);
       $('input[name="amount"]').val(amount);
       $('textarea[name="event_description"]').val(description);
       $('input[name="welfare_id"]').val(welfareId);
+      $('input[name="event_id"]').val(eventId);
     }
     
 

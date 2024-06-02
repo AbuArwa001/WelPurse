@@ -58,6 +58,7 @@
     <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='styles/contribute.css', cache_id=cache_id) }}">
     <script src="{{ url_for('static', filename='script/contribute.js', cache_id=cache_id)}}"></script>
     <script src="{{ url_for('static', filename='script/events.js', cache_id=cache_id)}}"></script>
+    <script src="{{ url_for('static', filename='script/flash.js', cache_id=cache_id)}}"></script>
 
     
     {% if title%}
@@ -71,24 +72,29 @@
     <div class="body-div-1">
       {% include '_topnavbar.html' %}
       {% if title == 'Login' %}
+        {% include 'flash.html' %}
         {% block login %}
         {% endblock login %}
-      {% endif %}
-      {% if title == 'Register'%}
+        {% endif %}
+        {% if title == 'Register'%}
         {% block register %}
         {% endblock register %}
-      {% endif %}
-      {% include '_footer.html' %}
-    </div>
-    {% else %}
-    <div class="body-div-2">
-      {% include '_topnavbar.html' %}
+        {% endif %}
+        {% include '_footer.html' %}
+      </div>
+      {% else %}
+      <div class="body-div-2">
+        {% include '_topnavbar.html' %}
         {% include '_sidebar.html' %}
+        {% include 'flash.html' %}
         {% block content %}
         {% endblock %}
       {% include '_footer.html' %}
       </div>
     {% endif %}
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.2/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
     <script src="{{ url_for('static', filename='script/charts.js', cache_id=cache_id) }}"></script>
     <script src="{{ url_for('static', filename='assets/js/jquery-3.2.1.min.js', cache_id=cache_id) }}"></script>
     <script src="{{ url_for('static', filename='assets/js/popper.min.js', cache_id=cache_id) }}"></script>

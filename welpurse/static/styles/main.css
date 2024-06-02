@@ -160,3 +160,13 @@ a, button {
 a:hover, button:hover {
   color: var(--secondary-color);
 }
+/* 
+FLASH MESSAGES
+*/
+.flash-message {
+  position: fixed;
+  top: 20px;
+  right: 30%;
+  /* margin: auto; */
+  z-index: 1000;
+}

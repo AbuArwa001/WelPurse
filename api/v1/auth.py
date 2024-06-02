@@ -56,7 +56,19 @@ def refresh():
     response = jsonify({'refresh': True})
     set_access_cookies(response, new_access_token)
     return response
-
+# @auth_blueprint.after_request
+# def refresh_expiring_jwts(response):
+#     try:
+#         exp_timestamp = get_jwt()["exp"]
+#         now = datetime.timestamp(datetime.now())
+#         target_timestamp = datetime.timestamp(datetime.now() + timedelta(minutes=30))
+#         if target_timestamp > exp_timestamp:
+#             access_token = create_access_token(identity=get_jwt_identity())
+#             set_access_cookies(response, access_token)
+#     except (RuntimeError, KeyError):
+#         # No valid JWT in request
+#         pass
+#     return response
 @auth_blueprint.after_request
 def refresh_expiring_jwts(response):
     try:
@@ -98,3 +110,4 @@ def check_if_token_is_revoked(jwt_header, jwt_payload: dict):
     jti = jwt_payload["jti"]
     token_in_redis = Config.jwt_redis_blocklist.get(jti)
     return token_in_redis is not None
+

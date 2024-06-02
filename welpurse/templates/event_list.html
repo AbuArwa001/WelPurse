@@ -20,7 +20,11 @@
         <td>{{event.description}}</td>
         <td>30,000</td>
         <td>
-          <button type="button" class="btn" onclick="openForm('{{ event.title }}', '{{ event.amount_needed }}', '{{ event.description }}', '{{ event.welfare_id }}')">Contribute</button>
+          <button type="button" class="btn" onclick="openForm('{{ event.id }}',
+                                                              '{{ event.title }}',
+                                                              '{{ event.amount_needed }}',
+                                                              '{{ event.description }}',
+                                                              '{{ event.welfare_id }}')">Contribute</button>
           <form action="#" method="get" style="display:inline;">
             <button type="submit" class="btn">View</button>
           </form>
@@ -36,27 +40,26 @@
     <span class="close" onclick="closeForm()">×</span>
     <h3>Make a Contribution</h3>
     <form id="contribution-form" action="{{ url_for('app_routes.events') }}" method="post">
-      {{ form.hidden_tag() }}
+      {{ form_cont.hidden_tag() }}
       <div class="input-group mb-3">
-        {{ form_cont.welfare_group.label }} {{ form_cont.welfare_group(class="form-control wel-purse-input") }}
+        {{ form_cont.welfare_group(class="form-control wel-purse-input") }}
       </div>
       <div class="input-group mb-3">
         {{ form_cont.amount.label }} {{ form_cont.amount(class="form-control wel-purse-input") }}
       </div>
       <div class="input-group mb-3">
-        {{ form_cont.payment_method.label }} {{ form_cont.payment_method(class="form-control wel-purse-select", id="payment-method") }}
-      </div>
-      <div class="input-group mb-3" id="mpesa-number" style="display: none;">
-        {{ form_cont.mpesa_number.label }} {{ form_cont.mpesa_number(class="form-control wel-purse-input", id="mpesa-number") }}
+        {{ form_cont.mpesa_number.label }} {{ form_cont.mpesa_number(class="form-control wel-purse-input") }}
       </div>
       <!-- Hidden field for welfare_id -->
       {{ form_cont.welfare_id(class="form-control wel-purse-input", type="hidden") }}
+      {{ form_cont.event_id(class="form-control wel-purse-input", type="hidden") }}
       <div class="input-group center mb-3">
         {{ form_cont.submit(class="contrbutton") }}
       </div>
     </form>
   </div>
 </div>
+
 
 {% endblock content %}
 

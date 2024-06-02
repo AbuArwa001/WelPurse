@@ -455,7 +455,7 @@ REMEMBER ME BUTTON
 .form-check-input {
   position: absolute;
   margin-top: 0.5em;
-  margin-left: 1.5em;
+  /* margin-left: 1.5em; */
   cursor: pointer;
 }
 
