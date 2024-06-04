@@ -8,68 +8,38 @@
       <tr>
         <th>Welfare Group Name</th>
         <th>Status</th>
-        <th>Amount Requested</th>
         <th>Donation Purpose</th>
-        <th>Actions</th>
+        <th>Amount Requested</th>
+        {%if 'roles' in current_user and 'administrator' in current_user.get('roles') %}
+          <th>Actions</th>
+        {%endif%}
       </tr>
     </thead>
     <tbody>
-      <tr>
-        <td>THE MAGICIANS</td>
-        <td>pending</td>
-        <td>45,000</td>
-        <td>for the children uplifts</td>
-        <td>
-          <form action="#" method="post" style="display:inline;">
-            <button type="submit" class="btn">Approve</button>
-          </form>
-          <form action=#" method="post" style="display:inline;">
-            <button type="submit" class="btn">Reject</button>
-          </form>
-        </td>
-      </tr>
-      <tr>
-        <td>THE MAGICIANS</td>
-        <td>pending</td>
-        <td>45,000</td>
-        <td>for the children uplifts</td>
-        <td>
-          <form action="#" method="post" style="display:inline;">
-            <button type="submit" class="btn">Approve</button>
-          </form>
-          <form action=#" method="post" style="display:inline;">
-            <button type="submit" class="btn">Reject</button>
-          </form>
-        </td>
-      </tr>
-      <tr>
-        <td>CHANGAMWE COM</td>
-        <td>pending</td>
-        <td>145,000</td>
-        <td>FIGHT DRUG ABUSE</td>
-        <td>
-          <form action="#" method="post" style="display:inline;">
-            <button type="submit" class="btn">Approve</button>
-          </form>
-          <form action="#" method="post" style="display:inline;">
-            <button type="submit" class="btn">Reject</button>
-          </form>
-        </td>
-      </tr>
-      <tr>
-        <td>VIJANA MTAANI</td>
-        <td>pending</td>
-        <td>80,000</td>
-        <td>BUILDING AN INCOME PROJECT</td>
-        <td>
-          <form action="#" method="post" style="display:inline;">
-            <button type="submit" class="btn">Approve</button>
-          </form>
-          <form action="#" method="post" style="display:inline;">
-            <button type="submit" class="btn">Reject</button>
-          </form>
-        </td>
-      </tr>
+      {%for welfare in welfares%}
+        {%if 'requests' in welfare and member in welfare.get('members') %}
+            {%for request in welfare.get('requests')%}
+              {%if request.get('status') == 'pending' %}
+                <tr>
+                  <td>{{welfare.get('name')}}</td>
+                  <td>{{request.get('status')}}</td>
+                  <td>{{request.get('reason')}}</td>
+                  <td>{{request.get('amount_requested')}}</td>
+                    {%if 'roles' in current_user and 'administrator' in current_user.get('roles') %}
+                      <td>
+                        <form action="{{ url_for('app_routes.approve_donation', request_id=request.get('id') )}}" method="post" style="display:inline;">
+                          <button type="submit" class="btn">Approve</button>
+                        </form>
+                        <form action="{{ url_for('app_routes.reject_donation', request_id=request.get('id') )}}" method="post" style="display:inline;">
+                          <button type="submit" class="btn">Reject</button>
+                        </form>
+                      </td>
+                    </tr>
+                  {%endif%}
+              {%endif%}
+            {%endfor%}
+        {%endif%}
+      {%endfor%}
     </tbody>
   </table>
 </div>

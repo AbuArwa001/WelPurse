@@ -1,10 +1,10 @@
 {% extends 'layout.html' %}
 {% block content %}
 <div class="treasurer-dashboard">
-  <h1>Treasurer Dashboard - {{ group_name }}</h1>
+  <h1>Event Dashboard - {{ welfare.get("name")}}</h1>
   <div class="dashboard-section overview">
     <h2>Overview</h2>
-    <p>Total Contributions: {{ total_contributions }}</p>
+    <p>Total Contributions: {{ wallet.get("current_balance") }}</p>
     <p>Pending Requests: {{ pending_requests }}</p>
   </div>
   <div class="dashboard-section recent-transactions">
@@ -32,8 +32,9 @@
     <h2>Event Progress</h2>
     <p>Event: Medical Attention</p>
     <p>Amount Raised: 34,000 / 50,000</p>
-    <div class="progress-bar">
-      <div class="progress" style="width: (amount_raised / target_amount) * 100 %;"></div>
+    <div class="progress-bar-event">
+        <div class="progress-event" style="width: {{ (34000 / 50000) * 100 }}%;"></div>
+      <!-- <div class="progress" style="width: (amount_raised / target_amount) * 100 %;"></div> -->
     </div>
     <form action="#" method="post" class="donate-form">
       <input type="number" name="amount" placeholder="Enter donation amount" required>

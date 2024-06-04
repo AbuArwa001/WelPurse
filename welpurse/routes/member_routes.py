@@ -38,7 +38,7 @@ def login():
 
     if is_logged_in():
        print({"log": "IS LOGGED IN"})
-       return redirect(url_for('app_routes.events'))
+       return redirect(url_for('app_routes.dashboard'))
 
     if form.validate_on_submit():
         data = {
@@ -47,7 +47,7 @@ def login():
             'remember': form.remember.data,
         }
         res = requests.post(url, json=data)
-        print(res.json())
+        print(res.status_code)
         if res.status_code == 200:
             cookies = res.cookies
             # To get a dictionary of cookies
@@ -57,7 +57,7 @@ def login():
             session['access_token_cookie'] = token
             session['csrf_access_token'] = csrf_token
             flash('You have been logged in!', 'success')
-            return redirect(url_for('app_routes.events'))
+            return redirect(url_for('app_routes.dashboard'))
         else:
             flash('Login Unsuccessful. Please check email and password', 'danger')
     

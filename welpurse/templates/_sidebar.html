@@ -1,8 +1,8 @@
 <div class="sidebar">
 <!-- <div class="sidebar-alt"> -->
     <div class="profile">
-        <img src="https://1.bp.blogspot.com/-vhmWFWO2r8U/YLjr2A57toI/AAAAAAAACO4/0GBonlEZPmAiQW4uvkCTm5LvlJVd_-l_wCNcBGAsYHQ/s16000/team-1-2.jpg" alt="profile_picture">
-        <h3>Anamika Roy</h3>
+        <img src="{{ url_for('static', filename='images/148.jpg', cache_id=cache_id) }}" alt="profile_picture">
+        <h3>{{' '.join(current_user.get("full_name").split()[:2])}}</h3>
         <p>Designer</p>
     </div>
     <ul class="side-list">
@@ -47,13 +47,7 @@
             </a>
         </li>
         <li>
-            <a href="{{url_for('app_routes.events_view')}}">
-                <span class="icon"><i class="fas fa-tachometer-alt"></i></span>
-                <span class="item">Event view Donations</span>
-            </a>
-        </li>
-        <li>
-            <a href="/">
+            <a href="{{url_for('app_routes.home')}}">
                 <span class="icon"><i class="fas fa-database"></i></span>
                 <span class="item">Welfares</span>
             </a>

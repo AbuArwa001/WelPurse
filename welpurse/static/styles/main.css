@@ -170,3 +170,9 @@ FLASH MESSAGES
   /* margin: auto; */
   z-index: 1000;
 }
+
+.error {
+  color: red;
+  font-size: 0.875em;
+  margin-top: 0.25em;
+}

@@ -147,3 +147,17 @@ DONATION THAT HAVE BEEN APPROVED WAITING FOR LAUNCH
   .btn:hover {
     background: #2a5b87; /* Blue for titles */
   }
+/* 
+REQUES BUTTON
+*/
+.btn-donate {
+  /* padding: 0.5em 3.6em; */
+  padding: .5em 1em;
+  border: none;
+  background: #2a5b87;
+  color: white;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 1em;
+  margin: 5px;
+}

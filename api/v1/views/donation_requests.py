@@ -44,7 +44,6 @@ def request_donation():
     for field in required_fields:
         if field not in data:
             abort(400, description=f"Missing {field}")
-
     welfare = storage.get(Welfare, data["welfare_id"])
     if not welfare:
         abort(404, description="Welfare not found")
@@ -61,6 +60,26 @@ def request_donation():
     instance.save()
     return jsonify(instance.to_dict()), 201
 
+# @app_views.route('/donation-requests/<request_id>/approve', methods=['PUT', 'POST'], strict_slashes=False)
+# def approve_donation_request(request_id):
+@app_views.route('/donation-requests/<request_id>/start', methods=['PUT', 'POST'], strict_slashes=False)
+@jwt_required()
+def star_donation(request_id):
+    print("TRYING START")
+    if not user_is_admin():
+        abort(403, description="Forbidden")
+
+    donation_request = storage.get(DonationRequest, request_id)
+    print("donation req", donation_request)
+    if not donation_request:
+        abort(404, description="Donation request not found")
+    if donation_request.status == 'rejected':
+        return jsonify(donation_request.to_dict())
+    elif donation_request.status == 'approved':
+        donation_request.status = 'ongoing'
+        donation_request.save()
+        return jsonify(donation_request.to_dict())
+    return jsonify(donation_request.to_dict()), 200
 # @app_views.route('/donation-requests/<request_id>/approve', methods=['PUT', 'POST'], strict_slashes=False)
 # def approve_donation_request(request_id):
 @app_views.route('/donation-requests/<request_id>/approve', methods=['PUT', 'POST'], strict_slashes=False)

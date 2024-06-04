@@ -4,32 +4,65 @@
   <h1>Create a New Event</h1>
   <form method="POST" action="{{ url_for('app_routes.create_event') }}">
     {{ form.hidden_tag() }}
+
+    <div class="input-group">
+      {{ form.title.label }}
+      {{ form.title(class="form-control") }}
+      {% for error in form.title.errors %}
+        <div class="error">{{ error }}</div>
+      {% endfor %}
+    </div>
+
     <div class="input-group">
       {{ form.welfare_group_name.label }}
-      {{ form.welfare_group_name(class_="form-control") }}
+      {{ form.welfare_group_name(class="form-control") }}
+      {% for error in form.welfare_group_name.errors %}
+        <div class="error">{{ error }}</div>
+      {% endfor %}
     </div>
+
     <div class="input-group">
       {{ form.event_date.label }}
-      {{ form.event_date(class_="form-control") }}
+      {{ form.event_date(class="form-control") }}
+      {% for error in form.event_date.errors %}
+        <div class="error">{{ error }}</div>
+      {% endfor %}
     </div>
+
     <div class="input-group">
       {{ form.start_date.label }}
-      {{ form.start_date(class_="form-control") }}
+      {{ form.start_date(class="form-control") }}
+      {% for error in form.start_date.errors %}
+        <div class="error">{{ error }}</div>
+      {% endfor %}
     </div>
+
     <div class="input-group">
       {{ form.end_date.label }}
-      {{ form.end_date(class_="form-control") }}
+      {{ form.end_date(class="form-control") }}
+      {% for error in form.end_date.errors %}
+        <div class="error">{{ error }}</div>
+      {% endfor %}
     </div>
+
     <div class="input-group">
       {{ form.donation_purpose.label }}
-      {{ form.donation_purpose(class_="form-control") }}
+      {{ form.donation_purpose(class="form-control") }}
+      {% for error in form.donation_purpose.errors %}
+        <div class="error">{{ error }}</div>
+      {% endfor %}
     </div>
+
     <div class="input-group">
-      {{ form.amount_requested.label }}
-      {{ form.amount_requested(class_="form-control") }}
+      {{ form.target_amount.label }}
+      {{ form.target_amount(class="form-control") }}
+      {% for error in form.target_amount.errors %}
+        <div class="error">{{ error }}</div>
+      {% endfor %}
     </div>
+
     <div class="input-group">
-      {{ form.submit(class_="btn btn-primary") }}
+      {{ form.submit(class="btn btn-primary") }}
     </div>
   </form>
 </div>

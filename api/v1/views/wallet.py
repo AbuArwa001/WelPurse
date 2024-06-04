@@ -46,7 +46,7 @@ def get_one_wallet(wallet_id):
 @swag_from('documentation/user/post_member.yml', methods=['POST'])
 def post_wallet():
     """
-    Creates a user
+    Creates a WALLLET
     """
     if not request.get_json():
         abort(400, description="Not a JSON")
@@ -61,5 +61,27 @@ def post_wallet():
     instance.save()
     return make_response(jsonify(instance.to_dict()), 201)
 
+@app_views.route('/wallets/<wallet_id>', methods=['PUT'], strict_slashes=False)
+@swag_from('documentation/welfare/update_wallet.yml', methods=['PUT'])
+def update_wallet(wallet_id):
+    """
+    Updates a Wallet
+    """
+    data = request.get_json()
+    if not data:
+        abort(400, description="Not a JSON")
 
+    wallet = storage.get(Wallet, wallet_id)
+    if not wallet:
+        abort(404)
+
+    ignore = ['id', 'created_at', 'updated_at']
+    wallet_dict = wallet.__dict__
+
+    for key, value in data.items():
+        if key not in ignore:
+            setattr(wallet, key, value)
+    
+    storage.save()
+    return make_response(jsonify(wallet.to_dict()), 200)
 

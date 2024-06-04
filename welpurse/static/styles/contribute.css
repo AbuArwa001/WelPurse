@@ -1,7 +1,10 @@
 .wel-purse-bg {
     grid-area: main;
-    background-color: #d0b997; /* Your primary theme color */
-    color: #2a5b87; /* Your secondary theme color */
+    background-color: #d0b997;
+    color: #2a5b87;
+    padding: 20px;
+    border-radius: 25px;
+    box-shadow: -5px 5px 5px gray;
 }
 
 .dashboard-title {

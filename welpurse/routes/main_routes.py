@@ -3,8 +3,24 @@ import uuid
 from welpurse.utils import login_required
 from welpurse.routes import app_routes
 import requests
+from welpurse.forms.contribute import ContributionForm
+from welpurse.forms.donation_req import DonationRequestForm
 from datetime import datetime, timedelta
-
+import asyncio
+from welpurse.utils import get_current_user
+from .helper_funtions import( fetch_events,
+                             fetch_a_member,
+                            fetch_an_event,
+                            update_database,
+                            fetch_intasend_wallet,
+                            fetch_wallet,
+                            fetch_welfares,
+                            fetch_wallet_id,
+                            fetch_a_welfare,
+                            process_payment,
+                            async_events_view,
+                            update_wallet
+                            )
 calendar = [
   {
     "id": 1,
@@ -31,48 +47,29 @@ calendar = [
     "end_event": "2024-05-13T00:00:00"
   }
 ]
-
 @app_routes.route('/', strict_slashes=False)
+def landingpage():
+    """ Goes to landing page """
+    return render_template('landingpage.html')
+
+@app_routes.route('/home', strict_slashes=False)
 @login_required
 def home():
-    """ Prints a Message when / is called """
+    """ Page displaying welfares """
     # Check if the session variables exist
-    access_token = session.get('access_token_cookie')
-    csrf_token = session.get('csrf_access_token')
-    
-    if not access_token or not csrf_token:
-        flash('Session tokens are missing.', 'error')
-        return redirect(url_for('auth.login'))
+    current_user = get_current_user()
 
-    wami = "http://127.0.0.1:5001/auth/who_am_i"
-    headers = {"Authorization": f"Bearer {access_token}"}
-    req = requests.get(url=wami, headers=headers)
-    member_id = None  # Initialize member_id to None
-    if req.status_code == 200:
-        member_id = req.json().get('id')  # This will return the current user's ID
-
-    css_file = 'index.css'  # Assuming this is a regular CSS file
-    url = "http://127.0.0.1:5001/api/v1/welfares"
-    res = requests.get(url=url)
-    if res.status_code != 200:
-        flash('Failed to retrieve welfares.', 'error')
-        return redirect(url_for('app_routes.login'))
-    
-    member = f"http://127.0.0.1:5001/api/v1/members/{member_id}"
-    resp = requests.get(url=member)
-    if resp.status_code == 200:
-        member = resp.json()
-    welfares = res.json()
-    data = welfares.get('data', [])
-    welfare_ids = [welf.get('id') for welf in data if welf.get('members')]
-    print(member)
+    headers = {"Authorization": f"Bearer {session['access_token_cookie']}"}
+    member_id = current_user.get('id') if current_user else None
+    member = fetch_a_member(headers=headers, member_id=member_id)
+    welfares = fetch_welfares(headers=headers).get('data')
+    # print("welfares", welfares)
     return render_template('index.html',
-                           css_file=css_file,
                            cache_id=uuid.uuid4(),
                            welfares=welfares,
-                           member=member,
+                           current_user=current_user,
                            member_id=member_id,
-                           welfare_ids=welfare_ids
+                           member=member
                            )
 # @app_routes.route('/login', strict_slashes=False)
 # def login():
@@ -84,30 +81,121 @@ def home():
 @app_routes.route('/dashboard', strict_slashes=False)
 @login_required  # Use custom login_required decorator
 def dashboard():
-
+    current_user = get_current_user()
     title = 'dashboard'
     amount_contributed = 70000
     target = 200000
     progress = (amount_contributed / target) * 100
-    response = requests.get('http://127.0.0.1:5001/api/v1/events/')
-    events = response.json()
-    if response.status_code == 200:
+    headers = {"Authorization": f"Bearer {session['access_token_cookie']}"}
+    # response = requests.get('http://127.0.0.1:5001/api/v1/events/')
+
+    events = fetch_events(headers)
+
+    if events:
+
       # Format the data for FullCalendar
       formatted_events = []
       for event in events:
           formatted_events.append({
               'id': event['id'],
               'title': event['title'],
-              # 'start': datetime.strptime(event['start_date'], '%Y-%m-%dT%H:%M:%S.%f').isoformat(),
-              # 'end': datetime.strptime(event['end_date'], '%Y-%m-%dT%H:%M:%S.%f').isoformat()
+              'start_event': event['start_date'],
+              'end_event': event['end_date'],
           })
+      print(formatted_events)
     # Render the dashboard page if authenticated
     return render_template('dashboard.html',
-                           calendar=calendar,
+                           current_user=current_user,
+                           calendar=formatted_events,
                            title=title,
                            total=amount_contributed,
                            progress=progress,
                            cache_id=uuid.uuid4())
+
+
+@app_routes.route('/group_dash/<welfare_id>', methods=['GET', 'POST'], strict_slashes=False)
+@login_required  # Use custom login_required decorator
+def group_dash(welfare_id):
+    current_user = get_current_user()
+
+    title = 'Welfare'
+    amount_contributed = 70000
+    target = 200000
+    progress = (amount_contributed / target) * 100
+    form = ContributionForm()
+    form_req = DonationRequestForm()
+    headers = {"Authorization": f"Bearer {session['access_token_cookie']}"}
+    current_user = get_current_user()
+    print("CURRENT USER", type(current_user))
+    welf = fetch_a_welfare(headers, welfare_id)
+
+    # Run the asynchronous tasks synchronously
+    wallet = asyncio.run(fetch_intasend_wallet(headers, welf.get("wallet")["wallet_id"]))
+    updated_wallet = asyncio.run(update_wallet(headers, welf.get("wallet")["id"], wallet))
+
+    member_count = welf.get('member_count')
+    events = fetch_events(headers)
+    formatted_events = []
+    if events:
+        # Format the data for FullCalendar
+        for event in events:
+            if event.get('welfare_id') == welfare_id:
+                # if event.get('welfare_id'):
+                formatted_events.append({
+                    'id': event['id'],
+                    'title': event['title'],
+                    'start_event': event['start_date'],
+                    'end_event': event['end_date'],
+                })
+    form.welfare_id = welfare_id
+    # form.event_id =
+    if form.validate_on_submit():
+        welfare = f"http://127.0.0.1:5001/api/v1/welfares/{welfare_id}"
+        wallet = fetch_wallet_id(welfare, headers)
+
+        if wallet:
+            amount = form.amount.data
+            email = current_user.get("email")
+            phone = form.mpesa_number.data
+            event_id = form.event_id.data
+            if process_payment(current_user, wallet,
+                               email,
+                               phone, 
+                               amount,
+                               event_id,
+                               "1",
+                               "monthly"):
+                flash('Contributed successfully!', 'success')
+            else:
+                flash('Contribution failed! try Again', 'danger')
+    if form_req.validate_on_submit():
+      req_url = f"http://127.0.0.1:5001/api/v1/donation-request/"
+      data = {
+          "reason": form_req.reason.data,
+          "amount_requested": form_req.amount_requested.data,
+          "member_id": form_req.member_id.data,
+          "welfare_id": form_req.welfare_id.data
+      }
+      res = requests.post(req_url, headers=headers, json=data)
+      print(res.json())
+      if res.status_code != 201:
+         flash('Request Not completed please try Again Later', 'danger')
+      else:
+          flash('Request Sent Succesfully', 'success')
+    # Render the dashboard page if authenticated
+    return render_template('group_dash.html',
+                           form=form,
+                           form_req=form_req,
+                           welfare=welf,
+                           current_user=current_user,
+                           updated_wallet=updated_wallet,
+                           member_count=member_count,
+                           calendar=formatted_events,
+                           title=title,
+                           total=amount_contributed,
+                           progress=progress,
+                           cache_id=uuid.uuid4())
+
 # # Custom error handler for JWT errors
 # @jwt.unauthorized_loader
 # def unauthorized_callback(callback):

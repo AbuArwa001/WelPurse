@@ -90,33 +90,73 @@
   background: #2a5b87;
 }
 
-.progress-bar {
+.progress-bar-event {
   width: 100%;
   background-color: #d0b997;
   border-radius: 5px;
   overflow: hidden;
-  height: 20px;
+  /* height: 20px; */
   margin-top: 10px;
 }
+ /* .progress-bar{
+    width: 90%;
+    height: 2em;
+    background-color:rgb(47, 104, 190);
+    border-radius: 1em;
+    align-content: center;
+    position: relative;
+    margin-top: .5em;
+    margin-left: .5em;
+    color: white;
+ }
+ .progress-bar::before{
+    content: attr(data-label);
+    display: flex;
+    align-items: center;
+    position: absolute;
+    width: calc(var(--width, 0) * 1%);
+    left: .5em;
+    top: .3em;
+    bottom: .3em;
+    min-width: 2rem;
+    max-width: calc(100% - 1em);
+    background-color:rgb(171 0 0 / 73%);
+    border-radius: .5em;
+    padding: .5em;
+ } */
 
-.progress {
-  height: 100%;
-  background-color: #2a5b87;
-  transition: width 0.3s ease;
+ .progress-bar-event {
+  background-color: #2a5b87; 
+  border-radius: 5px;
+  padding: 3px; 
+  width: 100%; 
+  /* box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2); */
 }
 
+.progress-event {
+  background-color: #d0b997; 
+  height: 10px;
+  border-radius: 2px; 
+  transition: width 0.4s ease;
+}
 .donate-form {
-  margin-top: 10px;
+  margin-top: 5px;
   display: flex;
-  align-items: center;
+  /* padding: 0.5em; */
+  /* border: 1px solid #d0b997; */
+  /* border-radius: 5px; */
+  justify-content: space-between;
+  flex-wrap: nowrap;
+  /* margin-right: 55%; */
+  /* flex: 1; */
 }
-
 .donate-form input {
   padding: 0.5em;
   border: 1px solid #d0b997;
   border-radius: 5px;
-  margin-right: 10px;
-  flex: 1;
+  width: 60%;
+  /* margin-right: 10px; */
+  /* flex: 1; */
 }
 /* 
 EVENTS LIST
@@ -274,4 +314,80 @@ EVENTS LIST
     font-weight: bold;
     cursor: pointer;
   }
-  
+  /* 
+  EVENTS-DONATION MODAL
+  */
+
+  .error {
+    color: red;
+    font-size: 0.875em;
+    margin-top: 0.25em;
+  }
+  .modal {
+    display: none;
+    position: fixed;
+    z-index: 1;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgba(0,0,0,0.4);
+  }
+  .modal-content {
+    background-color: #f5f5f5;
+    margin: 15% auto;
+    padding: 20px;
+    border: 1px solid #888;
+    width: 80%;
+  }
+  .close {
+    color: #aaa;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+  }
+  .close:hover,
+  .close:focus {
+    color: black;
+    text-decoration: none;
+    cursor: pointer;
+  }
+  .styled-table {
+    border-collapse: collapse;
+    margin: 25px 0;
+    font-size: 0.9em;
+    min-width: 400px;
+    border-radius: 5px 5px 0 0;
+    overflow: hidden;
+    border: 1px solid #2a5b87;
+  }
+  .styled-table thead tr {
+    background-color: #2a5b87;
+    color: #ffffff;
+    text-align: left;
+  }
+  .styled-table th,
+  .styled-table td {
+    padding: 12px 15px;
+  }
+  .styled-table tbody tr {
+    border-bottom: 1px solid #dddddd;
+  }
+  .styled-table tbody tr:nth-of-type(even) {
+    background-color: #f3f3f3;
+  }
+  .styled-table tbody tr:last-of-type {
+    border-bottom: 2px solid #2a5b87;
+  }
+  .btn {
+    background-color: #2a5b87;
+    color: #ffffff;
+    padding: 10px 20px;
+    border: none;
+    cursor: pointer;
+    border-radius: 5px;
+  }
+  .btn:hover {
+    background-color: rgba(171, 0, 0, 0.73);
+  }

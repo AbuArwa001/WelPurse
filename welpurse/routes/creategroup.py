@@ -1,5 +1,5 @@
 
-from flask import render_template,redirect, url_for, request, session
+from flask import render_template,redirect, url_for, flash, session
 import uuid 
 from welpurse.forms.creategroup import WelfareGroupForm
 from welpurse.utils import login_required
@@ -17,6 +17,8 @@ def create_welfare_group():
     if not is_logged_in():
        return redirect(url_for('app_routes.login'))
     form = WelfareGroupForm()
+    # searchable_bool = form.searchable.data == 'True'
+    # special_events_bool = form.special_events.data == 'True'
     if form.validate_on_submit():
         data =     {
                 "administrator": form.administrator.data,
@@ -54,7 +56,7 @@ def create_welfare_group():
         if res.status_code == 201:  # Check if the request was successful
             welfare_data = res.json()  # Access the JSON response data
             logging.info("WELFARE DATA %s", welfare_data)
-
-            return redirect(url_for('app_routes.success'))  # replace with your success page
+            flash("Succesfuly created a group", "success")
+            return redirect (url_for('app_routes.home'))
         logging.error("ERROR OF CREATION %s", res)
     return render_template('creategroup.html', form=form, title=title)

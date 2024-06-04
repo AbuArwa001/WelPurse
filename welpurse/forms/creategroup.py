@@ -66,10 +66,7 @@ class WelfareGroupForm(FlaskForm):
         ('restricted', 'Restricted')
     ], validators=[Optional()])
     
-    searchable = RadioField('Searchable', choices=[
-        ('yes', 'Yes'),
-        ('no', 'No')
-    ], validators=[Optional()])
+    searchable = BooleanField('Searchable', validators=[Optional()])
 
     # Communication
     preferred_communication_channel = SelectField('Preferred Communication Channel', choices=[

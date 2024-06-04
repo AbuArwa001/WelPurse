@@ -59,4 +59,4 @@ async def wait_for_payment_completion(self, invoice_id):
             return state
         else:
             self.update_state(state='PROGRESS', meta={'current': state})
-        await asyncio.sleep(10)  # Reduce sleep time for faster checks
+        await asyncio.sleep(5)  # Reduce sleep time for faster checks

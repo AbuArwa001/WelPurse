@@ -23,7 +23,7 @@
   
  <section class="container-cards">
   {%if welfares%}
-    {%for welfare in welfares.data%}
+    {%for welfare in welfares%}
         <div class="card-wf">
             <h4>Welfare Group: {{welfare["name"]}}</h4>
             <h6>Purpose</h6>
@@ -31,7 +31,7 @@
             {%if member not in welfare['members']%}
                 <a class="button red-button join-btn" data-groupId="{{welfare['id']}}" data-memberId="{{member_id}}">Become a Contributor</a>
             {%endif%}
-            <a class="button blue-button info-btn">About Education Aid Fund</a>        
+            <a href="{{ url_for('app_routes.group_dash', welfare_id=welfare['id']) }}" class="button blue-button info-btn">About Welfare</a>
         </div>
     {%endfor%}
   {%endif%}

@@ -43,6 +43,8 @@ def get_welfares():
         welfare_dict = welfare.to_dict()
         welfare_dict["member_count"] = member_count
         welfare_dict["members"] = [member.to_dict() for member in welfare.members]  # Convert members to dicts
+        welfare_dict["events"] = [event.to_dict() for event in welfare.events]  # Convert event to dicts
+        welfare_dict["requests"] = [request.to_dict() for request in welfare.requests] 
         welfare_dict["wallet"] = welfare.wallet.to_dict() if welfare.wallet else None
         welfares.append(welfare_dict)
 
@@ -63,6 +65,8 @@ def get_welfare(welfare_id):
         welfare_dict = welfare.to_dict()
         welfare_dict["member_count"] = member_count
         welfare_dict["members"] = [member.to_dict() for member in welfare.members]  # Convert members to dicts
+        welfare_dict["events"] = [event.to_dict() for event in welfare.events]  # Convert event to dicts
+        welfare_dict["requests"] = [request.to_dict() for request in welfare.requests]  # Convert event to dicts
         welfare_dict["wallet"] = welfare.wallet.to_dict() if welfare.wallet else None
         return make_response(jsonify(welfare_dict), 200)
 
@@ -155,7 +159,7 @@ def create_welfare():
 @swag_from('documentation/welfare/update_welfare.yml', methods=['PUT'])
 def update_welfare(welfare_id):
     """
-    Updates a State
+    Updates a Welfare
     """
     welfare = storage.get(Welfare, welfare_id)
     if not welfare:

@@ -11,6 +11,7 @@ from flask_jwt_extended import (create_access_token,
                                 get_jwt)
 from welpurse.models import storage
 from welpurse.models.member import Member
+from welpurse.models.role import Role
 import hashlib
 from flask_jwt_extended import current_user
 from .extensions import jwt
@@ -89,10 +90,17 @@ def refresh_expiring_jwts(response):
 @auth_blueprint.route("/who_am_i", methods=["GET"])
 @jwt_required()
 def protected():
+    current_user_id = get_jwt_identity()
+    session = storage._DBStorage__session
+    current_user = session.query(Member).filter_by(id=current_user_id).first()
+
+    roles = [role.name for role in current_user.roles]
+
     return jsonify(
         id=current_user.id,
         full_name=current_user.name,
         email=current_user.email,
+        roles=roles
     )
 
 @auth_blueprint.route("/logout", methods=["DELETE"])

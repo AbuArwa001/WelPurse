@@ -12,60 +12,101 @@
       </tr>
     </thead>
     <tbody>
-      <tr>
-        <td>KHALIF GROUP</td>
-        <td>50,000</td>
-        <td>UPLIFT THE COMMUNITY</td>
-        <td>
-          <form action="{{ url_for('app_routes.create_event') }}" method="post">
-            <input type="hidden" name="welfare_group_name" value="KHALIF GROUP">
-            <input type="hidden" name="amount_requested" value="50,000">
-            <input type="hidden" name="donation_purpose" value="UPLIFT THE COMMUNITY">
-            <button type="submit" class="btn">Launch Event</button>
-          </form>
-        </td>
-      </tr>
-      <tr>
-        <td>KHALIF GROUP</td>
-        <td>50,000</td>
-        <td>UPLIFT THE COMMUNITY</td>
-        <td>
-          <form action="{{ url_for('app_routes.create_event') }}" method="post">
-            <input type="hidden" name="welfare_group_name" value="KHALIF GROUP">
-            <input type="hidden" name="amount_requested" value="50,000">
-            <input type="hidden" name="donation_purpose" value="UPLIFT THE COMMUNITY">
-            <button type="submit" class="btn">Launch Event</button>
-          </form>
-        </td>
-      </tr>
-      <tr>
-        <td>HAMZA COMMUNITY</td>
-        <td>100,000</td>
-        <td>BUSINES SETUP</td>
-        <td>
-          <form action="{{ url_for('app_routes.create_event') }}" method="post">
-            <input type="hidden" name="welfare_group_name" value="HAMZA COMMUNITY">
-            <input type="hidden" name="amount_requested" value="100,000">
-            <input type="hidden" name="donation_purpose" value="BUSINES SETUP">
-            <button type="submit" class="btn">Launch Event</button>
-          </form>
-        </td>
-      </tr>
-      <tr>
-        <td>COMPUTER SOCIETY</td>
-        <td>500,000</td>
-        <td>STUDENT SCHOLARSHIP</td>
-        <td>
-          <form action="{{ url_for('app_routes.create_event') }}" method="post">
-            <input type="hidden" name="welfare_group_name" value="COMPUTER SOCIETY">
-            <input type="hidden" name="amount_requested" value="500,000">
-            <input type="hidden" name="donation_purpose" value="STUDENT SCHOLARSHIP">
-            <button type="submit" class="btn">Launch Event</button>
-          </form>
-        </td>
-      </tr>
-      <!-- Add more rows as needed -->
+      {% for welfare in welfares %}
+        {% if 'requests' in welfare and member in welfare.get('members') %}
+          {% for request in welfare.get('requests') %}
+            {% if request.get('status') == 'approved' %}
+              <tr>
+                <td>{{ welfare.get('name') }}</td>
+                <td>{{ request.get('amount_requested') }}</td>
+                <td>{{ request.get('reason') }}</td>
+                {% if 'roles' in current_user and 'administrator' in current_user.get('roles') %}
+                  <td>
+                    <button type="button" class="btn create-event-btn" 
+                            data-welfare-group-name="{{ welfare.get('name') }}" 
+                            data-amount-requested="{{ request.get('amount_requested') }}" 
+                            data-donation-purpose="{{ request.get('reason') }}"
+                            data-request-id="{{request.get('id')}}"
+                            data-welfare-id="{{ welfare.get('id') }}">Create Event</button>
+                  </td>
+                </tr>
+              {% endif %}
+            {% endif %}
+          {% endfor %}
+        {% endif %}
+      {% endfor %}
     </tbody>
   </table>
+</div>
+
+<!-- Event Creation Modal -->
+<div id="createEventModal" class="modal">
+  <div class="modal-content">
+    <span class="close">&times;</span>
+    <h2>Create a New Event</h2>
+    <form id="createEventForm" method="POST" action="{{ url_for('app_routes.donation_request_view') }}">
+      {{ form_event.hidden_tag() }}
+      <div class="input-group">
+        {{ form_event.title.label }}
+        {{ form_event.title(class="form-control") }}
+        {% for error in form_event.title.errors %}
+          <div class="error">{{ error }}</div>
+        {% endfor %}
+      </div>
+
+      <div class="input-group">
+        {{ form_event.welfare_group_name.label }}
+        {{ form_event.welfare_group_name(class="form-control") }}
+        {% for error in form_event.welfare_group_name.errors %}
+          <div class="error">{{ error }}</div>
+        {% endfor %}
+      </div>
+
+      <div class="input-group">
+        {{ form_event.event_date.label }}
+        {{ form_event.event_date(class="form-control") }}
+        {% for error in form_event.event_date.errors %}
+          <div class="error">{{ error }}</div>
+        {% endfor %}
+      </div>
+
+      <div class="input-group">
+        {{ form_event.start_date.label }}
+        {{ form_event.start_date(class="form-control") }}
+        {% for error in form_event.start_date.errors %}
+          <div class="error">{{ error }}</div>
+        {% endfor %}
+      </div>
+
+      <div class="input-group">
+        {{ form_event.end_date.label }}
+        {{ form_event.end_date(class="form-control") }}
+        {% for error in form_event.end_date.errors %}
+          <div class="error">{{ error }}</div>
+        {% endfor %}
+      </div>
+
+      <div class="input-group">
+        {{ form_event.donation_purpose.label }}
+        {{ form_event.donation_purpose(class="form-control") }}
+        {% for error in form_event.donation_purpose.errors %}
+          <div class="error">{{ error }}</div>
+        {% endfor %}
+      </div>
+
+      <div class="input-group">
+        {{ form_event.target_amount.label }}
+        {{ form_event.target_amount(class="form-control") }}
+        {% for error in form_event.target_amount.errors %}
+          <div class="error">{{ error }}</div>
+        {% endfor %}
+      </div>
+        <!-- Hidden field for welfare_id -->
+
+      <div class="input-group">
+        {{ form_event.submit(class="btn btn-primary") }}
+      </div>
+    </form>
+  </div>
 </div>
 {% endblock content %}

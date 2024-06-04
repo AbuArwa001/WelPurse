@@ -19,10 +19,13 @@ logging.basicConfig(level=logging.INFO)
 @app_views.route('/events/', methods=['GET'], strict_slashes=False)
 def get_events():
     """ Get all EVENTS"""
+    time = "%Y-%m-%dT%H:%M:%S.%f"
     all_events = {}
     all_events = storage.all(Event)
     events = []
     for event in all_events.values():
+        event.end_date = event.end_date.strftime(time)
+        event.start_date = event.start_date.strftime(time)
         events.append(event.to_dict())
     res = jsonify(events)
     return make_response(res, 200)
@@ -30,10 +33,16 @@ def get_events():
 @app_views.route('/events/<event_id>', methods=['GET'], strict_slashes=False)
 def get_event(event_id):
     """ Get One Beneficiaries """
+    time = "%Y-%m-%dT%H:%M:%S.%f"
     event = storage.get(Event, event_id)
+    # print(event.end_date.strftime('%Y-%m-%dT%H:%M:%S.%f')[:-3])
     if not event:
         abort(404)
-    res = jsonify(event.to_dict())
+    event = event.to_dict()
+    event["end_date"] = event["end_date"].strftime(time)
+    event["start_date"] = event["start_date"].strftime(time)
+    # print(event)
+    res = jsonify(event)
     return make_response(res, 200)
 
 @app_views.route('/events', methods=['POST'], strict_slashes=False)
