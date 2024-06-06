@@ -9,8 +9,16 @@ from welpurse.models.benefit import Benefit
 from welpurse.models.contribution import Contribution
 from welpurse.models.dependent import Dependent
 from welpurse.models.role import Role
-from flask_login import UserMixin
-class Member(UserMixin, BaseModel, Base):
+
+
+
+# Association Tables
+memberroles = Table('memberroles', Base.metadata,
+    Column('member_id', String(60), ForeignKey('members.id'), primary_key=True),
+    Column('role_id', String(60), ForeignKey('roles.id'), primary_key=True)
+)
+
+class Member(BaseModel, Base):
     __tablename__ = 'members'
     # id = Column(Integer, primary_key=True)
     name = Column(String(255))

@@ -17,7 +17,7 @@ logging.basicConfig(level=logging.INFO)
 
 @app_views.route('/roles', methods=['GET'], strict_slashes=False)
 def get_roles():
-    """ Get all Beneficiaries """
+    """ Get all ROLES """
     all_roles = {}
     all_roles = storage.all(Role)
     roles = []

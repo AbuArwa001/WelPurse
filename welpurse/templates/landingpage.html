@@ -1,71 +1,152 @@
 <!DOCTYPE html>
 <html lang="en">
-    <head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>WelPurse - Building a Better Community</title>
-        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
-        <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='styles/landingpage.css', cache_id=cache_id) }}" />
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles/main.css', cache_id=cache_id) }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles/features.css', cache_id=cache_id) }}">
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='styles/landingpage.css', cache_id=cache_id) }}" />
+    <title>WelPurse - Features</title>
 </head>
 <body>
-<header>
-    <h1>WelPurse</h1>
-    <p>Building a Better Community</p>
-    <nav>
-        <a href="#features">Features</a>
-        <a href="#about">About</a>
-        <a href="#actions">Get Started</a>
-    </nav>
-</header>
+    <header>
+        <h1>WelPurse</h1>
+        <p>Building a Better Community</p>
+        <nav>
+            <a href="#features">Features</a>
+            <a href="{{url_for('app_routes.home')}}">Home</a>
+            <a href="#about">About</a>
+            <a href="#actions">Get Started</a>
+        </nav>
+    </header>
+    <!-- Features Section -->
+    <section class="features-section">
+        <div class="container">
+            <h2>Our Amazing Features</h2>
+            <div class="features-grid">
+                <div class="feature">
+                    <img src="https://source.unsplash.com/1600x900/?security" alt="Security Feature">
+                    <h3 class="feature-title">Secure Transactions</h3>
+                    <p class="feature-description">
+                        Your security is our priority. We use state-of-the-art encryption and authentication mechanisms to protect your transactions and personal information.
+                    </p>
+                </div>
+                <div class="feature">
+                    <img src="https://source.unsplash.com/1600x900/?community" alt="Community Feature">
+                    <h3 class="feature-title">Community Engagement</h3>
+                    <p class="feature-description">
+                        Foster a sense of belonging and engagement within your community. Our platform provides tools for better communication and collaboration.
+                    </p>
+                </div>
+                <div class="feature">
+                    <img src="https://source.unsplash.com/1600x900/?chart" alt="Analytics Feature">
+                    <h3 class="feature-title">Real-Time Analytics</h3>
+                    <p class="feature-description">
+                        Make informed decisions with our real-time analytics dashboard. Track your community's activities and financial health at a glance.
+                    </p>
+                </div>
+                    <div class="feature">
+                        <img src="https://source.unsplash.com/1600x900/?support, community" alt="Analytics Feature">
+                        <!-- <i class="fas fa-hands-helping feature-icon"></i> -->
+                        <h3 class="feature-title">Community Support</h3>
+                        <p class="feature-description">
+                            Join a supportive community. Engage with other users, share insights, and collaborate for a better cause with our integrated community features.
+                        </p>
+                    </div>
+                    <div class="feature">
+                        <img src="https://source.unsplash.com/1600x900/?mobile, money" alt="Analytics Feature">
+                        <!-- <i class="fas fa-mobile-alt feature-icon"></i> -->
+                        <h3 class="feature-title">Mobile Friendly</h3>
+                        <p class="feature-description">
+                            Access our platform on the go. Our mobile-friendly design ensures you can manage your activities seamlessly from any device, anytime, anywhere.
+                        </p>
+                    </div>
+                    <div class="feature">
+                        <img src="https://source.unsplash.com/1600x900/?charity" alt="Analytics Feature">
+                        <!-- <i class="fas fa-hand-holding-usd feature-icon"></i> -->
+                        <h3 class="feature-title">Efficient Donations</h3>
+                        <p class="feature-description">
+                            Make a difference effortlessly. Our streamlined donation process ensures that your contributions reach the intended beneficiaries quickly and efficiently.
+                        </p>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- About Section -->
+    <section id="about" class="section about">
+        <h2>About WelPurse</h2>
+        <div class="about">
+            <p>WelPurse is a platform designed to enhance the management and engagement of community welfare groups. We provide a secure, efficient, and user-friendly environment to manage contributions, events, and member interactions.</p>
+            <ul>
+                <li><i class="fas fa-check"></i> Secure Transactions</li>
+                <li><i class="fas fa-check"></i> Community Engagement</li>
+                <li><i class="fas fa-check"></i> Real-Time Analytics</li>
+                <li><i class="fas fa-check"></i> Easy-to-Use Interface</li>
+            </ul>
+        </div>
+    </section>
+    <!-- Call to Actions Section -->
+    <section id="actions">
+        <h2>Ready to Get Started?</h2>
+        <p>Join us today and take your community engagement to the next level!</p>
+        <a href="{{url_for('app_routes.register_member')}}" class="btn">Register</a>
+        <a href="{{url_for('app_routes.login')}}" class="btn">Login</a>
+    </section>
+    <!-- Team Section -->
+    <section class="section">
+        <h2>Meet Our Team</h2>
+        <div class="team">
+            <div class="team-member">
+                <img src="{{ url_for('static', filename='images/148.jpg', cache_id=cache_id) }}" alt="Team Member 1">
+                <h4>Khalfan Athman</h4>
+                <p>Backend Engineer</p>
+                <p>Khalfan is a passionate Backend Developer who enjoys solving complex problems and building efficient systems. He has a background in computer science and a keen interest in cybersecurity.</p>
 
-<section class="intro">
-    <h1>Welcome to WelPurse</h1>
-    <p>Empowering Communities Through Shared Efforts and Contributions</p>
-    <a href="https://welpurse.com" class="btn">Visit WelPurse</a>
-</section>
-
-<section id="features" class="section">
-    <h2>Features</h2>
-    <div class="feature">
-        <img src="https://source.unsplash.com/1600x900/?feature1" alt="Feature 1">
-        <h3>Feature 1</h3>
-        <p>Description of Feature 1.</p>
-    </div>
-    <div class="feature">
-        <img src="https://source.unsplash.com/1600x900/?feature2" alt="Feature 2">
-        <h3>Feature 2</h3>
-        <p>Description of Feature 2.</p>
-    </div>
-    <div class="feature">
-        <img src="https://source.unsplash.com/1600x900/?feature3" alt="Feature 3">
-        <h3>Feature 3</h3>
-        <p>Description of Feature 3.</p>
-    </div>
-</section>
-
-<section id="about" class="section">
-    <h2>About</h2>
-    <div class="about">
-        <p>WelPurse was inspired by the collective power of community. Our journey began with a vision to bring people together, foster collaboration, and make a positive impact.</p>
-        <p>Links to the team members' LinkedIn, GitHub, and Twitter profiles:</p>
-        <ul>
-            <li><i class="fab fa-linkedin"></i> <a href="#">LinkedIn</a></li>
-            <li><i class="fab fa-github"></i> <a href="#">GitHub</a></li>
-            <li><i class="fab fa-twitter"></i> <a href="#">Twitter</a></li>
-        </ul>
-        <p><a href="https://github.com/welpurse" class="btn">GitHub Repository</a></p>
-    </div>
-</section>
-
-<section id="actions">
-    <h2>Get Started</h2>
-    <a href="https://welpurse.com/signup" class="btn">Sign Up</a>
-    <a href="https://welpurse.com/login" class="btn">Log In</a>
-</section>
-
-<footer>
-    <p>&copy; 2024 WelPurse. All rights reserved.</p>
-</footer>
-
+                <div class="contact-links">
+                    <a href="https://www.linkedin.com/in/khlafankhalfan/"><i class="fab fa-linkedin"></i></a>
+                    <a href="https://github.com/AbuArwa001" target="_blank"><i class="fab fa-github"></i></a>
+                    <a href="https://x.com/athman_khalfan"><i class="fab fa-twitter"></i></a>
+                </div>
+            </div>
+            <div class="team-member">
+                <img src="https://source.unsplash.com/300x300/?woman,face" alt="Team Member 2">
+                <h4>Chioma Okpala</h4>
+                <p>Frontend Developer</p>
+                <p>Chioma is our Frontend Developer who loves creating beautiful and user-friendly interfaces. She has a strong background in design and front-end technologies, and she brings our ideas to life.</p>
+                <div class="contact-links">
+                    <a href="#"><i class="fab fa-linkedin"></i></a>
+                    <a href="htttps://github.com/Perpy93" target="_blank"><i class="fab fa-github"></i></a>
+                    <a href="https://x.com/Adannaya08?t=X2neenXGQdq61W36bUjmAw&s=09"><i class="fab fa-twitter"></i></a>
+                </div>
+            </div>
+            <div class="team-member">
+                <img src="https://source.unsplash.com/300x300/?man,face" alt="Team Member 3">
+                <h4>Magdalene Njeri</h4>
+                <p>Backend Engineer</p>
+                <p>Magdalene is a Backend Developer with a passion for database management and backend systems. She has extensive experience in developing scalable applications and ensuring data integrity.</p>
+                <div class="contact-links">
+                    <a href="https://www.linkedin.com/in/magdalene-njeri-a0874262/"><i class="fab fa-linkedin"></i></a>
+                    <a href="https://github.com/Maggie-Njeri" target="_blank"><i class="fab fa-github"></i></a>
+                    <a href="https://x.com/KairiMaddie"><i class="fab fa-twitter"></i></a>
+                </div>
+            </div>
+        </div>
+    </section>
+    <section id="video" class="section">
+        <h2>About the App</h2>
+        <div class="video">
+            <video controls id="aboutVideo">
+                <source src="{{ url_for('static', filename='images/pitch.mp4') }}" type="video/mp4">
+                Your browser does not support the video tag.
+            </video>
+            <p>Watch this video to learn more about WelPurse and how it can help empower communities.</p>
+        </div>
+    </section>
+    <footer>
+        <p>&copy; 2024 WelPurse. All rights reserved.</p>
+    </footer>
 </body>
 </html>

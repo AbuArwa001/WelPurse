@@ -113,7 +113,8 @@ def approve_donation(request_id):
 def reject_donation(request_id):
     url = f"http://127.0.0.1:5001/api/v1/donation-requests/{request_id}/reject"
     headers = {"Authorization": f"Bearer {session['access_token_cookie']}"}
-    res = requests.put(url, headers)
+    res = requests.put(url, headers=headers)
+    print(res.status_code)
     if res.status_code == 200:
         flash('Successfully rejected', 'success')
     else:

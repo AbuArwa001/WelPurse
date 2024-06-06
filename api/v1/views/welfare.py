@@ -124,36 +124,55 @@ def create_welfare():
     if not isinstance(data['special_events'], bool):
         abort(400, description="Invalid data type for special_events. Must be a boolean.")
 
-    # Convert 'contribution_modes' to a JSON string if it exists and is a list
+    # Serialize 'contribution_modes' to a JSON string if it exists and is a list
     if 'contribution_modes' in data and isinstance(data['contribution_modes'], list):
         data['contribution_modes'] = json.dumps(data['contribution_modes'])
     elif 'contribution_modes' in data and not isinstance(data['contribution_modes'], list):
         abort(400, description="Invalid data type for contribution_modes. Must be a list.")
 
+    # Serialize 'eligibility_requirements' to a JSON string if it exists and is a list
+    if 'eligibility_requirements' in data and isinstance(data['eligibility_requirements'], list):
+        data['eligibility_requirements'] = json.dumps(data['eligibility_requirements'])
+    elif 'eligibility_requirements' in data and not isinstance(data['eligibility_requirements'], list):
+        abort(400, description="Invalid data type for eligibility_requirements. Must be a list.")
+
+    # Serialize 'role_descriptions' to a JSON string if it exists and is a dict
+    if 'role_descriptions' in data and isinstance(data['role_descriptions'], dict):
+        data['role_descriptions'] = json.dumps(data['role_descriptions'])
+    elif 'role_descriptions' in data and not isinstance(data['role_descriptions'], dict):
+        abort(400, description="Invalid data type for role_descriptions. Must be a dict.")
+
+    # Serialize 'notification_preferences' to a JSON string if it exists and is a list
+    if 'notification_preferences' in data and isinstance(data['notification_preferences'], list):
+        data['notification_preferences'] = json.dumps(data['notification_preferences'])
+    elif 'notification_preferences' in data and not isinstance(data['notification_preferences'], list):
+        abort(400, description="Invalid data type for notification_preferences. Must be a list.")
+
     # Create the Welfare instance
     instance = Welfare(**data)
     
     try:
-         code, data = create_wallet(instance.name, instance.id)
+        code, data = create_wallet(instance.name, instance.id)
     except Exception as e:
         abort(400, description=str(e))
 
     # Save the Welfare instance
     if code == 200:
-        finall_data = {}
+        final_data = {}
         if isinstance(data, Response):
             json_data = data.json()  # Convert the Response object to a JSON dictionary
-            finall_data.update(json_data)
+            final_data.update(json_data)
             instance.save()
-            wallet = Wallet(**finall_data)
+            wallet = Wallet(**final_data)
             wallet.save()
         else:
             instance.save()
-            finall_data.update(data)
-            wallet = Wallet(**finall_data)
+            final_data.update(data)
+            wallet = Wallet(**final_data)
             wallet.save()
 
     return make_response(jsonify(instance.to_dict()), 201)
+
 
 @app_views.route('/welfares/<welfare_id>', methods=['PUT'], strict_slashes=False)
 @swag_from('documentation/welfare/update_welfare.yml', methods=['PUT'])

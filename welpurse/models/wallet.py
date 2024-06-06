@@ -17,4 +17,4 @@ class Wallet(BaseModel, Base):
     wallet_type = Column(String(20), nullable=True)
 
     welfare = relationship('Welfare', back_populates='wallet')
-    transactions = relationship('WalletTransaction', backref='wallet', cascade='all, delete-orphan')
+    wallet_transactions = relationship('WalletTransaction', backref='wallet', cascade='all, delete-orphan')

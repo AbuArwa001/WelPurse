@@ -232,6 +232,30 @@ def fetch_events(headers):
     req = async_to_sync(fetch_events_async)()
     return req.json() if req.status_code == 200 else {}
 
+# FETCH MEMBERS
+def fetch_members(headers):
+    url = "http://127.0.0.1:5001/api/v1/members/"
+    
+    async def fetch_members_async():
+        async with httpx.AsyncClient() as client:
+            req = await client.get(url=url, headers=headers)
+        return req
+
+    req = async_to_sync(fetch_members_async)()
+    return req.json() if req.status_code == 200 else {}
+
+def fetch_a_member(headers, member_id):
+    url = f"http://127.0.0.1:5001/api/v1/members/{member_id}"
+    
+    async def fetch_welfare_async():
+        async with httpx.AsyncClient() as client:
+            req = await client.get(url=url, headers=headers)
+        return req
+
+    req = async_to_sync(fetch_welfare_async)()
+    return req.json() if req.status_code == 200 else {}
+
+
 # FETCH WELFARE
 def fetch_welfares(headers):
     url = "http://127.0.0.1:5001/api/v1/welfares/"
@@ -256,17 +280,7 @@ def fetch_a_welfare(headers, welfare_id):
     return req.json() if req.status_code == 200 else {}
 
 
-def fetch_a_member(headers, member_id):
-    url = f"http://127.0.0.1:5001/api/v1/members/{member_id}"
-    
-    async def fetch_welfare_async():
-        async with httpx.AsyncClient() as client:
-            req = await client.get(url=url, headers=headers)
-        return req
-
-    req = async_to_sync(fetch_welfare_async)()
-    return req.json() if req.status_code == 200 else {}
-
+# FETCH DONATION
 def start_donation(headers, request_id):
     url = f"http://127.0.0.1:5001/api/v1/donation-requests/{request_id}/start"
     res = requests.put(url=url, headers=headers)
@@ -275,3 +289,41 @@ def start_donation(headers, request_id):
         return True
     else:
         return False
+# FETCH DONATION
+def join_group(headers, data):
+    url = f"http://127.0.0.1:5001/api/v1/join_group"
+    res = requests.post(url=url, headers=headers, json=data)
+    if res.status_code == 200:
+        return True
+    else:
+        return False
+# ADD ROLE TO MEMBER
+def add_role(headers, member_id, role_id):
+    url = f"http://127.0.0.1:5001/api/v1/members/{member_id}/roles/{role_id}"
+    res = requests.post(url=url, headers=headers)
+    if res.status_code == 200:
+        return True
+    else:
+        return False
+    
+def fetch_a_role(headers, role_id):
+    url = f"http://127.0.0.1:5001/api/v1/roles/{role_id}"
+    
+    async def fetch_role_async():
+        async with httpx.AsyncClient() as client:
+            req = await client.get(url=url, headers=headers)
+        return req
+
+    req = async_to_sync(fetch_role_async)()
+    return req.json() if req.status_code == 200 else {}
+
+def fetch_roles(headers):
+    url = f"http://127.0.0.1:5001/api/v1/roles/"
+    
+    async def fetch_roles_async():
+        async with httpx.AsyncClient() as client:
+            req = await client.get(url=url, headers=headers)
+        return req
+
+    req = async_to_sync(fetch_roles_async)()
+    return req.json() if req.status_code == 200 else {}
