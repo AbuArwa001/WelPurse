@@ -36,17 +36,21 @@ def process_payment(current_user, wallet, email, phone, amount, event_id, type_i
         response = initiate_payment(service, wallet, email, phone, amount)
         invoice_id = response['invoice']['invoice_id']
         if invoice_id:
-            final_state = wait_for_payment_completion(invoice_id)
-            if final_state == 'COMPLETE':
-                if update_database(current_user, wallet, amount, event_id, type_id, contr_type):
-                    # flash('Payment was successful!', 'success')
-                    print("Payment has been processed successfully.")
-                    return True
-            elif final_state == 'FAILED':
-                flash('Payment was unsuccessful!', 'danger')
-                print("Payment has failed.")
-            else:
-                print(f"Unexpected payment status: {final_state}")
+            try:
+                final_state = wait_for_payment_completion(invoice_id)
+                if final_state == 'COMPLETE':
+                    if update_database(current_user, wallet, amount, event_id, type_id, contr_type):
+                        # flash('Payment was successful!', 'success')
+                        print("Payment has been processed successfully.")
+                        return True
+                elif final_state == 'FAILED':
+                    flash('Payment was unsuccessful!', 'danger')
+                    print("Payment has failed.")
+                else:
+                    print(f"Unexpected payment status: {final_state}")
+            except Exception as e:
+                logging.error(f"Exception in process_payment: {e}")
+                raise e
         else:
             print("Invoice ID is None")
     except IntaSendBadRequest as e:
@@ -58,11 +62,20 @@ def wait_for_payment_completion(invoice_id):
     from welpurse.payments import sync_wait_for_payment_completion
     task = sync_wait_for_payment_completion.apply_async(args=[invoice_id])
     retries = 0
-    while True:
-        if task.ready():
-            return task.get()
-        async_to_sync(asyncio.sleep)(2 ** retries)
+    max_retries = 5
+
+    while retries < max_retries:
+        try:
+            if task.ready():
+                return task.get(timeout=1)  # You can adjust the timeout as needed
+
+            async_to_sync(asyncio.sleep)(2 ** retries)
+        except Exception as e:
+            logging.error(f"Exception in wait_for_payment_completion: {e}")
+            raise e
         retries += 1
+
+    raise TimeoutError("Payment processing timed out")
 
 
 # UPDATE DATABASE' GROUPS WALLET

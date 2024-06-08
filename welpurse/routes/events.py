@@ -51,11 +51,14 @@ def events():
             email = "khalfanathman12@gmail.com"
             phone = form_cont.mpesa_number.data
             event_id = form_cont.event_id.data
-
+        try:
             if process_payment(current_user, wallet, email, phone, amount, event_id, "3", "event"):
                 flash('Payment was successful!', 'success')
                 return redirect(url_for('app_routes.events'))
-
+        except Exception as e:
+            flash("Please Try Again!", 'danger')
+            logging.info("EXEPTION == %s", e)
+            return redirect(url_for('app_routes.events'))
     return render_template('event_list.html',
                            time=time,
                            today=today,
