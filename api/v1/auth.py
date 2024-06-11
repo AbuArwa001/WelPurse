@@ -28,14 +28,21 @@ def login():
     password = request.json.get("password", None)
     hash_pwd = hashlib.md5(password.encode()).hexdigest()
     session = storage._DBStorage__session
-    member = session.query(Member).filter_by(email=email).first()
-    if not member or hash_pwd != member.password:
-        return jsonify({"msg": "Bad username or password"}), 401
+    try:
+        member = session.query(Member).filter_by(email=email).first()
+        if not member or hash_pwd != member.password:
+            return jsonify({"msg": "Bad username or password"}), 401
 
-    access_token = create_access_token(identity=member.id)
-    response = jsonify({'login': True})
-    set_access_cookies(response, access_token)
-    return response
+        access_token = create_access_token(identity=member.id)
+        response = jsonify({'login': True})
+        set_access_cookies(response, access_token)
+        return response
+    except Exception as e:
+        session.rollback()
+        print(f"Error during login query: {e}")
+        return jsonify({"msg": "Internal server error"}), 500
+    finally:
+        session.close()
 
 @jwt.user_identity_loader
 def user_identity_lookup(member):

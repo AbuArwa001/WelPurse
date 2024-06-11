@@ -12,6 +12,7 @@
             </div>
             <nav class="nav-item">
                 <ul>
+                    {%if current_user %}
                     <!-- Social Media Icons -->
                     <li><a href="https://facebook.com"><i class="fab fa-facebook-f"></i></a></li>
                     <li><a href="https://twitter.com"><i class="fab fa-twitter"></i></a></li>
@@ -21,11 +22,14 @@
                         <a href="#" class="user-icon">
                             <i class="fas fa-user"></i>
                         </a>
+                        
                         <div class="user-menu">
                             <a href="#">Account</a>
                             <a href="{{ url_for('app_routes.logout') }}">Logout</a>
                         </div>
+                        
                     </li>
+                    {%endif%}
                 </ul>
             </nav>
     </div>
