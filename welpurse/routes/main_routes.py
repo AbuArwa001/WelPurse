@@ -1,5 +1,5 @@
-from flask import render_template,redirect, url_for, flash, session
-import uuid 
+from flask import render_template, redirect, url_for, flash, session
+import uuid
 from welpurse.utils import login_required
 from welpurse.routes import app_routes
 import requests
@@ -8,81 +8,53 @@ from welpurse.forms.donation_req import DonationRequestForm
 from datetime import datetime, timedelta
 import asyncio
 from welpurse.utils import get_current_user
-from .helper_funtions import( fetch_events,
-                             fetch_a_member,
-                            fetch_an_event,
-                            update_database,
-                            fetch_intasend_wallet,
-                            fetch_wallet,
-                            fetch_welfares,
-                            fetch_wallet_id,
-                            fetch_a_welfare,
-                            process_payment,
-                            async_events_view,
-                            update_wallet
-                            )
-calendar = [
-  {
-    "id": 1,
-    "title": "Python Flask coding visual studio",
-    "start_event": "2024-05-03T16:00:00",
-    "end_event": "2024-05-04T03:00:00"
-  },
-  {
-    "id": 2,
-    "title": "PHP coding Notepad++",
-    "start_event": "2024-05-08T03:17:15",
-    "end_event": "2024-05-10T04:00:00"
-  },
-  {
-    "id": 6,
-    "title": "Basketball",
-    "start_event": "2024-05-05T00:00:00",
-    "end_event": "2024-05-05T14:30:00"
-  },
-  {
-    "id": 7,
-    "title": "Birthday Party",
-    "start_event": "2024-05-12T00:00:00",
-    "end_event": "2024-05-13T00:00:00"
-  }
-]
-@app_routes.route('/', strict_slashes=False)
-def landingpage():
-    """ Goes to landing page """
-    return render_template('landingpage.html')
+from .helper_funtions import (
+    fetch_events,
+    fetch_a_member,
+    fetch_an_event,
+    update_database,
+    fetch_intasend_wallet,
+    fetch_wallet,
+    fetch_welfares,
+    fetch_wallet_id,
+    fetch_a_welfare,
+    process_payment,
+    async_events_view,
+    update_wallet,
+)
 
-@app_routes.route('/home', strict_slashes=False)
+@app_routes.route("/", strict_slashes=False)
+def landingpage():
+    """Goes to landing page"""
+    return render_template("landingpage.html")
+
+
+@app_routes.route("/home", strict_slashes=False)
 @login_required
 def home():
-    """ Page displaying welfares """
+    """Page displaying welfares"""
     # Check if the session variables exist
     current_user = get_current_user()
 
     headers = {"Authorization": f"Bearer {session['access_token_cookie']}"}
-    member_id = current_user.get('id') if current_user else None
+    member_id = current_user.get("id") if current_user else None
     member = fetch_a_member(headers=headers, member_id=member_id)
-    welfares = fetch_welfares(headers=headers).get('data')
-    # print("welfares", welfares)
-    return render_template('index.html',
-                           cache_id=uuid.uuid4(),
-                           welfares=welfares,
-                           current_user=current_user,
-                           member_id=member_id,
-                           member=member
-                           )
-# @app_routes.route('/login', strict_slashes=False)
-# def login():
-#     title = 'login'
-#     return render_template('login.html',
-#                            title=title,
-#                            cache_id=uuid.uuid4())
+    welfares = fetch_welfares(headers=headers).get("data")
+    return render_template(
+        "index.html",
+        cache_id=uuid.uuid4(),
+        welfares=welfares,
+        current_user=current_user,
+        member_id=member_id,
+        member=member,
+    )
 
-@app_routes.route('/dashboard', strict_slashes=False)
+
+@app_routes.route("/dashboard", strict_slashes=False)
 @login_required  # Use custom login_required decorator
 def dashboard():
     current_user = get_current_user()
-    title = 'dashboard'
+    title = "dashboard"
     amount_contributed = 70000
     target = 200000
     progress = (amount_contributed / target) * 100
@@ -93,32 +65,37 @@ def dashboard():
 
     if events:
 
-      # Format the data for FullCalendar
-      formatted_events = []
-      for event in events:
-          formatted_events.append({
-              'id': event['id'],
-              'title': event['title'],
-              'start_event': event['start_date'],
-              'end_event': event['end_date'],
-          })
-      print(formatted_events)
+        # Format the data for FullCalendar
+        formatted_events = []
+        for event in events:
+            formatted_events.append(
+                {
+                    "id": event["id"],
+                    "title": event["title"],
+                    "start_event": event["start_date"],
+                    "end_event": event["end_date"],
+                }
+            )
     # Render the dashboard page if authenticated
-    return render_template('dashboard.html',
-                           current_user=current_user,
-                           calendar=formatted_events,
-                           title=title,
-                           total=amount_contributed,
-                           progress=progress,
-                           cache_id=uuid.uuid4())
+    return render_template(
+        "dashboard.html",
+        current_user=current_user,
+        calendar=formatted_events,
+        title=title,
+        total=amount_contributed,
+        progress=progress,
+        cache_id=uuid.uuid4(),
+    )
 
 
-@app_routes.route('/group_dash/<welfare_id>', methods=['GET', 'POST'], strict_slashes=False)
+@app_routes.route(
+    "/group_dash/<welfare_id>", methods=["GET", "POST"], strict_slashes=False
+)
 @login_required  # Use custom login_required decorator
 def group_dash(welfare_id):
     current_user = get_current_user()
 
-    title = 'Welfare'
+    title = "Welfare"
     amount_contributed = 70000
     target = 200000
     progress = (amount_contributed / target) * 100
@@ -130,23 +107,29 @@ def group_dash(welfare_id):
     welf = fetch_a_welfare(headers, welfare_id)
 
     # Run the asynchronous tasks synchronously
-    wallet = asyncio.run(fetch_intasend_wallet(headers, welf.get("wallet")["wallet_id"]))
-    updated_wallet = asyncio.run(update_wallet(headers, welf.get("wallet")["id"], wallet))
+    wallet = asyncio.run(
+        fetch_intasend_wallet(headers, welf.get("wallet")["wallet_id"])
+    )
+    updated_wallet = asyncio.run(
+        update_wallet(headers, welf.get("wallet")["id"], wallet)
+    )
 
-    member_count = welf.get('member_count')
+    member_count = welf.get("member_count")
     events = fetch_events(headers)
     formatted_events = []
     if events:
         # Format the data for FullCalendar
         for event in events:
-            if event.get('welfare_id') == welfare_id:
+            if event.get("welfare_id") == welfare_id:
                 # if event.get('welfare_id'):
-                formatted_events.append({
-                    'id': event['id'],
-                    'title': event['title'],
-                    'start_event': event['start_date'],
-                    'end_event': event['end_date'],
-                })
+                formatted_events.append(
+                    {
+                        "id": event["id"],
+                        "title": event["title"],
+                        "start_event": event["start_date"],
+                        "end_event": event["end_date"],
+                    }
+                )
     form.welfare_id = welfare_id
     # form.event_id =
     if form.validate_on_submit():
@@ -158,61 +141,44 @@ def group_dash(welfare_id):
             email = current_user.get("email")
             phone = form.mpesa_number.data
             event_id = form.event_id.data
-            if process_payment(current_user, wallet,
-                               email,
-                               phone, 
-                               amount,
-                               event_id,
-                               "1",
-                               "monthly"):
-                flash('Contributed successfully!', 'success')
+            if process_payment(
+                current_user,
+                wallet,
+                email,
+                phone,
+                amount,
+                event_id,
+                "1",
+                "monthly",
+            ):
+                flash("Contributed successfully!", "success")
             else:
-                flash('Contribution failed! try Again', 'danger')
+                flash("Contribution failed! try Again", "danger")
     if form_req.validate_on_submit():
-      req_url = f"http://127.0.0.1:5001/api/v1/donation-request/"
-      data = {
-          "reason": form_req.reason.data,
-          "amount_requested": form_req.amount_requested.data,
-          "member_id": form_req.member_id.data,
-          "welfare_id": form_req.welfare_id.data
-      }
-      res = requests.post(req_url, headers=headers, json=data)
-      print(res.json())
-      if res.status_code != 201:
-         flash('Request Not completed please try Again Later', 'danger')
-      else:
-          flash('Request Sent Succesfully', 'success')
+        req_url = f"http://127.0.0.1:5001/api/v1/donation-request/"
+        data = {
+            "reason": form_req.reason.data,
+            "amount_requested": form_req.amount_requested.data,
+            "member_id": form_req.member_id.data,
+            "welfare_id": form_req.welfare_id.data,
+        }
+        res = requests.post(req_url, headers=headers, json=data)
+        if res.status_code != 201:
+            flash("Request Not completed please try Again Later", "danger")
+        else:
+            flash("Request Sent Succesfully", "success")
     # Render the dashboard page if authenticated
-    return render_template('group_dash.html',
-                           form=form,
-                           form_req=form_req,
-                           welfare=welf,
-                           current_user=current_user,
-                           updated_wallet=updated_wallet,
-                           member_count=member_count,
-                           calendar=formatted_events,
-                           title=title,
-                           total=amount_contributed,
-                           progress=progress,
-                           cache_id=uuid.uuid4())
-
-# # Custom error handler for JWT errors
-# @jwt.unauthorized_loader
-# def unauthorized_callback(callback):
-#     # Redirect unauthorized users to the login page
-#     return redirect(url_for('app_routes.login'))
-
-# @jwt.expired_token_loader
-# def expired_token_callback(jwt_header, jwt_payload):
-#     # Redirect users with expired tokens to the login page
-#     return redirect(url_for('app_routes.login'))
-
-# @jwt.invalid_token_loader
-# def invalid_token_callback(callback):
-#     # Redirect users with invalid tokens to the login page
-#     return redirect(url_for('app_routes.login'))
-
-# Handle any other JWT errors
-# @app.errorhandler(NoAuthorizationError)
-# def handle_no_authorization_error(error):
-#     return redirect(url_for('login'))
+    return render_template(
+        "group_dash.html",
+        form=form,
+        form_req=form_req,
+        welfare=welf,
+        current_user=current_user,
+        updated_wallet=updated_wallet,
+        member_count=member_count,
+        calendar=formatted_events,
+        title=title,
+        total=amount_contributed,
+        progress=progress,
+        cache_id=uuid.uuid4(),
+    )

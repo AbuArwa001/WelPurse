@@ -4,21 +4,25 @@
 from api.v1.views import app_views
 from welpurse.models import storage
 from welpurse.models.member import Member
+
 # from welpurse.models.contribution import Contribution
 from welpurse.models.contribution import Contribution
 from flask import abort, jsonify, make_response, request
 from flasgger.utils import swag_from
 from intasend.exceptions import IntaSendBadRequest
-from dotenv import load_dotenv, dotenv_values 
+from dotenv import load_dotenv, dotenv_values
+
 # loading variables from .env file
-load_dotenv() 
+load_dotenv()
 import logging
+
 # Set up basic logging
 logging.basicConfig(level=logging.INFO)
 
-@app_views.route('/contributions', methods=['GET'], strict_slashes=False)
+
+@app_views.route("/contributions", methods=["GET"], strict_slashes=False)
 def get_contributions():
-    """ Get all Beneficiaries """
+    """Get all Beneficiaries"""
     all_contributions = {}
     all_contributions = storage.all(Contribution)
     contributions = []
@@ -27,16 +31,20 @@ def get_contributions():
     res = jsonify(contributions)
     return make_response(res, 200)
 
-@app_views.route('/contributions/<contribution_id>', methods=['GET'], strict_slashes=False)
+
+@app_views.route(
+    "/contributions/<contribution_id>", methods=["GET"], strict_slashes=False
+)
 def get_contribution(contribution_id):
-    """ Get One Beneficiaries """
+    """Get One Beneficiaries"""
     contribution = storage.get(Contribution, contribution_id)
     if not contribution:
         abort(404)
     res = jsonify(contribution.to_dict())
     return make_response(res, 200)
 
-@app_views.route('/contributions', methods=['POST'], strict_slashes=False)
+
+@app_views.route("/contributions", methods=["POST"], strict_slashes=False)
 def create_contribution():
     """
     Creates a Contribution. Expects JSON input with the structure of the Contribution model.
@@ -50,7 +58,7 @@ def create_contribution():
     data = request.get_json()
 
     # Required fields validation
-    required_fields = ['amount', 'date_contributed', 'member_id']
+    required_fields = ["amount", "date_contributed", "member_id"]
     for field in required_fields:
         if field not in data:
             abort(400, description=f"Missing {field}")
@@ -61,8 +69,13 @@ def create_contribution():
 
     return make_response(jsonify(instance.to_dict()), 201)
 
-@app_views.route('/contributions/<contribution_id>', methods=['PUT'], strict_slashes=False)
-@swag_from('documentation/contribution/update_contribution.yml', methods=['PUT'])
+
+@app_views.route(
+    "/contributions/<contribution_id>", methods=["PUT"], strict_slashes=False
+)
+@swag_from(
+    "documentation/contribution/update_contribution.yml", methods=["PUT"]
+)
 def update_contribution(contribution_id):
     """
     Updates a State
@@ -74,7 +87,7 @@ def update_contribution(contribution_id):
     if not request.get_json():
         abort(400, description="Not a JSON")
 
-    ignore = ['id', 'created_at', 'updated_at', 'status', "member_id"]
+    ignore = ["id", "created_at", "updated_at", "status", "member_id"]
 
     data = request.get_json()
     for key, value in data.items():
@@ -83,8 +96,15 @@ def update_contribution(contribution_id):
     storage.save()
     return make_response(jsonify(contribution.to_dict()), 200)
 
-@app_views.route('/contributions/<contribution_id>', methods=['DELETE'], strict_slashes=False)
-@swag_from('documentation/contribution/delete_contribution.yml', methods=['DELETE'])
+
+@app_views.route(
+    "/contributions/<contribution_id>",
+    methods=["DELETE"],
+    strict_slashes=False,
+)
+@swag_from(
+    "documentation/contribution/delete_contribution.yml", methods=["DELETE"]
+)
 def delete_contribution(contribution_id):
     """
     Updates a State

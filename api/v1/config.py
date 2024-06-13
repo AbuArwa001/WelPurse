@@ -4,6 +4,8 @@ from os import getenv
 import redis
 
 ACCESS_EXPIRES = timedelta(hours=1)
+
+
 class Config:
     JWT_COOKIE_SECURE = False
     JWT_TOKEN_LOCATION = ["headers", "cookies"]
@@ -12,12 +14,8 @@ class Config:
     JWT_ACCESS_TOKEN_EXPIRES = ACCESS_EXPIRES
     JSONIFY_PRETTYPRINT_REGULAR = True
     SECRET_KEY = getenv("SECRET_KEY")
-    SWAGGER = {
-        'title': 'WelPurse Restful API',
-        'uiversion': 1
-    }
+    SWAGGER = {"title": "WelPurse Restful API", "uiversion": 1}
     # Configure your Redis instance
-    jwt_redis_blocklist = redis.StrictRedis(host='localhost',
-                                            port=6379,
-                                            db=0,
-                                            decode_responses=True)
+    jwt_redis_blocklist = redis.StrictRedis(
+        host="localhost", port=6379, db=0, decode_responses=True
+    )

@@ -9,20 +9,20 @@ from models.base_model import BaseModel
 
 import shlex  # for splitting the line along spaces except in double quotes
 
-classes = {"BaseModel": BaseModel,
-           "Member": Member}
+classes = {"BaseModel": BaseModel, "Member": Member}
 
 
 class Command(cmd.Cmd):
-    """ HBNH console """
-    prompt = '(hbnb) '
+    """HBNH console"""
+
+    prompt = "(hbnb) "
 
     def do_EOF(self, arg):
         """Exits console"""
         return True
 
     def emptyline(self):
-        """ overwriting the emptyline method """
+        """overwriting the emptyline method"""
         return False
 
     def do_quit(self, arg):
@@ -34,11 +34,11 @@ class Command(cmd.Cmd):
         new_dict = {}
         for arg in args:
             if "=" in arg:
-                kvp = arg.split('=', 1)
+                kvp = arg.split("=", 1)
                 key = kvp[0]
                 value = kvp[1]
                 if value[0] == value[-1] == '"':
-                    value = shlex.split(value)[0].replace('_', ' ')
+                    value = shlex.split(value)[0].replace("_", " ")
                 else:
                     try:
                         value = int(value)
@@ -121,8 +121,12 @@ class Command(cmd.Cmd):
     def do_update(self, arg):
         """Update an instance based on the class name, id, attribute & value"""
         args = shlex.split(arg)
-        integers = ["number_rooms", "number_bathrooms", "max_guest",
-                    "price_by_night"]
+        integers = [
+            "number_rooms",
+            "number_bathrooms",
+            "max_guest",
+            "price_by_night",
+        ]
         floats = ["latitude", "longitude"]
         if len(args) == 0:
             print("** class name missing **")
@@ -156,5 +160,6 @@ class Command(cmd.Cmd):
         else:
             print("** class doesn't exist **")
 
-if __name__ == '__main__':
+
+if __name__ == "__main__":
     Command().cmdloop()

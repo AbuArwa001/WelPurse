@@ -3,12 +3,14 @@ from datetime import datetime
 from datetime import timedelta
 from datetime import timezone
 from flask import Blueprint, jsonify, request
-from flask_jwt_extended import (create_access_token,
-                                unset_jwt_cookies,
-                                set_access_cookies,
-                                jwt_required,
-                                get_jwt_identity,
-                                get_jwt)
+from flask_jwt_extended import (
+    create_access_token,
+    unset_jwt_cookies,
+    set_access_cookies,
+    jwt_required,
+    get_jwt_identity,
+    get_jwt,
+)
 from welpurse.models import storage
 from welpurse.models.member import Member
 from welpurse.models.role import Role
@@ -18,8 +20,7 @@ from .extensions import jwt
 from .config import Config
 from .config import ACCESS_EXPIRES
 
-auth_blueprint = Blueprint('auth', __name__)
-
+auth_blueprint = Blueprint("auth", __name__)
 
 
 @auth_blueprint.route("/login", methods=["POST"], strict_slashes=False)
@@ -34,7 +35,7 @@ def login():
             return jsonify({"msg": "Bad username or password"}), 401
 
         access_token = create_access_token(identity=member.id)
-        response = jsonify({'login': True})
+        response = jsonify({"login": True})
         set_access_cookies(response, access_token)
         return response
     except Exception as e:
@@ -44,11 +45,13 @@ def login():
     finally:
         session.close()
 
+
 @jwt.user_identity_loader
 def user_identity_lookup(member):
     if isinstance(member, Member):
         return member.id
     return member  # Assume it's already an ID if not a Member instance
+
 
 @jwt.user_lookup_loader
 def user_lookup_callback(_jwt_header, jwt_data):
@@ -56,14 +59,17 @@ def user_lookup_callback(_jwt_header, jwt_data):
     session = storage._DBStorage__session
     return session.query(Member).filter_by(id=identity).one_or_none()
 
-@auth_blueprint.route('/refresh', methods=['POST'])
+
+@auth_blueprint.route("/refresh", methods=["POST"])
 @jwt_required(refresh=True)
 def refresh():
     current_user = get_jwt_identity()
     new_access_token = create_access_token(identity=current_user)
-    response = jsonify({'refresh': True})
+    response = jsonify({"refresh": True})
     set_access_cookies(response, new_access_token)
     return response
+
+
 # @auth_blueprint.after_request
 # def refresh_expiring_jwts(response):
 #     try:
@@ -94,6 +100,7 @@ def refresh_expiring_jwts(response):
         pass
     return response
 
+
 @auth_blueprint.route("/who_am_i", methods=["GET"])
 @jwt_required()
 def protected():
@@ -107,8 +114,9 @@ def protected():
         id=current_user.id,
         full_name=current_user.name,
         email=current_user.email,
-        roles=roles
+        roles=roles,
     )
+
 
 @auth_blueprint.route("/logout", methods=["DELETE"])
 @jwt_required()
@@ -119,10 +127,10 @@ def logout():
     unset_jwt_cookies(response)  # Clear JWT cookies
     return response
 
+
 # Callback function to check if a JWT exists in the redis blocklist
 @jwt.token_in_blocklist_loader
 def check_if_token_is_revoked(jwt_header, jwt_payload: dict):
     jti = jwt_payload["jti"]
     token_in_redis = Config.jwt_redis_blocklist.get(jti)
     return token_in_redis is not None
-

@@ -4,21 +4,25 @@
 from api.v1.views import app_views
 from welpurse.models import storage
 from welpurse.models.member import Member
+
 # from welpurse.models.event import Event
 from welpurse.models.event import Event
 from flask import abort, jsonify, make_response, request
 from flasgger.utils import swag_from
 from intasend.exceptions import IntaSendBadRequest
-from dotenv import load_dotenv, dotenv_values 
+from dotenv import load_dotenv, dotenv_values
+
 # loading variables from .env file
-load_dotenv() 
+load_dotenv()
 import logging
+
 # Set up basic logging
 logging.basicConfig(level=logging.INFO)
 
-@app_views.route('/events/', methods=['GET'], strict_slashes=False)
+
+@app_views.route("/events/", methods=["GET"], strict_slashes=False)
 def get_events():
-    """ Get all EVENTS"""
+    """Get all EVENTS"""
     time = "%Y-%m-%dT%H:%M:%S.%f"
     all_events = {}
     all_events = storage.all(Event)
@@ -30,9 +34,10 @@ def get_events():
     res = jsonify(events)
     return make_response(res, 200)
 
-@app_views.route('/events/<event_id>', methods=['GET'], strict_slashes=False)
+
+@app_views.route("/events/<event_id>", methods=["GET"], strict_slashes=False)
 def get_event(event_id):
-    """ Get One Beneficiaries """
+    """Get One Beneficiaries"""
     time = "%Y-%m-%dT%H:%M:%S.%f"
     event = storage.get(Event, event_id)
     # print(event.end_date.strftime('%Y-%m-%dT%H:%M:%S.%f')[:-3])
@@ -45,7 +50,8 @@ def get_event(event_id):
     res = jsonify(event)
     return make_response(res, 200)
 
-@app_views.route('/events', methods=['POST'], strict_slashes=False)
+
+@app_views.route("/events", methods=["POST"], strict_slashes=False)
 def create_event():
     """
     Creates a Event. Expects JSON input with the structure of the Event model.
@@ -59,7 +65,7 @@ def create_event():
     data = request.get_json()
 
     # Required fields validation
-    required_fields = ['welfare_id', 'event_date', 'title']
+    required_fields = ["welfare_id", "event_date", "title"]
     for field in required_fields:
         if field not in data:
             abort(400, description=f"Missing {field}")
@@ -70,8 +76,9 @@ def create_event():
 
     return make_response(jsonify(instance.to_dict()), 201)
 
-@app_views.route('/events/<event_id>', methods=['PUT'], strict_slashes=False)
-@swag_from('documentation/event/update_event.yml', methods=['PUT'])
+
+@app_views.route("/events/<event_id>", methods=["PUT"], strict_slashes=False)
+@swag_from("documentation/event/update_event.yml", methods=["PUT"])
 def update_event(event_id):
     """
     Updates a State
@@ -83,7 +90,7 @@ def update_event(event_id):
     if not request.get_json():
         abort(400, description="Not a JSON")
 
-    ignore = ['id', 'created_at', 'updated_at', 'status', "welfare_id"]
+    ignore = ["id", "created_at", "updated_at", "status", "welfare_id"]
 
     data = request.get_json()
     for key, value in data.items():
@@ -92,8 +99,11 @@ def update_event(event_id):
     storage.save()
     return make_response(jsonify(event.to_dict()), 200)
 
-@app_views.route('/events/<event_id>', methods=['DELETE'], strict_slashes=False)
-@swag_from('documentation/event/delete_event.yml', methods=['DELETE'])
+
+@app_views.route(
+    "/events/<event_id>", methods=["DELETE"], strict_slashes=False
+)
+@swag_from("documentation/event/delete_event.yml", methods=["DELETE"])
 def delete_event(event_id):
     """
     Updates a State

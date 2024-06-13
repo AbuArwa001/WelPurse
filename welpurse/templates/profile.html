@@ -1,0 +1,57 @@
+{% extends 'layout.html'%}
+{% block content%}
+    <div class="main-content">
+        <div class="profile-details">
+            <h2>Profile Details</h2>
+            <div class="info">
+                <p><strong>Full Name:</strong> John Doe</p>
+                <p><strong>Email:</strong> john.doe@example.com</p>
+                <p><strong>Address:</strong> 123 Main St, Anytown, USA</p>
+            </div>
+        </div>
+
+        <div class="current-groups">
+            <h2>Current Groups and Roles</h2>
+            <ul>
+                <li>Group 1 - <strong>Administrator</strong></li>
+                <li>Group 2 - <strong>Member</strong></li>
+            </ul>
+        </div>
+
+        <div class="contributions-summary">
+            <h2>My Contributions</h2>
+            <p><strong>Total Contributions:</strong> $1,200</p>
+            <p><strong>Benefits:</strong> $300</p>
+        </div>
+
+        <div class="recent-contributions">
+            <h2>Recent Contributions</h2>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Date</th>
+                        <th>Amount</th>
+                        <th>Group</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>2024-06-10</td>
+                        <td>$100</td>
+                        <td>Group 1</td>
+                    </tr>
+                    <tr>
+                        <td>2024-06-05</td>
+                        <td>$200</td>
+                        <td>Group 2</td>
+                    </tr>
+                    <tr>
+                        <td>2024-05-30</td>
+                        <td>$150</td>
+                        <td>Group 1</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+{% endblock content%}

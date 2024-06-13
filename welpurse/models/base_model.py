@@ -12,7 +12,7 @@ from sqlalchemy.ext.declarative import declarative_base
 import uuid
 
 time = "%Y-%m-%dT%H:%M:%S.%f"
-storage_t = getenv('STORAGE_TYPE')
+storage_t = getenv("STORAGE_TYPE")
 if storage_t == "db":
     Base = declarative_base()
 else:
@@ -21,6 +21,7 @@ else:
 
 class BaseModel:
     """The BaseModel class from which future classes will be derived"""
+
     if storage_t == "db":
         id = Column(String(60), primary_key=True)
         created_at = Column(DateTime, default=datetime.utcnow)
@@ -49,8 +50,9 @@ class BaseModel:
 
     def __str__(self):
         """String representation of the BaseModel class"""
-        return "[{:s}] ({:s}) {}".format(self.__class__.__name__, self.id,
-                                         self.__dict__)
+        return "[{:s}] ({:s}) {}".format(
+            self.__class__.__name__, self.id, self.__dict__
+        )
 
     def save(self):
         """updates the attribute 'updated_at' with the current datetime"""

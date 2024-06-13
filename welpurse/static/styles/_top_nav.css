@@ -1,61 +1,26 @@
 /* Base styles for the navbar */
 .top_navbar {
   grid-area: header;
-  background:#2a5b87; /* Blue background */
+  background: #2a5b87;
   width: 100%;
   z-index: 1000;
   transition: all 0.5s ease;
-  border-radius: 20px; 
+  border-radius: 20px;
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 10px 20px; /* Add padding for better spacing */
+  padding: 5px 10px;
 }
 
 /* Style adjustments when the sidebar is active */
 body.active .top_navbar {
-  width: calc(100% - 250px); /* Adjust width based on sidebar size */
+  width: calc(100% - 250px);
 }
 
-/* Left navigation including hamburger and links */
+/* Left navigation with only logo */
 .left-nav {
   display: flex;
-  /* width: 25%; */
-  /* align-items: center; */
-  justify-content: space-between;
-}
-
-/* Hamburger icon */
-.hamburger a {
-  color: white; /* Icon color */
-  margin-right: 20px; /* Push the rest of the items to the right */
-}
-
-.hamburger a:last-child {
-  margin-right: 5px; /* Spacing for the last icon */
-}
-
-/* Navbar links */
-.left-nav ul {
-  list-style: none;
-  display: flex;
-  margin: 0;
-  padding: 0;
-}
-
-.left-nav ul li {
-  margin-right: 20px; /* Spacing between links */
-}
-
-.left-nav ul li a {
-  color: white; /* Text color */
-  text-decoration: none; /* No underline */
-  font-weight: bold; /* Make the text bold */
-  transition: color 0.3s ease; /* Smooth color transition */
-}
-
-.left-nav ul li a:hover {
-  color: #dfe6e9; /* Lighter color on hover */
+  align-items: center;
 }
 
 /* Navbar links and user dropdown */
@@ -67,18 +32,18 @@ body.active .top_navbar {
 }
 
 .nav-item ul li {
-  margin-right: 20px; /* Spacing between links */
+  margin-right: 20px;
 }
 
 .nav-item ul li a {
-  color: white; /* Text color */
-  text-decoration: none; /* No underline */
-  font-weight: bold; /* Make the text bold */
-  transition: color 0.3s ease; /* Smooth color transition */
+  color: white;
+  text-decoration: none;
+  font-weight: bold;
+  transition: color 0.3s ease;
 }
 
 .nav-item ul li a:hover {
-  color: #dfe6e9; /* Lighter color on hover */
+  color: #dfe6e9;
 }
 
 /* User dropdown */
@@ -90,9 +55,13 @@ body.active .top_navbar {
   display: none;
   position: absolute;
   right: 0;
+  color: black;
   background-color: #f9f9f9;
   min-width: 160px;
-  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+  flex-direction: column;
+  border-radius: 10px;
+  top: 22px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   z-index: 1;
 }
 
@@ -108,47 +77,50 @@ body.active .top_navbar {
 }
 
 .user-dropdown:hover .user-menu {
-  display: block; /* Show dropdown */
+  display: block;
 }
 
 /* Social Media Icons */
 .nav-item ul li a i {
-  margin-right: 8px; /* Spacing between icon and text */
+  margin-right: 8px;
+}
+
+/* Notification and Message Icons */
+.notification-icon, .message-icon {
+  position: relative;
+  color: white;
+}
+
+.notification-icon .badge, .message-icon .badge {
+  position: absolute;
+  top: -5px;
+  right: -10px;
+  background: red;
+  color: white;
+  border-radius: 50%;
+  padding: 5px 10px;
+  font-size: 12px;
 }
 
 @media (max-width: 768px) {
   /* Responsive adjustments for the entire navbar */
   .top_navbar {
-    flex-direction: column;
-    align-items: flex-start;
-  }
-
-  .left-nav ul {
-    flex-direction: column; /* Stack links vertically */
-    align-items: flex-start; /* Align links to the start */
-  }
-
-  .left-nav ul li {
-    width: 100%; /* Full width links */
-    margin: 5px 0; /* Spacing between stacked links */
-  }
-
-  .hamburger a {
-    margin: 0 10px; /* Adjust spacing for icons */
+      flex-direction: column;
+      align-items: flex-start;
   }
 
   .nav-item ul {
-    flex-direction: column; /* Stack links vertically */
-    align-items: flex-start; /* Align links to the start */
+      flex-direction: column;
+      align-items: flex-start;
   }
 
   .nav-item ul li {
-    width: 100%; /* Full width links */
-    margin: 5px 0; /* Spacing between stacked links */
+      width: 100%;
+      margin: 5px 0;
   }
 
   .nav-item ul li a i {
-    display: block; /* Stack icons vertically on smaller screens */
-    margin: 0 auto; /* Center icons */
+      display: block;
+      margin: 0 auto;
   }
 }

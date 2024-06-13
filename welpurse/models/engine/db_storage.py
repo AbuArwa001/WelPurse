@@ -7,53 +7,55 @@ from welpurse.models.base_model import BaseModel, Base
 from welpurse.models.member import Member
 from welpurse.models.welfare import Welfare
 from welpurse.models.wallet import Wallet
-from welpurse.models.beneficiary import Beneficiary 
-from welpurse.models.dependent import Dependent 
-from welpurse.models.event import Event 
-from welpurse.models.contribution import Contribution 
-from welpurse.models.benefit import Benefit 
-from welpurse.models.role import Role 
-from welpurse.models.transaction import WalletTransaction 
-from welpurse.models.transactiontype import TransactionType 
-from welpurse.models.donation_request import DonationRequest 
+from welpurse.models.beneficiary import Beneficiary
+from welpurse.models.dependent import Dependent
+from welpurse.models.event import Event
+from welpurse.models.contribution import Contribution
+from welpurse.models.benefit import Benefit
+from welpurse.models.role import Role
+from welpurse.models.transaction import WalletTransaction
+from welpurse.models.transactiontype import TransactionType
+from welpurse.models.donation_request import DonationRequest
 from os import getenv
 import sqlalchemy
 from sqlalchemy import create_engine
 from sqlalchemy.orm import scoped_session, sessionmaker
 from sqlalchemy.exc import SQLAlchemyError
 
-classes = {"Member": Member,
-           "Welfare": Welfare,
-           "Wallet": Wallet,
-           "Beneficiary": Beneficiary,
-           "Dependent": Dependent,
-           "Event": Event,
-           "Contribution": Contribution,
-           "Benefit": Benefit,
-            "Role": Role,
-           "WalletTransaction": WalletTransaction,
-           "TransactionType": TransactionType,
-           "DonationRequest": DonationRequest
-           }
+classes = {
+    "Member": Member,
+    "Welfare": Welfare,
+    "Wallet": Wallet,
+    "Beneficiary": Beneficiary,
+    "Dependent": Dependent,
+    "Event": Event,
+    "Contribution": Contribution,
+    "Benefit": Benefit,
+    "Role": Role,
+    "WalletTransaction": WalletTransaction,
+    "TransactionType": TransactionType,
+    "DonationRequest": DonationRequest,
+}
 
 
 class DBStorage:
     """interaacts with the MySQL database"""
+
     __engine = None
     __session = None
 
     def __init__(self):
         """Instantiate a DBStorage object"""
-        MYSQL_USER = getenv('MYSQL_USER')
-        MYSQL_PWD = getenv('MYSQL_PWD')
-        MYSQL_HOST = getenv('MYSQL_HOST')
-        MYSQL_DB = getenv('MYSQL_DB')
-        ENV = getenv('ENV')
-        self.__engine = create_engine('mysql+mysqldb://{}:{}@{}/{}'.
-                                      format(MYSQL_USER,
-                                             MYSQL_PWD,
-                                             MYSQL_HOST,
-                                             MYSQL_DB))
+        MYSQL_USER = getenv("MYSQL_USER")
+        MYSQL_PWD = getenv("MYSQL_PWD")
+        MYSQL_HOST = getenv("MYSQL_HOST")
+        MYSQL_DB = getenv("MYSQL_DB")
+        ENV = getenv("ENV")
+        self.__engine = create_engine(
+            "mysql+mysqldb://{}:{}@{}/{}".format(
+                MYSQL_USER, MYSQL_PWD, MYSQL_HOST, MYSQL_DB
+            )
+        )
 
         if ENV == "test":
             Base.metadata.drop_all(self.__engine)
@@ -65,9 +67,9 @@ class DBStorage:
             if cls is None or cls is classes[clss] or cls is clss:
                 objs = self.__session.query(classes[clss]).all()
                 for obj in objs:
-                    key = obj.__class__.__name__ + '.' + obj.id
+                    key = obj.__class__.__name__ + "." + obj.id
                     new_dict[key] = obj
-        return (new_dict)
+        return new_dict
 
     def new(self, obj):
         """add the object to the current database session"""
@@ -82,7 +84,6 @@ class DBStorage:
             raise
         finally:
             self.__session.close()
-    
 
     def delete(self, obj=None):
         """delete from the current database session obj if not None"""
@@ -110,7 +111,7 @@ class DBStorage:
 
         all_cls = welpurse.models.storage.all(cls)
         for value in all_cls.values():
-            if (value.id == id):
+            if value.id == id:
                 return value
 
         return None

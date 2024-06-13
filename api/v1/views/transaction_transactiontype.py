@@ -4,20 +4,26 @@
 from api.v1.views import app_views
 from welpurse.models import storage
 from welpurse.models.member import Member
+
 # from welpurse.models.transactiontype import TransactionTypes
 from welpurse.models.transactiontype import TransactionType
 from flask import abort, jsonify, make_response, request
 from flasgger.utils import swag_from
-from dotenv import load_dotenv, dotenv_values 
+from dotenv import load_dotenv, dotenv_values
+
 # loading variables from .env file
-load_dotenv() 
+load_dotenv()
 import logging
+
 # Set up basic logging
 logging.basicConfig(level=logging.INFO)
 
-@app_views.route('/transaction_transactiontypes/', methods=['GET'], strict_slashes=False)
+
+@app_views.route(
+    "/transaction_transactiontypes/", methods=["GET"], strict_slashes=False
+)
 def get_transaction_transactiontypes():
-    """ Get all Beneficiaries """
+    """Get all Beneficiaries"""
     all_transaction_transactiontypes = {}
     all_transaction_transactiontypes = storage.all(TransactionType)
     transaction_transactiontypes = []
@@ -26,16 +32,24 @@ def get_transaction_transactiontypes():
     res = jsonify(transaction_transactiontypes)
     return make_response(res, 200)
 
-@app_views.route('/transaction_transactiontypes/<transactiontype_id>', methods=['GET'], strict_slashes=False)
+
+@app_views.route(
+    "/transaction_transactiontypes/<transactiontype_id>",
+    methods=["GET"],
+    strict_slashes=False,
+)
 def get_transactiontype(transactiontype_id):
-    """ Get One Beneficiaries """
+    """Get One Beneficiaries"""
     transactiontype = storage.get(TransactionType, transactiontype_id)
     if not transactiontype:
         abort(404)
     res = jsonify(transactiontype.to_dict())
     return make_response(res, 200)
 
-@app_views.route('/transaction_transactiontypes/', methods=['POST'], strict_slashes=False)
+
+@app_views.route(
+    "/transaction_transactiontypes/", methods=["POST"], strict_slashes=False
+)
 def create_transactiontype():
     """
     Creates a TransactionType. Expects JSON input with the structure of the TransactionType model.
@@ -49,7 +63,7 @@ def create_transactiontype():
     data = request.get_json()
 
     # Required fields validation
-    required_fields = ['name']
+    required_fields = ["name"]
     for field in required_fields:
         if field not in data:
             abort(400, description=f"Missing {field}")
@@ -60,8 +74,15 @@ def create_transactiontype():
 
     return make_response(jsonify(instance.to_dict()), 201)
 
-@app_views.route('/transaction_transactiontypes/<transactiontype_id>', methods=['PUT'], strict_slashes=False)
-@swag_from('documentation/transactiontype/update_transactiontype.yml', methods=['PUT'])
+
+@app_views.route(
+    "/transaction_transactiontypes/<transactiontype_id>",
+    methods=["PUT"],
+    strict_slashes=False,
+)
+@swag_from(
+    "documentation/transactiontype/update_transactiontype.yml", methods=["PUT"]
+)
 def update_transactiontype(transactiontype_id):
     """
     Updates a State
@@ -73,7 +94,7 @@ def update_transactiontype(transactiontype_id):
     if not request.get_json():
         abort(400, description="Not a JSON")
 
-    ignore = ['id', 'created_at', 'updated_at', 'status', "member_id"]
+    ignore = ["id", "created_at", "updated_at", "status", "member_id"]
 
     data = request.get_json()
     for key, value in data.items():
@@ -82,8 +103,16 @@ def update_transactiontype(transactiontype_id):
     storage.save()
     return make_response(jsonify(transactiontype.to_dict()), 200)
 
-@app_views.route('/transaction_transactiontypes/<transactiontype_id>', methods=['DELETE'], strict_slashes=False)
-@swag_from('documentation/transactiontype/delete_transactiontype.yml', methods=['DELETE'])
+
+@app_views.route(
+    "/transaction_transactiontypes/<transactiontype_id>",
+    methods=["DELETE"],
+    strict_slashes=False,
+)
+@swag_from(
+    "documentation/transactiontype/delete_transactiontype.yml",
+    methods=["DELETE"],
+)
 def delete_transactiontype(transactiontype_id):
     """
     Updates a State

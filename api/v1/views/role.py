@@ -4,20 +4,24 @@
 from api.v1.views import app_views
 from welpurse.models import storage
 from welpurse.models.welfare import Welfare
+
 # from welpurse.models.role import Role
 from welpurse.models.role import Role
 from flask import abort, jsonify, make_response, request
 from flasgger.utils import swag_from
-from dotenv import load_dotenv, dotenv_values 
+from dotenv import load_dotenv, dotenv_values
+
 # loading variables from .env file
-load_dotenv() 
+load_dotenv()
 import logging
+
 # Set up basic logging
 logging.basicConfig(level=logging.INFO)
 
-@app_views.route('/roles', methods=['GET'], strict_slashes=False)
+
+@app_views.route("/roles", methods=["GET"], strict_slashes=False)
 def get_roles():
-    """ Get all ROLES """
+    """Get all ROLES"""
     all_roles = {}
     all_roles = storage.all(Role)
     roles = []
@@ -26,16 +30,18 @@ def get_roles():
     res = jsonify(roles)
     return make_response(res, 200)
 
-@app_views.route('/roles/<role_id>', methods=['GET'], strict_slashes=False)
+
+@app_views.route("/roles/<role_id>", methods=["GET"], strict_slashes=False)
 def get_role(role_id):
-    """ Get One Beneficiaries """
+    """Get One Beneficiaries"""
     role = storage.get(Role, role_id)
     if not role:
         abort(404)
     res = jsonify(role.to_dict())
     return make_response(res, 200)
 
-@app_views.route('/roles', methods=['POST'], strict_slashes=False)
+
+@app_views.route("/roles", methods=["POST"], strict_slashes=False)
 def create_role():
     """
     Creates a Role. Expects JSON input with the structure of the Role model.
@@ -49,7 +55,7 @@ def create_role():
     data = request.get_json()
 
     # Required fields validation
-    required_fields = ['name']
+    required_fields = ["name"]
     for field in required_fields:
         if field not in data:
             abort(400, description=f"Missing {field}")
@@ -60,8 +66,9 @@ def create_role():
 
     return make_response(jsonify(instance.to_dict()), 201)
 
-@app_views.route('/roles/<role_id>', methods=['PUT'], strict_slashes=False)
-@swag_from('documentation/role/update_role.yml', methods=['PUT'])
+
+@app_views.route("/roles/<role_id>", methods=["PUT"], strict_slashes=False)
+@swag_from("documentation/role/update_role.yml", methods=["PUT"])
 def update_role(role_id):
     """
     Updates a State
@@ -73,7 +80,7 @@ def update_role(role_id):
     if not request.get_json():
         abort(400, description="Not a JSON")
 
-    ignore = ['id', 'created_at', 'updated_at']
+    ignore = ["id", "created_at", "updated_at"]
 
     data = request.get_json()
     for key, value in data.items():
@@ -82,8 +89,9 @@ def update_role(role_id):
     storage.save()
     return make_response(jsonify(role.to_dict()), 200)
 
-@app_views.route('/roles/<role_id>', methods=['DELETE'], strict_slashes=False)
-@swag_from('documentation/role/delete_role.yml', methods=['DELETE'])
+
+@app_views.route("/roles/<role_id>", methods=["DELETE"], strict_slashes=False)
+@swag_from("documentation/role/delete_role.yml", methods=["DELETE"])
 def delete_role(role_id):
     """
     Updates a State

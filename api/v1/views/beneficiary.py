@@ -11,26 +11,31 @@ from flasgger.utils import swag_from
 from intasend import APIService
 import intasend
 from intasend.exceptions import IntaSendBadRequest
-from dotenv import load_dotenv, dotenv_values 
+from dotenv import load_dotenv, dotenv_values
+
 # loading variables from .env file
-load_dotenv() 
-import os 
+load_dotenv()
+import os
 import logging
 import json
 import requests
+
 # Set up basic logging
 logging.basicConfig(level=logging.INFO)
 
-token = os.getenv("TOKEN") 
+token = os.getenv("TOKEN")
 publishable_key = os.getenv("PUBLISHABLE_KEY")
 service = APIService(token=token, publishable_key=publishable_key, test=True)
 # Set a timeout globally if possible (this is hypothetical and depends on the IntaSend library's implementation)
 intasend.http_client = requests.Session()
-intasend.http_client.request = lambda *args, **kwargs: requests.request(*args, timeout=10, **kwargs)
+intasend.http_client.request = lambda *args, **kwargs: requests.request(
+    *args, timeout=10, **kwargs
+)
 
-@app_views.route('/beneficiaries', methods=['GET'], strict_slashes=False)
+
+@app_views.route("/beneficiaries", methods=["GET"], strict_slashes=False)
 def get_beneficiaries():
-    """ Get all Beneficiaries """
+    """Get all Beneficiaries"""
     all_beneficiaries = {}
     all_beneficiaries = storage.all(Beneficiary)
     beneficiaries = []
@@ -39,14 +44,18 @@ def get_beneficiaries():
     res = jsonify(beneficiaries)
     return make_response(res, 200)
 
-@app_views.route('/beneficiaries/<beneficiary_id>', methods=['GET'], strict_slashes=False)
+
+@app_views.route(
+    "/beneficiaries/<beneficiary_id>", methods=["GET"], strict_slashes=False
+)
 def get_beneficiary(beneficiary_id):
-    """ Get One Beneficiaries """
+    """Get One Beneficiaries"""
     beneficiary = storage.get(Beneficiary, beneficiary_id)
     res = jsonify(beneficiary.to_dict())
     return make_response(res, 200)
 
-@app_views.route('/beneficiaries', methods=['POST'], strict_slashes=False)
+
+@app_views.route("/beneficiaries", methods=["POST"], strict_slashes=False)
 def create_beneficiary():
     """
     Creates a Beneficiary. Expects JSON input with the structure of the Beneficiary model.
@@ -60,21 +69,21 @@ def create_beneficiary():
     data = request.get_json()
 
     # Required fields validation
-    required_fields = ['name', 'relation', 'member_id', 'dependent_id']
+    required_fields = ["name", "relation", "member_id", "dependent_id"]
     for field in required_fields:
         if field not in data:
             abort(400, description=f"Missing {field}")
 
     # Fetch the dependent
-    dependent = storage.get(Dependent, data['dependent_id'])
+    dependent = storage.get(Dependent, data["dependent_id"])
     if not dependent:
         abort(404, description="Dependent not found")
 
     # Check the status of the dependent
-    if dependent.status == 'inactive':
+    if dependent.status == "inactive":
         abort(400, description="Dependent already deceased")
     else:
-        dependent.status = 'inactive'
+        dependent.status = "inactive"
 
     # Create the Beneficiary instance
     instance = Beneficiary(**data)
@@ -82,8 +91,11 @@ def create_beneficiary():
 
     return make_response(jsonify(instance.to_dict()), 201)
 
-@app_views.route('/beneficiaries/<beneficiary_id>', methods=['PUT'], strict_slashes=False)
-@swag_from('documentation/beneficiary/update_beneficiary.yml', methods=['PUT'])
+
+@app_views.route(
+    "/beneficiaries/<beneficiary_id>", methods=["PUT"], strict_slashes=False
+)
+@swag_from("documentation/beneficiary/update_beneficiary.yml", methods=["PUT"])
 def update_beneficiary(beneficiary_id):
     """
     Updates a State
@@ -95,7 +107,7 @@ def update_beneficiary(beneficiary_id):
     if not request.get_json():
         abort(400, description="Not a JSON")
 
-    ignore = ['id', 'created_at', 'updated_at']
+    ignore = ["id", "created_at", "updated_at"]
 
     data = request.get_json()
     for key, value in data.items():
@@ -104,8 +116,11 @@ def update_beneficiary(beneficiary_id):
     storage.save()
     return make_response(jsonify(beneficiary.to_dict()), 200)
 
-@app_views.route('/beneficiaries/<beneficiary_id>', methods=['DELETE'], strict_slashes=False)
-@swag_from('documentation/beneficiary/delete_beneficiary.yml', methods=['PUT'])
+
+@app_views.route(
+    "/beneficiaries/<beneficiary_id>", methods=["DELETE"], strict_slashes=False
+)
+@swag_from("documentation/beneficiary/delete_beneficiary.yml", methods=["PUT"])
 def delete_beneficiary(beneficiary_id):
     """
     Updates a State

@@ -4,7 +4,9 @@ from welpurse.models.base_model import BaseModel, Base
 
 
 class Role(BaseModel, Base):
-    __tablename__ = 'roles'
+    __tablename__ = "roles"
     name = Column(String(255), nullable=False)
 
-    members = relationship('Member', secondary='memberroles', back_populates='roles')
+    members = relationship(
+        "Member", secondary="memberroles", back_populates="roles"
+    )

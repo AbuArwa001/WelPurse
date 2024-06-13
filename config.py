@@ -2,4 +2,3 @@
 from datetime import timedelta
 from os import getenv
 import redis
-

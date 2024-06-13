@@ -4,9 +4,12 @@ from api.v1.views import app_views
 from flask import jsonify, make_response, abort
 import json
 
-@app_views.route('/status', methods=['GET'], strict_slashes=False)
+
+@app_views.route("/status", methods=["GET"], strict_slashes=False)
 def status():
-    """ Status of API """
+    """Status of API"""
+
+
 #     return jsonify({"status": "OK"})
 # class CustomBadRequest(Exception):
 #     status_code = 400
@@ -21,20 +24,21 @@ def status():
 @app_views.errorhandler(400)
 def handle_bad_request(error):
     message = str(error)
-    response = jsonify({'error': message})
+    response = jsonify({"error": message})
     response.status_code = 400
     return response
 
-@app_views.route('/status', methods=['GET'], strict_slashes=False)
+
+@app_views.route("/status", methods=["GET"], strict_slashes=False)
 def get_status():
-    """ Status of API """
+    """Status of API"""
     # Simulate a bad request
     raise abort(400)
 
 
-@app_views.route('/stats', methods=['GET'], strict_slashes=False)
+@app_views.route("/stats", methods=["GET"], strict_slashes=False)
 def number_objects():
-    """ Retrieves the number of each objects by type """
+    """Retrieves the number of each objects by type"""
 
     num_objs = {}
     # for i in range(len(classes)):
