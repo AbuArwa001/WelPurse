@@ -1,0 +1,110 @@
+{% extends 'layout.html'%}
+{%block content%}
+<div class="main-content">
+    <div class="settings-form">
+        <h2>Personal Details</h2>
+        <form>
+            <div class="settings-section">
+                <div class="profile-pic">
+                    <img src="{{ url_for('static', filename='images/148.jpg', cache_id=cache_id) }}" alt="Profile Picture" id="profile-pic">
+                </div>
+                <label for="profile-pic-upload" class="file-label">Select Photo</label>
+                <input type="file" id="profile-pic-upload" name="profile-pic-upload" accept="image/*">
+            </div>
+
+            <div class="settings-section">
+                <h3>Contact Information</h3>
+                <div class="form-group">
+                    <div class="form-control">
+                        <label for="first-name">First Name</label>
+                        <input type="text" id="first-name" name="first-name" placeholder="First Name" required>
+                    </div>
+                    <div class="form-control">
+                        <label for="last-name">Last Name</label>
+                        <input type="text" id="last-name" name="last-name" placeholder="Last Name" required>
+                    </div>
+                    <div class="form-control">
+                        <label for="middle-name">Middle Name</label>
+                        <input type="text" id="middle-name" name="middle-name" placeholder="Middle Name">
+                    </div>
+                    <div class="form-control">
+                        <label for="phone-number">Phone Number</label>
+                        <input type="tel" id="phone-number" name="phone-number" placeholder="Phone Number" required>
+                    </div>
+                    <div class="form-control">
+                        <label for="email">Email Address</label>
+                        <input type="email" id="email" name="email" placeholder="Email Address">
+                    </div>
+                    <div class="form-control">
+                        <label for="id-number">ID Number</label>
+                        <input type="text" id="id-number" name="id-number" placeholder="ID Number">
+                    </div>
+                </div>
+            </div>
+
+            <div class="settings-section">
+                <h3>Membership Details</h3>
+                <div class="form-group">
+                    <div class="form-control">
+                        <label for="membership-number">Membership Number</label>
+                        <input type="text" id="membership-number" name="membership-number" placeholder="Membership Number">
+                    </div>
+                    <div class="form-control">
+                        <label for="member-role">Member Role</label>
+                        <select id="member-role" name="member-role">
+                            <option value="">Add Group Role</option>
+                            <!-- Add more options here -->
+                        </select>
+                    </div>
+                </div>
+            </div>
+
+            <div class="settings-section">
+                <h3>Additional Member Details</h3>
+                <div class="form-group">
+                    <div class="form-control">
+                        <label for="dob">Date of Birth</label>
+                        <input type="date" id="dob" name="dob" placeholder="Date of Birth">
+                    </div>
+                    <div class="form-control">
+                        <label for="county">County Name</label>
+                        <input type="text" id="county" name="county" placeholder="County Name">
+                    </div>
+                    <div class="form-control">
+                        <label for="marital-status">Marital Status</label>
+                        <input type="text" id="marital-status" name="marital-status" placeholder="Marital Status">
+                    </div>
+                    <div class="form-control">
+                        <label for="ethnicity">Ethnicity</label>
+                        <input type="text" id="ethnicity" name="ethnicity" placeholder="Ethnicity">
+                    </div>
+                    <div class="form-control">
+                        <label for="occupation">Occupation</label>
+                        <input type="text" id="occupation" name="occupation" placeholder="Occupation">
+                    </div>
+                    <div class="form-control">
+                        <label for="postal-address">Postal Address</label>
+                        <textarea id="postal-address" name="postal-address" placeholder="Postal Address"></textarea>
+                    </div>
+                </div>
+            </div>
+
+            <div class="settings-section">
+                <h3>Bio</h3>
+                <div class="form-group">
+                    <div class="form-control">
+                        <label for="bio">Bio</label>
+                        <input type="text" id="bio" name="bio" placeholder="Bio">
+                    </div>
+                    <div class="form-control">
+                        <label for="address">Address</label>
+                        <input type="text" id="address" name="address" placeholder="Address">
+                    </div>
+                </div>
+            </div>
+
+            <button class="btn" type="submit">Save Changes</button>
+        </form>
+    </div>
+</div>
+{%endblock%}

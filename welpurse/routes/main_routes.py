@@ -36,7 +36,7 @@ def home():
     # Check if the session variables exist
     current_user = get_current_user()
 
-    headers = {"Authorization": f"Bearer {session['access_token_cookie']}"}
+    headers = {"Authorization": f"Bearer {session.get('access_token')}"}
     member_id = current_user.get("id") if current_user else None
     member = fetch_a_member(headers=headers, member_id=member_id)
     welfares = fetch_welfares(headers=headers).get("data")
@@ -58,7 +58,7 @@ def dashboard():
     amount_contributed = 70000
     target = 200000
     progress = (amount_contributed / target) * 100
-    headers = {"Authorization": f"Bearer {session['access_token_cookie']}"}
+    headers = {"Authorization": f"Bearer {session.get('access_token')}"}
     # response = requests.get('http://127.0.0.1:5001/api/v1/events/')
 
     events = fetch_events(headers)
@@ -101,9 +101,9 @@ def group_dash(welfare_id):
     progress = (amount_contributed / target) * 100
     form = ContributionForm()
     form_req = DonationRequestForm()
-    headers = {"Authorization": f"Bearer {session['access_token_cookie']}"}
+    headers = {"Authorization": f"Bearer {session.get('access_token')}"}
     current_user = get_current_user()
-    print("CURRENT USER", type(current_user))
+    print("CURRENT USER", current_user)
     welf = fetch_a_welfare(headers, welfare_id)
 
     # Run the asynchronous tasks synchronously
