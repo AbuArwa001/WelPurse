@@ -58,7 +58,8 @@ def dashboard():
     amount_contributed = 70000
     target = 200000
     progress = (amount_contributed / target) * 100
-    headers = {"Authorization": f"Bearer {session.get('access_token')}"}
+    accessToken = session.get('access_token')
+    headers = {"Authorization": f"Bearer {accessToken}"}
     # response = requests.get('http://127.0.0.1:5001/api/v1/events/')
 
     events = fetch_events(headers)
@@ -77,8 +78,10 @@ def dashboard():
                 }
             )
     # Render the dashboard page if authenticated
+    # print("ACCESS TOKEN:", accessToken)
     return render_template(
         "dashboard.html",
+        accessToken=accessToken,
         current_user=current_user,
         calendar=formatted_events,
         title=title,

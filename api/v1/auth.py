@@ -87,7 +87,7 @@ def protected():
         roles=roles,
     )
 
-@auth_blueprint.route('/logout', methods=['POST'])
+@auth_blueprint.route('/logout', methods=["GET",'POST'], strict_slashes=False)
 @jwt_required()
 def logout():
     response = jsonify({"logout": True})

@@ -60,12 +60,11 @@ def login():
     return render_template("login.html", title=title, form=form)
 
 
-@app_routes.route("/logout", strict_slashes=False, methods=["POST"])
+@app_routes.route("/logout", strict_slashes=False, methods=["GET", "POST"])
 def logout():
     url = "http://127.0.0.1:5001/auth/logout/"
     headers = {"Authorization": f"Bearer {session.get('access_token')}"}
     res = requests.post(url=url, headers=headers)
-    print(res.json())
     if res.status_code == 200:
         session.pop('access_token', None)
         flash("You have been logged out!", "success")
