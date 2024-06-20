@@ -1,0 +1,9 @@
+.sidebar-alt{
+  /* grid-area: sidebar; */
+  grid-column: 1/2;
+  grid-row: 2/3;
+  background:#2a5b87;
+  /* transition: all 0.5s ease; */
+  border-radius: 30px;
+  /* overflow-y: auto; */
+}

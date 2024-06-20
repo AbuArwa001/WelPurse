@@ -1,0 +1,188 @@
+<!-- templates/create_welfare_group.html -->
+{% extends 'layout.html' %}
+
+{% block content %}
+<div class="wel-purse-bg">
+    <div class="container">
+        <!-- Form Container -->
+        <div class="row">
+            <div class="col-12">
+                <form method="POST" action="{{ url_for('app_routes.create_welfare_group') }}" class="form">
+                    {{ form.hidden_tag() }}
+                    <h1 class="text-center">Create Welfare Group</h1>
+                    
+                    <!-- Progress bar -->
+                    <div class="progressbar">
+                      <div class="progress" id="progress"></div>
+                      <div class="progress-step progress-step-active" data-title="Group Details"></div>
+                      <div class="progress-step" data-title="Settings"></div>
+                      <div class="progress-step" data-title="Role Assignments"></div>
+                      <div class="progress-step" data-title="Role Descriptions"></div>
+                      <div class="progress-step" data-title="Visibility"></div>
+                      <div class="progress-step" data-title="Communication"></div>
+                    </div>
+
+                    <!-- Steps -->
+                    <div class="form-step form-step-active">
+                        <fieldset class="group-details">
+                            <legend>Group Details</legend>
+                            <div class="input-group">
+                                {{ form.welfare_name.label }}
+                                {{ form.welfare_name(size=32) }}
+                            </div>
+                            <div class="input-group">
+                                {{ form.description.label }}
+                                {{ form.description(rows=5) }}
+                            </div>
+                            <div class="input-group">
+                                {{ form.purpose.label }}
+                                {{ form.purpose(rows=5) }}
+                            </div>
+                        </fieldset>
+                        <fieldset class="group-details">
+                            <legend>Membership Criteria</legend>
+                            <div class="input-group">
+                                {{ form.min_contribution.label }}
+                                {{ form.min_contribution() }}
+                            </div>
+                            <div class="input-group">
+                                {{ form.eligibility_requirements.label }}
+                                {{ form.eligibility_requirements() }}
+                            </div>
+                            <div class="input-group">
+                                {{ form.membership_approval.label }}
+                                {{ form.membership_approval() }}
+                            </div>
+                        </fieldset>
+                        <div class="">
+                            <a href="#" class="btn btn-next width-50 ml-auto">Next</a>
+                        </div>
+                    </div>
+
+                    <div class="form-step">
+                        <fieldset class="group-details">
+                            <legend>Contribution Settings</legend>
+                            <div class="input-group">
+                                {{ form.contribution_frequency.label }}
+                                {{ form.contribution_frequency() }}
+                            </div>
+                            <div class="input-group">
+                                {{ form.contribution_modes.label }}
+                                {{ form.contribution_modes() }}
+                            </div>
+                            <div class="input-group">
+                                {{ form.special_events.label }}
+                                {{ form.special_events() }}
+                            </div>
+                        </fieldset>
+                        <div class="btns-group">
+                            <a href="#" class="btn btn-prev">Previous</a>
+                            <a href="#" class="btn btn-next">Next</a>
+                        </div>
+                    </div>
+
+                    <div class="form-step">
+                        <fieldset class="group-details">
+                            <legend>Role Assignments</legend>
+                            <div class="input-group">
+                                {{ form.administrator.label }}
+                                {{ form.administrator() }}
+                            </div>
+                            <div class="input-group">
+                                {{ form.treasurer.label }}
+                                {{ form.treasurer() }}
+                            </div>
+                            <div class="input-group">
+                                {{ form.secretary.label }}
+                                {{ form.secretary() }}
+                            </div>
+                            <div class="input-group">
+                                {{ form.youth_rep.label }}
+                                {{ form.youth_rep() }}
+                            </div>
+                            <div class="input-group">
+                                {{ form.chairperson.label }}
+                                {{ form.chairperson() }}
+                            </div>
+                            <div class="input-group">
+                                {{ form.vice_chairperson.label }}
+                                {{ form.vice_chairperson() }}
+                            </div>
+                        </fieldset>
+                        <div class="btns-group">
+                            <a href="#" class="btn btn-prev">Previous</a>
+                            <a href="#" class="btn btn-next">Next</a>
+                        </div>
+                    </div>
+
+                    <div class="form-step">
+                        <fieldset class="group-details">
+                            <legend>Role Descriptions</legend>
+                            <div class="input-group">
+                                {{ form.role_description_chairperson.label }}
+                                {{ form.role_description_chairperson() }}
+                            </div>
+                            <div class="input-group">
+                                {{ form.role_description_vice_chair.label }}
+                                {{ form.role_description_vice_chair() }}
+                            </div>
+                            <div class="input-group">
+                                {{ form.role_description_treasurer.label }}
+                                {{ form.role_description_treasurer() }}
+                            </div>
+                            <div class="input-group">
+                                {{ form.role_description_secretary.label }}
+                                {{ form.role_description_secretary() }}
+                            </div>
+                            <div class="input-group">
+                                {{ form.role_description_youth_rep.label }}
+                                {{ form.role_description_youth_rep() }}
+                            </div>
+                        </fieldset>
+                        <div class="btns-group">
+                            <a href="#" class="btn btn-prev">Previous</a>
+                            <a href="#" class="btn btn-next">Next</a>
+                        </div>
+                    </div>
+
+                    <div class="form-step">
+                        <fieldset class="group-details">
+                            <legend>Visibility</legend>
+                            <div class="input-group">
+                                {{ form.visibility.label }}
+                                {{ form.visibility() }}
+                            </div>
+                            <div class="input-group">
+                                {{ form.searchable.label }}
+                                {{ form.searchable() }}
+                            </div>
+                        </fieldset>
+                        <div class="btns-group">
+                            <a href="#" class="btn btn-prev">Previous</a>
+                            <a href="#" class="btn btn-next">Next</a>
+                        </div>
+                    </div>
+
+                    <div class="form-step">
+                        <fieldset class="group-details">
+                            <legend>Communication</legend>
+                            <div class="input-group">
+                                {{ form.preferred_communication_channel.label }}
+                                {{ form.preferred_communication_channel() }}
+                            </div>
+                            <div class="input-group">
+                                {{ form.notification_preferences.label }}
+                                {{ form.notification_preferences() }}
+                            </div>
+                        </fieldset>
+                        <div class="btns-group">
+                            <a href="#" class="btn btn-prev">Previous</a>
+                            <button type="submit" class="btn">Submit</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

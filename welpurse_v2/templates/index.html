@@ -1,0 +1,44 @@
+{% extends 'layout.html'%}
+{% block content%}
+<!-- Custom Alert Modal -->
+<div class="modal fade" id="customAlertModal" tabindex="-1" role="dialog" aria-labelledby="modalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content-event">
+        <div class="modal-header">
+          <h5 class="modal-title" id="modalLabel">Alert</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">×</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <!-- The message will be inserted here -->
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+          <button type="button" class="btn btn-primary">OK</button>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+ <section class="container-cards">
+  {%if welfares%}
+    {%for welfare in welfares%}
+        <div class="card-wf">
+            <h4>Welfare Group: {{welfare["name"]}}</h4>
+            <h6>Purpose</h6>
+            <p>{{welfare["purpose"]}}.</p>
+            {%if member not in welfare['members']%}
+                <a class="button red-button join-btn" data-groupId="{{welfare['id']}}" data-memberId="{{member_id}}">Become a Contributor</a>
+            {%endif%}
+            <a href="{{ url_for('app_routes.group_dash', welfare_id=welfare['id']) }}" class="button blue-button info-btn">About Welfare</a>
+        </div>
+    {%endfor%}
+  {%endif%}
+    <div class="add-card" onclick="window.location.href='/create_group';">
+      <div class="plus-sign">
+            +
+      </div>
+      <div class="create-group-text">Create a group</div>
+ </section>
+{% endblock content%}

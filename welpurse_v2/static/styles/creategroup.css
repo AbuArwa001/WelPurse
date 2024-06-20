@@ -1,0 +1,125 @@
+/* Form Container */
+.form {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 1em;
+  background: #f5f5f5;
+  border-radius: 5px;
+  font-family: 'Arial', sans-serif;
+}
+
+/* Form Header */
+.form h1 {
+  text-align: center;
+  color: #2a5b87; /* Blue for titles */
+}
+
+/* Input Groups */
+.input-group {
+  margin-bottom: 1em;
+}
+
+.input-group label {
+  display: block;
+  margin-bottom: .5em;
+  color: #2a5b87; /* Blue for titles */
+  margin-left: 10px;
+}
+
+.input-group input, .input-group select, .input-group textarea {
+  width: 100%;
+  padding: .5em;
+  border: 1px solid #d0b997; /* Card background color for borders */
+  border-radius: 4px;
+  box-sizing: border-box;
+}
+
+/* Progress Bar */
+.progressbar {
+  display: flex;
+  position: relative; 
+  justify-content: space-between;
+  margin-bottom: 2em;
+  width: 100%; /* Full width of the form */
+  height: 5px;
+}
+
+.progress {
+  position: absolute;
+  width: 0;
+  height: 5px;
+  background: #d0b997; /* Card background color */
+  top: 150%;
+  left: 0;
+  transition: 0.2s;
+}
+
+.progress-step {
+  width: 20px;
+  height: 20px;
+  background: #d0b997; /* Card background color */
+  border-radius: 50%;
+  position: relative;
+  z-index: 1;
+}
+
+.progress-step::before {
+  content: attr(data-title);
+  position: absolute;
+  top: 25px;
+  left: 50%;
+  transform: translateX(-50%);
+  text-align: center;
+  font-size: 0.80em;
+  color: #2a5b87; /* Blue for titles */
+}
+
+.progress-step-active {
+  background: #d0b997; /* Card background color */
+}
+
+.form-step {
+  display: none;
+}
+
+.form-step-active {
+  display: block;
+}
+
+/* Buttons */
+.btns-group {
+  display: flex;
+  justify-content: space-between;
+}
+
+.btn {
+  padding: .5em 1em;
+  border: none;
+  background: #2a5b87; /* Blue for titles */
+  color: white;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 1em;
+}
+
+.btn:hover {
+  background: #2a5b87; /* Blue for titles */
+}
+
+.btn-prev {
+  background: #f5f5f5;
+  color: #2a5b87; /* Blue for titles */
+  border: 1px solid #2a5b87; /* Blue for titles */
+}
+
+.btn-prev:hover {
+  background: #2a5b87; /* Blue for titles */
+  color: white;
+}
+
+fieldset {
+  min-width: 0;
+  padding: 0;
+  margin-top: 60px;
+  border: 0;
+}

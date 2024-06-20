@@ -1,0 +1,72 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+  
+<!-- Mirrored from crmx-admin-template.multipurposethemes.com/bs5/main-minimal-dark/index.html by HTTrack Website Copier/3.x [XR&CO'2014], Sat, 26 Nov 2022 01:11:46 GMT -->
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <link rel="icon" href="http://crmx-admin-template.multipurposethemes.com/bs5/images/favicon.ico">
+
+    <title>CrmX Admin - Dashboard</title>
+    
+	<!-- Vendors Style-->
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/vendors_css.csss') }}">
+  
+	<!-- Style-->  
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+	<link rel="stylesheet" href="{{ url_for('static', filename='css/skin_color.css') }}">
+     
+  </head>
+
+<body class="hold-transition dark-skin sidebar-mini theme-primary fixed">
+	
+<div class="wrapper">
+  <div id="loader"></div>
+	
+<!--HEADER-->
+{% include __header.html %}
+  
+{% include __side_main.html %}
+<!-- sidebar-->
+{% include __side_bar.html %}
+{% include __main.html %}
+
+{%__footer.html%}
+
+<!-- /.control-sidebar -->
+{%__control_sidebar.html %}
+  
+  <!-- Add the sidebar's background. This div must be placed immediately after the control sidebar -->
+  <div class="control-sidebar-bg"></div>
+  
+</div>
+<!-- ./wrapper -->
+	
+{%__demopannel.html %}
+{%__side_chat.html %}
+	
+	<!-- Page Content overlay -->
+	
+	
+<!-- Vendor JS -->
+<script src="{{ url_for('static', filename='js/vendors.min.js') }}"></script>
+<script src="{{ url_for('static', filename='js/pages/chat-popup.js') }}"></script>
+<script src="{{ url_for('static', filename='assets/icons/feather-icons/feather.min.js') }}"></script>
+
+<script src="{{ url_for('static', filename='assets/vendor_components/moment/min/moment.min.js') }}"></script>
+<script src="{{ url_for('static', filename='assets/vendor_components/bootstrap-daterangepicker/daterangepicker.js') }}"></script>
+<script src="{{ url_for('static', filename='assets/vendor_components/apexcharts-bundle/dist/apexcharts.js') }}"></script>
+
+<!-- WELPusre Admin App -->
+<script src="{{ url_for('static', filename='js/template.js') }}"></script>
+<script src="{{ url_for('static', filename='js/demo.js') }}"></script>
+<script src="{{ url_for('static', filename='js/pages/dashboard.js') }}"></script>
+
+	
+</body>
+
+<!-- Mirrored from crmx-admin-template.multipurposethemes.com/bs5/main-minimal-dark/index.html by HTTrack Website Copier/3.x [XR&CO'2014], Sat, 26 Nov 2022 01:13:02 GMT -->
+</html>

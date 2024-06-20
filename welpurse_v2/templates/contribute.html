@@ -1,0 +1,62 @@
+{% extends 'layout.html' %}
+
+{% block content %}
+<div class="wel-purse-bg">
+    <div class="container">
+        <!-- Dashboard Header -->
+        <div class="row">
+            <div class="col-12">
+                <h2 class="dashboard-title">WelPurse Dashboard</h2>
+            </div>
+        </div>
+
+        <!-- Contribution Form -->
+        <div class="row">
+            <div class="col-12-row">
+                <h3 class="contribution-header">Make a Contribution</h3>
+                <form id="contribution-form" method="POST" action="{{ url_for('app_routes.contribute') }}">
+                    {{ form.hidden_tag() }}
+                    <!-- Dropdown for selecting welfare group -->
+                    <div class="input-group mb-3">
+                        {{ form.welfare_group.label(class_="form-label") }}
+                        {{ form.welfare_group(class_="form-control wel-purse-select") }}
+                    </div>
+                    <!-- Input for contribution amount -->
+                    <div class="input-group mb-3">
+                        {{ form.amount.label(class_="form-label") }}
+                        {{ form.amount(class_="form-control wel-purse-input", placeholder="Enter amount") }}
+                    </div>
+                    <!-- Dropdown for payment method -->
+                    <div class="input-group mb-3">
+                        {{ form.payment_method.label(class_="form-label") }}
+                        {{ form.payment_method(class_="form-control wel-purse-select") }}
+                    </div>
+                    <!-- Input for MPesa number (hidden by default) -->
+                    <div class="input-group mb-3" id="mpesa-number" style="display: none;">
+                        {{ form.mpesa_number.label(class_="form-label") }}
+                        {{ form.mpesa_number(class_="form-control wel-purse-input", placeholder="Enter MPesa number") }}
+                    </div>
+                    <!-- Submit button -->
+                    <div class="input-group center mb-3">
+                        {{ form.submit(class_="btn wel-purse-btn") }}
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% block scripts %}
+<script>
+    document.getElementById('payment-method').addEventListener('change', function() {
+        const mpesaNumber = document.getElementById('mpesa-number');
+        if (this.value === 'mpesa') {
+            mpesaNumber.style.display = 'block';
+        } else {
+            mpesaNumber.style.display = 'none';
+        }
+    });
+</script>
+{% endblock %}
+
+{% endblock content %}

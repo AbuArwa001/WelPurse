@@ -1,0 +1,105 @@
+{% extends 'layout.html'%}
+{% block register%}
+<div class="container-fluid">
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-10 login-box">
+                <div class="row">
+                    <div class="col-lg-8 col-md-7 log-det">
+                        <div class="small-logo">
+                            <i class="fab"></i> WelPurse Registration
+                        </div>
+                        <h2>Sign up for WelPurse</h2>
+                        <div class="row">
+                            <p class="small-info">or use your email to register</p>
+                        </div>
+
+                        <form action="{{url_for('app_routes.register_member')}}" method="post">
+                            {{form.hidden_tag()}}
+                            <div class="text-box-cont">
+                                <!-- {{form.name.label()}} -->
+                                <div class="input-group mb-3">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text" id="basic-addon1"><i class="fas fa-user"></i></span>
+                                    </div>
+                                    {% if form.name.errors %}
+                                    {{ form.name(class="form-control form-control-lg is-invalid") }}
+                                        <div class="invalid-feedback">
+                                            {% for error in form.name.errors %}
+                                                <span>{{ error }}</span>
+                                            {% endfor %}
+                                        </div>
+                                    {% else %}
+                                        {{ form.name(class="form-control", placeholder="Full Names", aria_label="Full Names", required=True) }}
+                                    {% endif %}
+                                   </div>
+                                <div class="input-group mb-3">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text" id="basic-addon1"><i class="fas fa-envelope"></i></span>
+                                    </div>
+                                    {% if form.email.errors %}
+                                    `   {{ form.email(class="form-control form-control-lg is-invalid") }}
+                                        <div class="invalid-feedback">
+                                            {% for error in form.email.errors %}
+                                                <span>{{ error }}</span>
+                                            {% endfor %}
+                                        </div>
+                                    {% else %}
+                                        {{ form.email(class="form-control", placeholder="Email", aria_label="Email", required=True) }}
+                                    {% endif %}
+
+                                </div>
+                                <div class="input-group mb-3">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text" id="basic-addon2"><i class="fas fa-lock"></i></span>
+                                    </div>
+                                    {% if form.password.errors %}
+                                        {{ form.password(class="form-control form-control-lg is-invalid") }}
+                                        <div class="invalid-feedback">
+                                            {% for error in form.password.errors %}
+                                                <span>{{ error }}</span>
+                                            {% endfor %}
+                                        </div>
+                                    {% else %}
+                                        {{ form.password(class="form-control", placeholder="Password", aria_label="Password", required=True) }}
+                                    {% endif %}
+                                </div>
+                                <div class="input-group mb-3">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text" id="basic-addon2"><i class="fas fa-lock"></i></span>
+                                    </div>
+                                    {% if form.confirm_password.errors %}
+                                    {{ form.confirm_password(class="form-control form-control-lg is-invalid") }}
+                                        <div class="invalid-feedback">
+                                            {% for error in form.confirm_password.errors %}
+                                                <span>{{ error }}</span>
+                                            {% endfor %}
+                                        </div>
+                                    {% else %}
+                                        {{ form.confirm_password(class="form-control", placeholder="Confirm Password", aria_label="Full Names", required=True) }}
+                                    {% endif %}
+                                    <!-- {{ form.confirm_password(class="form-control", placeholder="Confirm Password", aria_label="Username", required=True) }} -->
+                                </div>
+
+                                <div class="input-group center mb-3">
+                                    {{form.submit(class="btn btn-success btn-round")}}
+                                </div>
+                            </div>
+                        </form>
+
+                    </div>
+                    <div class="col-lg-4 col-md-5 box-de">
+                        <div class="ditk-inf">
+                            <h2 class="w-100">Already Have an Account?</h2>
+                            <p>Sign in with your existing account</p>
+                            <a href="{{url_for('app_routes.login')}}">
+                                <button type="button" class="btn btn-outline-light">SIGN IN</button>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock register%}

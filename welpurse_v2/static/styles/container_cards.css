@@ -1,0 +1,17 @@
+.container-cards {
+    display: flex;
+    grid-area: main;
+    grid-template-columns: 1fr 1fr 1fr;
+    grid-template-rows: 1fr 1fr 1fr;
+    /* padding: 20px; */
+    /* gap:20px; */
+    /* grid-template-areas: 
+    "c1 c2 c3"
+    "c4 c4 c5"
+    "c4 c4 c6"; */
+
+    flex-wrap: wrap;
+    /* align-items: flex-start;
+    justify-content: flex-start; */
+  }
+  

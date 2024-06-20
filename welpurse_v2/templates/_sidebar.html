@@ -1,0 +1,73 @@
+<div class="sidebar">
+    <div class="profile">
+        <img src="{{ url_for('static', filename='images/148.jpg', cache_id=cache_id) }}" alt="profile_picture">
+        <h3>{{' '.join(current_user.get("full_name").split()[:2])}}</h3>
+        <p>{{current_user.get('roles')[0]}}</p>
+    </div>
+    <ul class="side-list">
+        <li>
+            <div class="group-selection">
+                <span>Select Welfare Group</span>
+                <select id="group-select">
+                    {% for group in groups %}
+                    <option value="{{ group.id }}" {% if group.id == session.active_group %}selected{% endif %}>{{ group.name }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+        </li>
+        <li>
+            <a href="{{ url_for('app_routes.dashboard') }}" class="active">
+                <span class="icon"><i class="fas fa-home"></i></span>
+                <span class="item">Dashboard</span>
+            </a>
+        </li>
+        <li>
+            <a href="#">
+                <span class="icon"><i class="fas fa-hand-holding-heart icon"></i></span>
+                <span class="item">My Contributions</span>
+            </a>
+        </li>
+        <li>
+            <a href="{{ url_for('app_routes.events') }}">
+                <span class="icon"><i class="fas fa-calendar-alt icon"></i></span>
+                <span class="item">Events</span>
+            </a>
+        </li>
+        <li>
+            <a href="{{ url_for('app_routes.donation_request_list') }}">
+                <span class="icon"><i class="fas fa-hourglass-half icon"></i></span>
+                <span class="item">Pending Requests</span>
+            </a>
+        </li>
+        <li>
+            <a href="{{ url_for('app_routes.donation_request_view') }}">
+                <span class="icon"><i class="fas fa-check icon"></i></span>
+                <span class="item">Approved Donations</span>
+            </a>
+        </li>
+        <li>
+            <a href="{{ url_for('app_routes.home') }}">
+                <span class="icon"><i class="fas fa-users icon"></i></span>
+                <span class="item">Welfares</span>
+            </a>
+        </li>
+        <li>
+            <a href="#">
+                <span class="icon"><i class="fas fa-chart-line icon"></i></span>
+                <span class="item">Reports</span>
+            </a>
+        </li>
+        <li>
+            <a href="#">
+                <span class="icon"><i class="fas fa-book icon"></i></span>
+                <span class="item">Resources</span>
+            </a>
+        </li>
+        <li>
+            <a href="#">
+                <span class="icon"><i class="fas fa-cog"></i></span>
+                <span class="item">Settings</span>
+            </a>
+        </li>
+    </ul>
+</div>

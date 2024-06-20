@@ -1,0 +1,132 @@
+{% extends 'layout.html' %}
+{% block content %}
+<div class="treasurer-dashboard">
+  <h1>Event Dashboard - {{ welfare.get("name")}}</h1>
+  <div class="dashboard-section overview">
+    <h2>Overview</h2>
+    <p>Total Contributions: {{ wallet.get("current_balance") }}</p>
+    <p>Pending Requests: {{ pending_requests }}</p>
+  </div>
+  <div class="dashboard-section recent-transactions">
+    <h2>Recent Transactions</h2>
+    <table class="styled-table">
+      <thead>
+        <tr>
+          <th>Date</th>
+          <th>Amount</th>
+          <th>Event</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for transaction in transactions %}
+        <tr>
+          <td>{{ transaction.date }}</td>
+          <td>{{ transaction.amount }}</td>
+          <td>{{ transaction.event_name }}</td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+  <div class="dashboard-section event-progress">
+    <h2>Event Progress</h2>
+    <p>Event: Medical Attention</p>
+    <p>Amount Raised: 34,000 / 50,000</p>
+    <div class="progress-bar-event">
+        <div class="progress-event" style="width: {{ (34000 / 50000) * 100 }}%;"></div>
+      <!-- <div class="progress" style="width: (amount_raised / target_amount) * 100 %;"></div> -->
+    </div>
+    <form action="#" method="post" class="donate-form">
+      <input type="number" name="amount" placeholder="Enter donation amount" required>
+      <button type="submit" class="btn">Donate</button>
+    </form>
+  </div>
+  <div class="dashboard-section donors-list">
+    <h2>Donors</h2>
+    <table class="styled-table">
+      <thead>
+        <tr>
+          <th>User</th>
+          <th>Amount Donated</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Mwinyi salim</td>
+          <td>10,000</td>
+        </tr>
+        <tr>
+          <td>ali Ahmed</td>
+          <td>15,000</td>
+        </tr>
+        <tr>
+          <td>Salim salim</td>
+          <td>9,000</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  <div class="dashboard-section pending-requests">
+    <h2>Pending Requests</h2>
+    <table class="styled-table">
+      <thead>
+        <tr>
+          <th>Event</th>
+          <th>Amount Requested</th>
+          <th>Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>RIASING FUNDS</td>
+          <td>10,000</td>
+          <td>
+            <form action="#" method="post" style="display:inline;">
+              <button type="submit" class="btn">Approve</button>
+            </form>
+            <form action="#" method="post" style="display:inline;">
+              <button type="submit" class="btn">Reject</button>
+            </form>
+          </td>
+        </tr>
+        <tr>
+          <td>RIASING FUNDS</td>
+          <td>10,000</td>
+          <td>
+            <form action="#" method="post" style="display:inline;">
+              <button type="submit" class="btn">Approve</button>
+            </form>
+            <form action="#" method="post" style="display:inline;">
+              <button type="submit" class="btn">Reject</button>
+            </form>
+          </td>
+        </tr>
+        <tr>
+          <td>RIASING FUNDS 1</td>
+          <td>10,000</td>
+          <td>
+            <form action="#" method="post" style="display:inline;">
+              <button type="submit" class="btn">Approve</button>
+            </form>
+            <form action="#" method="post" style="display:inline;">
+              <button type="submit" class="btn">Reject</button>
+            </form>
+          </td>
+        </tr>
+        <tr>
+          <td>RIASING FUNDS 2</td>
+          <td>10,000</td>
+          <td>
+            <form action="#" method="post" style="display:inline;">
+              <button type="submit" class="btn">Approve</button>
+            </form>
+            <form action="#" method="post" style="display:inline;">
+              <button type="submit" class="btn">Reject</button>
+            </form>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+{% endblock content %}

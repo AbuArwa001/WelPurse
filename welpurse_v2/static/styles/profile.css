@@ -1,0 +1,81 @@
+@import url('https://fonts.googleapis.com/css2?family=Open+Sans&display=swap');
+
+.group-selection {
+    margin: 20px 0;
+    color: white;
+}
+
+.group-selection span {
+    display: block;
+    margin-bottom: 5px;
+    font-weight: bold;
+}
+
+.group-selection select {
+    width: 100%;
+    padding: 10px;
+    border-radius: 10px;
+    border: none;
+    background: #ffffff;
+    color: #2a5b87;
+    font-size: 16px;
+}
+
+.main-content {
+    grid-area: main;
+    padding: 50px;
+    padding-top: 100px;
+    background: #f5f5f5;
+    /* overflow-y: auto; */
+}
+
+.profile-details, .current-groups, .contributions-summary, .recent-contributions {
+    background: white;
+    padding: 20px;
+    margin-bottom: 20px;
+    border-radius: 10px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.profile-details h2, .current-groups h2, .contributions-summary h2, .recent-contributions h2 {
+    margin-bottom: 20px;
+}
+
+.profile-details .info p {
+    margin-bottom: 10px;
+}
+
+.current-groups ul {
+    list-style: none;
+    padding: 0;
+}
+
+.current-groups li {
+    margin-bottom: 10px;
+}
+
+.recent-contributions table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.recent-contributions table th, .recent-contributions table td {
+    padding: 10px;
+    border: 1px solid #ddd;
+    text-align: left;
+}
+
+.recent-contributions table th {
+    background: #2a5b87;
+    color: white;
+}
+
+.recent-contributions table tbody tr:nth-child(even) {
+    background: #f2f2f2;
+}
+.top_navbar .logo {
+    padding-left: 5px;
+    font-size: 24px;
+    font-weight: bold;
+    color: #ffffff;
+}
