@@ -9,42 +9,47 @@ def refresh_token():
     refresh_token = session.get("refresh_token")
     if not refresh_token:
         return False
+
     url = "http://127.0.0.1:5001/auth/refresh"
     headers = {"Authorization": f"Bearer {refresh_token}"}
-    res = requests.post(url=url, headers=headers)
-    if res.status_code == 200:
-        new_tokens = res.json()
-        session["access_token"] = new_tokens["access_token"]
-        session["refresh_token"] = new_tokens["refresh_token"]
-        return True
-    return False
+    try:
+        res = requests.post(url=url, headers=headers)
+        if res.status_code == 200:
+            new_tokens = res.json()
+            session["access_token"] = new_tokens["access_token"]
+            session["refresh_token"] = new_tokens["refresh_token"]
+            return True
+        return False
+    except Exception as e:
+        print(f"Error during token refresh: {e}")
+        return False
 
 def is_logged_in():
+    access_token = session.get("access_token")
+    if not access_token:
+        return False
+
     try:
-        # Check if the token is present in the session
-        access_token = session.get("access_token")
-        if not access_token:
+        decoded_token = decode_token(access_token)
+    except Exception as e:
+        print(f"Authentication error: {e}")
+        if "Signature has expired" in str(e):
+            if refresh_token():
+                access_token = session.get("access_token")
+            else:
+                session.pop("access_token", None)
+                session.pop("refresh_token", None)
+                return False
+        else:
             return False
 
-        # Manually decode the JWT token
-        decoded_token = decode_token(access_token)
-
-        # Check the token expiry
-        if decoded_token["exp"] < datetime.timestamp(datetime.now()):
-            # Attempt to refresh the token if it has expired
-            if not refresh_token():
-                return False
-
-        # Optionally, make a request to the `/who_am_i` endpoint to validate the token server-side
+    try:
         url = "http://127.0.0.1:5001/auth/who_am_i"
         headers = {"Authorization": f"Bearer {access_token}"}
         res = requests.get(url=url, headers=headers)
-        if res.status_code == 200:
-            return True
-        else:
-            return False
+        return res.status_code == 200
     except Exception as e:
-        print(f"Authentication error: {e}")  # Log the error for debugging
+        print(f"Error during token validation: {e}")
         return False
 
 def login_required(f):
@@ -58,12 +63,16 @@ def login_required(f):
 def get_current_user():
     access_token = session.get("access_token")
     if not access_token:
-        return None  # or handle as appropriate
+        return None
 
     url = "http://127.0.0.1:5001/auth/who_am_i"
     headers = {"Authorization": f"Bearer {access_token}"}
-    response = requests.get(url, headers=headers)
-    if response.status_code == 200:
-        return response.json()  # This will contain the user's information
-    else:
-        return None  # or handle as appropriate
+    try:
+        response = requests.get(url, headers=headers)
+        if response.status_code == 200:
+            return response.json()
+        else:
+            return None
+    except Exception as e:
+        print(f"Error fetching current user: {e}")
+        return None

@@ -32,13 +32,13 @@ def register_member():
     return render_template("register.html", title=title, form=form)
 
 
+# app_routes.py
 @app_routes.route("/login", strict_slashes=False, methods=["GET", "POST"])
 def login():
     url = "http://127.0.0.1:5001/auth/login"
     form = LoginForm()
     title = "Login"
 
-    # print(session)
     if 'access_token' in session:
         return redirect(url_for("app_routes.dashboard"))
 
@@ -47,15 +47,20 @@ def login():
             "email": form.email.data,
             "password": form.password.data,
         }
-        res = requests.post(url, json=data)
-
-        if res.status_code == 200:
-            access_token = res.headers.get('Authorization').split()[1]
-            session['access_token'] = access_token
-            flash("You have been logged in!", "success")
-            return redirect(url_for("app_routes.dashboard"))
-        else:
-            flash("Login Unsuccessful. Please check email and password", "danger")
+        try:
+            res = requests.post(url, json=data)
+            if res.status_code == 200:
+                access_token = res.headers.get('Authorization').split()[1]
+                refresh_token = res.headers.get('Refresh-Token').split()[1]
+                session['access_token'] = access_token
+                session['refresh_token'] = refresh_token
+                flash("You have been logged in!", "success")
+                return redirect(url_for("app_routes.dashboard"))
+            else:
+                flash("Login Unsuccessful. Please check email and password", "danger")
+        except Exception as e:
+            flash("An error occurred during login. Please try again later.", "danger")
+            print(f"Error during login request: {e}")
 
     return render_template("login.html", title=title, form=form)
 
@@ -67,6 +72,7 @@ def logout():
     res = requests.post(url=url, headers=headers)
     if res.status_code == 200:
         session.pop('access_token', None)
+        session.pop("refresh_token", None)
         flash("You have been logged out!", "success")
     else:
         flash("Logout failed", "danger")

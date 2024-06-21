@@ -4,6 +4,11 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- jQuery -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <!-- <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script> -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="{{ url_for('static', filename='script/flash.js', cache_id=cache_id) }}"></script>
     
     <!-- Vendors Style-->
     <link rel="stylesheet" href="{{ url_for('static', filename='css/vendors_css.css') }}">
@@ -18,11 +23,16 @@
         <title>WelPurse</title>
     {% endif %}
 </head>
+{% if title == 'Login'%}
+{% include 'auth_login.html' %}
+{% elif title == 'Register' %}
+{% else%}
 <body class="hold-transition dark-skin sidebar-mini theme-primary fixed">
     <div class="wrapper" style="height: auto; min-height: 100%;">
         <div id="loader" style="opacity: 0.05; display: none;"></div>
         
         {% include '__header.html' %}
+        {% include 'flash.html' %}
         <!-- SIDEBAR -->
         {% include '__side_main.html' %}
         {% include '__side_bar.html' %}
@@ -56,4 +66,5 @@
     <script src="{{ url_for('static', filename='js/demo.js') }}"></script>
     <script src="{{ url_for('static', filename='js/pages/dashboard.js') }}"></script>
 </body>
+{%endif%}
 </html>

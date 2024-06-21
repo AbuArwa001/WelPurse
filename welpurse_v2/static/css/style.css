@@ -32214,4 +32214,44 @@ img.away, img.busy, img.offline, img.online {
 .waves-effect .waves-ripple {
   z-index: -1; }
 
+/* 
+FLASH MESSAGES
+*/
+.flash-message {
+  position: fixed;
+  top: 20px;
+  right: 30%;
+  /* margin: auto; */
+  z-index: 1000;
+}
+
+.error {
+  color: red;
+  font-size: 0.875em;
+  margin-top: 0.25em;
+}
+
+/* ALERTS */
+/* Flash message styles */
+.alert {
+  padding: 10px;
+  margin-bottom: 15px;
+  border: 1px solid transparent;
+  border-radius: 4px;
+  text-align: center;
+}
+
+/* Success message style */
+.alert-success {
+  color: #3c763d;
+  background-color: #dff0d8;
+  border-color: #d6e9c6;
+}
+
+/* Danger message style */
+.alert-danger {
+  color: #a94442;
+  background-color: #f2dede;
+  border-color: #ebccd1;
+}
 /*# sourceMappingURL=style.css.map */
