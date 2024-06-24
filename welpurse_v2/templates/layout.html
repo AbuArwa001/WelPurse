@@ -16,6 +16,7 @@
     <!-- Style-->  
     <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
     <link rel="stylesheet" href="{{ url_for('static', filename='css/skin_color.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles/events.css') }}">
 
     {% if title %}
         <title>WelPurse - {{ title }}</title>
@@ -37,8 +38,7 @@
         {% include '__side_main.html' %}
         {% include '__side_bar.html' %}
         <!-- MAIN CONTENT -->
-        {% include '__main.html' %}
-        
+        {% block content %}{% endblock %}
         <!-- FOOTER -->
         {% include '__footer.html' %}
         
@@ -65,6 +65,16 @@
     <script src="{{ url_for('static', filename='js/template.js') }}"></script>
     <script src="{{ url_for('static', filename='js/demo.js') }}"></script>
     <script src="{{ url_for('static', filename='js/pages/dashboard.js') }}"></script>
+    
+    <script src="{{ url_for('static', filename='assets/icons/feather-icons/feather.min.js') }}"></script>
+    <script src="{{ url_for('static', filename='assets/vendor_components/jquery-ui/jquery-ui.min.js') }} "></script>
+    <script src="{{ url_for('static', filename='assets/vendor_components/perfect-scrollbar-master/perfect-scrollbar.jquery.min.js') }} "></script>
+	<script src="{{ url_for('static', filename='assets/vendor_components/fullcalendar/lib/moment.min.js') }} "></script>
+	<script src="{{ url_for('static', filename='assets/vendor_components/fullcalendar/fullcalendar.min.js') }} "></script>
+
+	<script src="{{ url_for('static', filename='js/pages/calendar.js') }}"></script>
+	<script src="{{ url_for('static', filename='script/events.js') }}"></script>
+	
 </body>
 {%endif%}
 </html>

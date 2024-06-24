@@ -22,6 +22,133 @@ from .helper_funtions import (
 logging.basicConfig(level=logging.INFO)
 
 
+@app_routes.route("/calendar", methods=["GET", "POST"])
+@login_required
+def calendar():
+    current_user = get_current_user()
+    title = "Event Requests"
+    time = "%Y-%m-%dT%H:%M:%S.%f"
+    form = EventForm()
+    form_cont = ContributionForm()
+    today = datetime.utcnow()
+    headers = {"Authorization": f"Bearer {session['access_token']}"}
+    current_user = get_current_user()
+    logging.info("current_user.id == %s", current_user.get("id"))
+    all_welfares = fetch_welfares(headers)["data"]
+    # print(all_welfares)
+    all_events = fetch_events(headers)
+    if all_events:
+        events = [
+            event
+            for event in all_events
+            if datetime.fromisoformat(event["end_date"]) >= today
+        ]
+    else:
+        events = []
+    if form_cont.validate_on_submit():
+        welfare_id = form_cont.welfare_id.data
+        welfare = f"http://127.0.0.1:5001/api/v1/welfares/{welfare_id}"
+        wallet = fetch_wallet_id(welfare, headers)
+
+        if wallet:
+            amount = form_cont.amount.data
+            email = "khalfanathman12@gmail.com"
+            phone = form_cont.mpesa_number.data
+            event_id = form_cont.event_id.data
+        try:
+            if process_payment(
+                current_user,
+                wallet,
+                email,
+                phone,
+                amount,
+                event_id,
+                "3",
+                "event",
+            ):
+                flash("Payment was successful!", "success")
+                return redirect(url_for("app_routes.events"))
+        except Exception as e:
+            flash("Please Try Again!", "danger")
+            logging.info("EXEPTION == %s", e)
+            return redirect(url_for("app_routes.events"))
+    return render_template(
+        "extra_calendar.html",
+        time=time,
+        today=today,
+        datetime=datetime,
+        current_user=current_user,
+        welfares=all_welfares,
+        title=title,
+        form=form,
+        events=events,
+        form_cont=form_cont,
+    )
+
+@app_routes.route("/events", methods=["GET", "POST"])
+@login_required
+def event_list():
+    current_user = get_current_user()
+    title = "Event Requests"
+    time = "%Y-%m-%dT%H:%M:%S.%f"
+    form = EventForm()
+    form_cont = ContributionForm()
+    today = datetime.utcnow()
+    headers = {"Authorization": f"Bearer {session['access_token']}"}
+    current_user = get_current_user()
+    logging.info("current_user.id == %s", current_user.get("id"))
+    all_welfares = fetch_welfares(headers)["data"]
+    # print(all_welfares)
+    all_events = fetch_events(headers)
+    if all_events:
+        events = [
+            event
+            for event in all_events
+            if datetime.fromisoformat(event["end_date"]) >= today
+        ]
+    else:
+        events = []
+    if form_cont.validate_on_submit():
+        welfare_id = form_cont.welfare_id.data
+        welfare = f"http://127.0.0.1:5001/api/v1/welfares/{welfare_id}"
+        wallet = fetch_wallet_id(welfare, headers)
+
+        if wallet:
+            amount = form_cont.amount.data
+            email = "khalfanathman12@gmail.com"
+            phone = form_cont.mpesa_number.data
+            event_id = form_cont.event_id.data
+        try:
+            if process_payment(
+                current_user,
+                wallet,
+                email,
+                phone,
+                amount,
+                event_id,
+                "3",
+                "event",
+            ):
+                flash("Payment was successful!", "success")
+                return redirect(url_for("app_routes.events"))
+        except Exception as e:
+            flash("Please Try Again!", "danger")
+            logging.info("EXEPTION == %s", e)
+            return redirect(url_for("app_routes.events"))
+    return render_template(
+        "event_list.html",
+        time=time,
+        today=today,
+        datetime=datetime,
+        current_user=current_user,
+        welfares=all_welfares,
+        title=title,
+        form=form,
+        events=events,
+        form_cont=form_cont,
+    )
+
+
 @app_routes.route("/events", methods=["GET", "POST"])
 @login_required
 def events():

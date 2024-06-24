@@ -80,7 +80,7 @@ def dashboard():
     # Render the dashboard page if authenticated
     # print("ACCESS TOKEN:", accessToken)
     return render_template(
-        "layout.html",
+        "__main.html",
         accessToken=accessToken,
         current_user=current_user,
         calendar=formatted_events,

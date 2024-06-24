@@ -21,17 +21,18 @@
 			  <div class="multinav-scroll ps ps--active-y" style="height: 100%;">	
 				  <!-- sidebar menu-->
 				  <ul class="sidebar-menu tree" data-widget="tree">	
-					<li class="active"><a href="index.html"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-monitor"><rect x="2" y="3" width="20" height="14" rx="2" ry="2"></rect><line x1="8" y1="21" x2="16" y2="21"></line><line x1="12" y1="17" x2="12" y2="21"></line></svg><span>Dashboard</span></a></li>
+					<li class="active"><a href="{{url_for('app_routes.dashboard')}}"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-monitor"><rect x="2" y="3" width="20" height="14" rx="2" ry="2"></rect><line x1="8" y1="21" x2="16" y2="21"></line><line x1="12" y1="17" x2="12" y2="21"></line></svg><span>Dashboard</span></a></li>
 					<li class="treeview">
 					  <a href="#">
 						<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-grid"><rect x="3" y="3" width="7" height="7"></rect><rect x="14" y="3" width="7" height="7"></rect><rect x="14" y="14" width="7" height="7"></rect><rect x="3" y="14" width="7" height="7"></rect></svg>
-						<span>Apps</span>
+						<span>Events</span>
 						<span class="pull-right-container">
 						  <i class="fa fa-angle-right pull-right"></i>
 						</span>
 					  </a>
 					  <ul class="treeview-menu">
-						<li><a href="extra_calendar.html"><i class="icon-Commit"><span class="path1"></span><span class="path2"></span></i>Calendar</a></li>
+						<li><a href="{{url_for('app_routes.calendar')}}"><i class="icon-Commit"><span class="path1"></span><span class="path2"></span></i>Calendar</a></li>
+						<li><a href="{{url_for('app_routes.event_list')}}"><i class="icon-Commit"><span class="path1"></span><span class="path2"></span></i>Events List</a></li>
 						<li><a href="contact_app.html"><i class="icon-Commit"><span class="path1"></span><span class="path2"></span></i>Contact List</a></li>
 						<li><a href="contact_app_chat.html"><i class="icon-Commit"><span class="path1"></span><span class="path2"></span></i>Chat</a></li>
 						<li><a href="extra_taskboard.html"><i class="icon-Commit"><span class="path1"></span><span class="path2"></span></i>Todo</a></li>
