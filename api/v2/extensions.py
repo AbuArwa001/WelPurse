@@ -12,7 +12,7 @@ login_manager = LoginManager()
 
 @login_manager.user_loader
 def load_user(member_id):
-    from welpurse_v2.models.member import Member
+    from welpurse.models.member import Member
 
     return Member.query.get(int(member_id))
 

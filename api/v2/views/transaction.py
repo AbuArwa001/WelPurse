@@ -2,13 +2,13 @@
 """Queries the Mpeas API and returns the authorization
 """
 from api.v1.views import app_views
-from welpurse_v2.models import storage
-from welpurse_v2.models.member import Member
+from welpurse.models import storage
+from welpurse.models.member import Member
 
 # from welpurse_v2.models.transaction import WalletTransaction
-from welpurse_v2.models.associations import transaction_transaction_types
-from welpurse_v2.models.transaction import WalletTransaction
-from welpurse_v2.models.transactiontype import TransactionType
+from welpurse.models.associations import transaction_transaction_types
+from welpurse.models.transaction import WalletTransaction
+from welpurse.models.transactiontype import TransactionType
 from flask import abort, jsonify, make_response, request
 from flasgger.utils import swag_from
 from intasend.exceptions import IntaSendBadRequest

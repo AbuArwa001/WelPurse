@@ -2,11 +2,11 @@
 """Queries the Mpeas API and returns the authorization
 """
 from api.v1.views import app_views
-from welpurse_v2.models import storage
-from welpurse_v2.models.member import Member
+from welpurse.models import storage
+from welpurse.models.member import Member
 
 # from welpurse_v2.models.contribution import Contribution
-from welpurse_v2.models.contribution import Contribution
+from welpurse.models.contribution import Contribution
 from flask import abort, jsonify, make_response, request
 from flasgger.utils import swag_from
 from intasend.exceptions import IntaSendBadRequest

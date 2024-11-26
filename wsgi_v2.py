@@ -1,4 +1,4 @@
-from welpurse_v2.app import create_app
+from welpurse.app import create_app
 
 app = create_app()
 

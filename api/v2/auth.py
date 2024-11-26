@@ -9,8 +9,8 @@ from flask_jwt_extended import (
 from datetime import datetime, timezone, timedelta
 import hashlib
 import requests
-from welpurse_v2.models import storage
-from welpurse_v2.models.member import  Member
+from welpurse.models import storage
+from welpurse.models.member import  Member
 from .extensions import jwt
 from .config import Config
 

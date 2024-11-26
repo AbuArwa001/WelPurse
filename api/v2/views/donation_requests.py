@@ -1,9 +1,9 @@
 from api.v1.views import app_views
-from welpurse_v2.models import storage
-from welpurse_v2.models.welfare import Welfare
-from welpurse_v2.models.member import Member
-from welpurse_v2.models.contribution import Contribution
-from welpurse_v2.models.donation_request import DonationRequest
+from welpurse.models import storage
+from welpurse.models.welfare import Welfare
+from welpurse.models.member import Member
+from welpurse.models.contribution import Contribution
+from welpurse.models.donation_request import DonationRequest
 from flask import abort, jsonify, make_response, request
 from flask_jwt_extended import (
     create_access_token,
