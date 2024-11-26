@@ -1,4 +1,6 @@
-from welpurse_v2.app import app
+from welpurse_v2.app import create_app
+
+app = create_app()
 
 
 if __name__ == "__main__":

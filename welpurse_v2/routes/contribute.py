@@ -5,7 +5,6 @@ import uuid
 # from welpurse import calendar
 from welpurse_v2.utils import login_required
 from welpurse_v2.routes import app_routes
-from welpurse import jwt
 from flask_jwt_extended import jwt_required, current_user, get_current_user
 from welpurse_v2.forms.contribute import ContributionForm
 
