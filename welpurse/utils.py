@@ -56,7 +56,7 @@ def login_required(f):
     @wraps(f)
     def decorated_function(*args, **kwargs):
         if not is_logged_in():
-            return redirect(url_for("app_routes.login"))
+            return redirect(url_for("members.login"))
         return f(*args, **kwargs)
     return decorated_function
 

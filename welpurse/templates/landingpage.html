@@ -17,7 +17,7 @@
         <p>Building a Better Community</p>
         <nav>
             <a href="#features">Features</a>
-            <a href="{{url_for('app_routes.home')}}">Home</a>
+            <a href="{{url_for('main.home')}}">Home</a>
             <a href="#about">About</a>
             <a href="#actions">Get Started</a>
         </nav>
@@ -92,8 +92,8 @@
     <section id="actions">
         <h2>Ready to Get Started?</h2>
         <p>Join us today and take your community engagement to the next level!</p>
-        <a href="{{url_for('app_routes.register_member')}}" class="btn">Register</a>
-        <a href="{{url_for('app_routes.login')}}" class="btn">Login</a>
+        <a href="{{url_for('members.register_member')}}" class="btn">Register</a>
+        <a href="{{url_for('members.login')}}" class="btn">Login</a>
     </section>
     <!-- Team Section -->
     <section class="section">

@@ -1,9 +1,9 @@
 from flask import Flask
 
 from welpurse.config import Config
-from .celery_config import make_celery
+# from .celery_config import make_celery
 from flask_jwt_extended import JWTManager
-from os import getenv
+# from os import getenv
 from datetime import datetime
 
 # Add the filter to the app's Jinja2 environment
@@ -22,9 +22,20 @@ def create_app(config_class=Config):
     # print(type(app.config['JWT_TOKEN_LOCATION']))
     jwt.init_app(app)
 
-    from welpurse.routes import app_routes
+    from welpurse.main.route import main
+    from welpurse.members.route import members
+    from welpurse.contribute.route import contribute
+    from welpurse.create_group.route import create_group
+    from welpurse.success.route import success
+    from welpurse.donation_req.route import donations
+    from welpurse.events.route import events
 
-    app.register_blueprint(app_routes)
+    app.register_blueprint(main)
+    app.register_blueprint(members)
+    app.register_blueprint(create_group)
+    app.register_blueprint(success)
+    app.register_blueprint(donations)
+    app.register_blueprint(events)
 
     # Initialize Celery
     # celery = make_celery(app)
