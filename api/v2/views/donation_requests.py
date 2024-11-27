@@ -77,7 +77,7 @@ def request_donation():
     methods=["PUT", "POST"],
     strict_slashes=False,
 )
-@jwt_required()
+# @jwt_required()
 def star_donation(request_id):
     print("TRYING START")
     if not user_is_admin():
@@ -98,12 +98,12 @@ def star_donation(request_id):
 
 # @app_views.route('/donation-requests/<request_id>/approve', methods=['PUT', 'POST'], strict_slashes=False)
 # def approve_donation_request(request_id):
+# @jwt_required()
 @app_views.route(
     "/donation-requests/<request_id>/approve",
     methods=["PUT", "POST"],
     strict_slashes=False,
 )
-@jwt_required()
 def approve_donation_request(request_id):
     if not user_is_admin():
         abort(403, description="Forbidden")
@@ -126,7 +126,7 @@ def approve_donation_request(request_id):
     methods=["PUT"],
     strict_slashes=False,
 )
-@jwt_required()
+# @jwt_required()
 def reject_donation_request(request_id):
     if not user_is_admin():
         abort(403, description="Forbidden")

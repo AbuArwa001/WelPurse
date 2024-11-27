@@ -70,7 +70,7 @@
                     </div>
                     <div class="modal-body">
                       <!-- Include your donation form here -->
-                      <form action="{{ url_for('app_routes.group_dash', welfare_id=welfare.get('id')) }}" method="post">
+                      <form action="{{ url_for('main.group_dash', welfare_id=welfare.get('id')) }}" method="post">
                         {{ form_req.hidden_tag() }}
                         <!-- Donor Details Step -->
                         <fieldset class="form-step form-step-active">

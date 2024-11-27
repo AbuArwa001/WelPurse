@@ -29,7 +29,7 @@ def register_member():
             return redirect(url_for("members.login"))
         else:
             flash("An error occurred during registration.", "danger")
-    return render_template("register.html", title=title, form=form)
+    return render_template("auth_register.html", title=title, form=form)
 
 
 # members.py

@@ -17,6 +17,7 @@
     <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
     <link rel="stylesheet" href="{{ url_for('static', filename='css/skin_color.css') }}">
     <link rel="stylesheet" href="{{ url_for('static', filename='styles/events.css') }}">
+    <script src="https://cdn.tailwindcss.com"></script>
 
     {% if title %}
         <title>WelPurse - {{ title }}</title>
@@ -26,7 +27,9 @@
 </head>
 {% if title == 'Login'%}
 {% include 'auth_login.html' %}
+
 {% elif title == 'Register' %}
+{% include 'auth_register.html' %}
 {% else%}
 <body class="hold-transition dark-skin sidebar-mini theme-primary fixed">
     <div class="wrapper" style="height: auto; min-height: 100%;">

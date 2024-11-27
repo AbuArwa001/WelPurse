@@ -30,8 +30,8 @@ def landingpage():
     return render_template("landingpage.html")
 
 
+# @login_required
 @main.route("/home", strict_slashes=False)
-@login_required
 def home():
     """Page displaying welfares"""
     # Check if the session variables exist
