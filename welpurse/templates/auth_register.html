@@ -1,5 +1,5 @@
 
-<body class="hold-transition theme-primary bg-img" style="background-image: url('{{url_for('static', filename='images/auth-bg/bg-2.jpg')}}')"">
+<body class="hold-transition theme-primary bg-img" style="background-image: url('{{url_for('static', filename='images/auth-bg/bg-2.jpg')}}')">
 	
 	<div class="container h-p100">
 		<div class="row align-items-center justify-content-md-center h-p100">
@@ -13,29 +13,66 @@
 								<p class="mb-0">Register a new membership</p>							
 							</div>
 							<div class="p-40">
-								<form action="http://crmx-admin-template.multipurposethemes.com/bs5/main-minimal-dark/index.html" method="post">
+								<form action="{{url_for('members.register_member')}}" method="post">
+                                    {{ form.hidden_tag() }}
 									<div class="form-group">
 										<div class="input-group mb-3">
 											<span class="input-group-text bg-transparent"><i class="ti-user"></i></span>
-											<input type="text" class="form-control ps-15 bg-transparent" placeholder="Full Name">
+                                            {% if form.name.errors %}
+                                            {{ form.name(class="form-control form-control-lg is-invalid") }}
+                                            <div class="invalid-feedback">
+                                              {% for error in form.name.errors %}
+                                                <span>{{ error }}</span>
+                                              {% endfor %}
+                                            </div>
+                                          {% else %}
+                                            {{ form.name(class="form-control ps-15 bg-transparent", placeholder="Full Name", required=True) }}
+                                          {% endif %}
 										</div>
 									</div>
 									<div class="form-group">
 										<div class="input-group mb-3">
 											<span class="input-group-text bg-transparent"><i class="ti-email"></i></span>
-											<input type="email" class="form-control ps-15 bg-transparent" placeholder="Email">
+                                            {% if form.email.errors %}
+                                            {{ form.email(class="form-control form-control-lg is-invalid") }}
+                                            <div class="invalid-feedback">
+                                              {% for error in form.email.errors %}
+                                                <span>{{ error }}</span>
+                                              {% endfor %}
+                                            </div>
+                                          {% else %}
+                                            {{ form.email(class="form-control ps-15 bg-transparent", placeholder="Email", required=True) }}
+                                          {% endif %}
 										</div>
 									</div>
 									<div class="form-group">
 										<div class="input-group mb-3">
 											<span class="input-group-text bg-transparent"><i class="ti-lock"></i></span>
-											<input type="password" class="form-control ps-15 bg-transparent" placeholder="Password">
+                                            {% if form.password.errors %}
+                                            {{ form.password(class="form-control form-control-lg is-invalid") }}
+                                            <div class="invalid-feedback">
+                                              {% for error in form.password.errors %}
+                                                <span>{{ error }}</span>
+                                              {% endfor %}
+                                            </div>
+                                          {% else %}
+                                            {{ form.password(class="form-control ps-15 bg-transparent", placeholder="Password", required=True) }}
+                                          {% endif %}
 										</div>
 									</div>
 									<div class="form-group">
 										<div class="input-group mb-3">
 											<span class="input-group-text bg-transparent"><i class="ti-lock"></i></span>
-											<input type="password" class="form-control ps-15 bg-transparent" placeholder="Retype Password">
+                                            {% if form.confirm_password.errors %}
+                                            {{ form.confirm_password(class="form-control form-control-lg is-invalid") }}
+                                            <div class="invalid-feedback">
+                                              {% for error in form.confirm_password.errors %}
+                                                <span>{{ error }}</span>
+                                              {% endfor %}
+                                            </div>
+                                          {% else %}
+                                            {{ form.confirm_password(class="form-control ps-15 bg-transparent", placeholder="Retype Password", required=True) }}
+                                          {% endif %}
 										</div>
 									</div>
 									  <div class="row">
@@ -47,13 +84,14 @@
 										</div>
 										<!-- /.col -->
 										<div class="col-12 text-center">
-										  <button type="submit" class="btn btn-info margin-top-10">SIGN IN</button>
+                                            {{ form.submit(class="btn btn-info margin-top-10") }}
+										  
 										</div>
 										<!-- /.col -->
 									  </div>
 								</form>				
 								<div class="text-center">
-									<p class="mt-15 mb-0">Already have an account?<a href="auth_login.html" class="text-danger ms-5"> Sign In</a></p>
+									<p class="mt-15 mb-0">Already have an account?<a href="{{ url_for('members.login') }}" class="text-danger ms-5"> Sign In</a></p>
 								</div>
 							</div>
 						</div>								

@@ -95,7 +95,7 @@ def dashboard():
 @main.route(
     "/group_dash/<welfare_id>", methods=["GET", "POST"], strict_slashes=False
 )
-@login_required  # Use custom login_required decorator
+# @login_required  # Use custom login_required decorator
 def group_dash(welfare_id):
     current_user = get_current_user()
 

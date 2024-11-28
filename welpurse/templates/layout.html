@@ -1,22 +1,25 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
     <!-- jQuery -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-    <!-- <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script> -->
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
     <script src="{{ url_for('static', filename='script/flash.js', cache_id=cache_id) }}"></script>
     
-    <!-- Vendors Style-->
+    <!-- Vendors Style -->
     <link rel="stylesheet" href="{{ url_for('static', filename='css/vendors_css.css') }}">
   
-    <!-- Style-->  
+    <!-- Custom Styles -->
     <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
     <link rel="stylesheet" href="{{ url_for('static', filename='css/skin_color.css') }}">
     <link rel="stylesheet" href="{{ url_for('static', filename='styles/events.css') }}">
+
+    <!-- TailwindCSS -->
     <script src="https://cdn.tailwindcss.com"></script>
 
     {% if title %}
@@ -25,59 +28,59 @@
         <title>WelPurse</title>
     {% endif %}
 </head>
-{% if title == 'Login'%}
-{% include 'auth_login.html' %}
 
-{% elif title == 'Register' %}
-{% include 'auth_register.html' %}
-{% else%}
+{% if title == 'Register' %}
+    {% include 'auth_register.html' %}
+{% elif title == 'Login' %}
+    {% include 'auth_login.html' %}
+{% else %}
 <body class="hold-transition dark-skin sidebar-mini theme-primary fixed">
-    <div class="wrapper" style="height: auto; min-height: 100%;">
-        <div id="loader" style="opacity: 0.05; display: none;"></div>
-        
-        {% include '__header.html' %}
-        {% include 'flash.html' %}
-        <!-- SIDEBAR -->
-        {% include '__side_main.html' %}
-        {% include '__side_bar.html' %}
-        <!-- MAIN CONTENT -->
-        {% block content %}{% endblock %}
-        <!-- FOOTER -->
-        {% include '__footer.html' %}
-        
-        <!-- CONTROL SIDEBAR -->
-        {% include '__control_sidebar.html' %}
-        
-        <!-- Add the sidebar's background. This div must be placed immediately after the control sidebar -->
-        <div class="control-sidebar-bg"></div>
-    </div>
-    
-    <!-- Additional Scripts -->
-    {% include '__demopannel.html' %}
-    {% include '__side_chat.html' %}
-    
-    <!-- Vendor JS -->
-    <script src="{{ url_for('static', filename='js/vendors.min.js') }}"></script>
-    <script src="{{ url_for('static', filename='js/pages/chat-popup.js') }}"></script>
-    <script src="{{ url_for('static', filename='assets/icons/feather-icons/feather.min.js') }}"></script>
-    <script src="{{ url_for('static', filename='assets/vendor_components/moment/min/moment.min.js') }}"></script>
-    <script src="{{ url_for('static', filename='assets/vendor_components/bootstrap-daterangepicker/daterangepicker.js') }}"></script>
-    <script src="{{ url_for('static', filename='assets/vendor_components/apexcharts-bundle/dist/apexcharts.js') }}"></script>
-    
-    <!-- WELPurse Admin App -->
-    <script src="{{ url_for('static', filename='js/template.js') }}"></script>
-    <script src="{{ url_for('static', filename='js/demo.js') }}"></script>
-    <script src="{{ url_for('static', filename='js/pages/dashboard.js') }}"></script>
-    
-    <script src="{{ url_for('static', filename='assets/icons/feather-icons/feather.min.js') }}"></script>
-    <script src="{{ url_for('static', filename='assets/vendor_components/jquery-ui/jquery-ui.min.js') }} "></script>
-    <script src="{{ url_for('static', filename='assets/vendor_components/perfect-scrollbar-master/perfect-scrollbar.jquery.min.js') }} "></script>
-	<script src="{{ url_for('static', filename='assets/vendor_components/fullcalendar/lib/moment.min.js') }} "></script>
-	<script src="{{ url_for('static', filename='assets/vendor_components/fullcalendar/fullcalendar.min.js') }} "></script>
 
-	<script src="{{ url_for('static', filename='js/pages/calendar.js') }}"></script>
-	<script src="{{ url_for('static', filename='script/events.js') }}"></script>
-	
-</body>
-{%endif%}
+        <div class="wrapper" style="height: auto; min-height: 100%;">
+            <div id="loader" style="opacity: 0.05; display: none;"></div>
+
+            {% include '__header.html' %}
+            {% include 'flash.html' %}
+            
+            <!-- SIDEBAR -->
+            {% include '__side_main.html' %}
+            {% include '__side_bar.html' %}
+            
+            <!-- MAIN CONTENT -->
+            {% block content %}{% endblock %}
+            
+            <!-- FOOTER -->
+            {% include '__footer.html' %}
+            
+            <!-- CONTROL SIDEBAR -->
+            {% include '__control_sidebar.html' %}
+            <div class="control-sidebar-bg"></div>
+        </div>
+        
+        <!-- Additional Scripts -->
+        {% include '__demopannel.html' %}
+        {% include '__side_chat.html' %}
+        
+        <!-- Vendor JS -->
+        <script src="{{ url_for('static', filename='js/vendors.min.js') }}"></script>
+        <script src="{{ url_for('static', filename='js/pages/chat-popup.js') }}"></script>
+        <script src="{{ url_for('static', filename='assets/icons/feather-icons/feather.min.js') }}"></script>
+        <script src="{{ url_for('static', filename='assets/vendor_components/moment/min/moment.min.js') }}"></script>
+        <script src="{{ url_for('static', filename='assets/vendor_components/bootstrap-daterangepicker/daterangepicker.js') }}"></script>
+        <script src="{{ url_for('static', filename='assets/vendor_components/apexcharts-bundle/dist/apexcharts.js') }}"></script>
+        
+        <!-- WELPurse Admin App -->
+        <script src="{{ url_for('static', filename='js/template.js') }}"></script>
+        <script src="{{ url_for('static', filename='js/demo.js') }}"></script>
+        <script src="{{ url_for('static', filename='js/pages/dashboard.js') }}"></script>
+        
+        <script src="{{ url_for('static', filename='assets/vendor_components/jquery-ui/jquery-ui.min.js') }}"></script>
+        <script src="{{ url_for('static', filename='assets/vendor_components/perfect-scrollbar-master/perfect-scrollbar.jquery.min.js') }}"></script>
+        <script src="{{ url_for('static', filename='assets/vendor_components/fullcalendar/lib/moment.min.js') }}"></script>
+        <script src="{{ url_for('static', filename='assets/vendor_components/fullcalendar/fullcalendar.min.js') }}"></script>
+        <script src="{{ url_for('static', filename='js/pages/calendar.js') }}"></script>
+        <script src="{{ url_for('static', filename='script/events.js') }}"></script>
+    </body>
+    {% endif %}
+
 </html>
