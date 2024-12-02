@@ -4,7 +4,7 @@ import uuid
 from welpurse.members.form import RegistrationForm, LoginForm
 import requests
 from flask_jwt_extended import current_user, jwt_required
-from welpurse.utils import is_logged_in, get_current_user
+from welpurse.utils import is_logged_in, get_current_user, login_required
 from flask import Blueprint
 
 members = Blueprint("members", __name__)
@@ -49,13 +49,15 @@ def login():
         }
         try:
             res = requests.post(url, json=data)
+            # print("RESP_LOGIN", res.json())
             if res.status_code == 200:
-                access_token = res.headers.get('Authorization').split()[1]
-                refresh_token = res.headers.get('Refresh-Token').split()[1]
+                access_token = res.json().get('access_token')
+                refresh_token = res.json().get('refresh_token')
                 session['access_token'] = access_token
                 session['refresh_token'] = refresh_token
                 flash("You have been logged in!", "success")
-                return redirect(url_for("members.dashboard"))
+                # print("SESSION", session.get('access_token'))
+                return redirect(url_for("main.dashboard"))
             else:
                 flash("Login Unsuccessful. Please check email and password", "danger")
         except Exception as e:
@@ -66,6 +68,7 @@ def login():
 
 
 @members.route("/logout", strict_slashes=False, methods=["GET", "POST"])
+@login_required
 def logout():
     url = "http://127.0.0.1:5001/auth/logout/"
     headers = {"Authorization": f"Bearer {session.get('access_token')}"}
@@ -75,34 +78,26 @@ def logout():
         session.pop("refresh_token", None)
         flash("You have been logged out!", "success")
     else:
-        flash("Logout failed", "danger")
+        flash("Logout failed.", "danger")
         
     return redirect(url_for("members.login"))
 
 @members.route("/profile", strict_slashes=False, methods=["GET", "POST"])
+@login_required
 def profile():
-    url = "http://127.0.0.1:5001/auth/login"
-    form = LoginForm()
     title = "Profile"
     current_user = get_current_user()
-    if not is_logged_in():
-        print({"log": "IS NOT LOGGED IN"})
-        return redirect(url_for("members.login"))
 
     return render_template(
-        "profile.html", current_user=current_user, title=title, form=form
+        "profile.html", current_user=current_user, title=title
     )
 
 @members.route("/settings", strict_slashes=False, methods=["GET", "POST"])
+@login_required
 def settings():
-    url = "http://127.0.0.1:5001/auth/login"
-    form = LoginForm()
     title = "Settings"
     current_user = get_current_user()
-    if not is_logged_in():
-        print({"log": "IS NOT LOGGED IN"})
-        return redirect(url_for("members.login"))
 
     return render_template(
-        "settings.html", current_user=current_user, title=title, form=form
+        "settings.html", current_user=current_user, title=title
     )

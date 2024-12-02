@@ -4,11 +4,26 @@ from flask import redirect, url_for, session, request
 from flask_jwt_extended import decode_token
 from datetime import datetime
 import requests
+import time
+import jwt
+
+def is_token_expired(token):
+    try:
+        payload = jwt.decode(token, options={"verify_signature": False})
+        exp = payload.get("exp", 0)
+        return exp < time.time()
+    except jwt.DecodeError:
+        return True
 
 def refresh_token():
+    access_token = session.get("access_token")
     refresh_token = session.get("refresh_token")
+    
     if not refresh_token:
         return False
+
+    if access_token and not is_token_expired(access_token):
+        return True
 
     url = "http://127.0.0.1:5001/auth/refresh"
     headers = {"Authorization": f"Bearer {refresh_token}"}

@@ -32,6 +32,7 @@ def landingpage():
 
 # @login_required
 @main.route("/home", strict_slashes=False)
+@login_required # Use custom login_required decorator
 def home():
     """Page displaying welfares"""
     # Check if the session variables exist

@@ -2,6 +2,7 @@
 from flask import Blueprint, request, jsonify
 from flask_jwt_extended import (
     create_access_token, 
+    create_refresh_token,
     get_jwt_identity, 
     jwt_required, 
     get_jwt
@@ -28,9 +29,10 @@ def login():
             return jsonify({"msg": "Bad username or password"}), 401
 
         access_token = create_access_token(identity=member.id)
-        response = jsonify({"login": True})
-        response.headers['Authorization'] = f'Bearer {access_token}'
-        return response
+        refresh_token = create_refresh_token(identity={'id': member.id, 'username': member.email})
+        # response = jsonify({"login": True})
+        # response.headers['Authorization'] = f'Bearer {access_token}'
+        return jsonify({'access_token': access_token, 'refresh_token': refresh_token}), 200
     except Exception as e:
         session.rollback()
         print(f"Error during login query: {e}")
@@ -48,14 +50,21 @@ def user_lookup_callback(_jwt_header, jwt_data):
     session = storage._DBStorage__session
     return session.query(Member).filter_by(id=identity).one_or_none()
 
-@auth_blueprint.route("/refresh", methods=["POST"])
+@auth_blueprint.route('/refresh', methods=['POST'])
 @jwt_required(refresh=True)
 def refresh():
-    current_user = get_jwt_identity()
-    new_access_token = create_access_token(identity=current_user)
-    response = jsonify({"refresh": True})
-    response.headers['Authorization'] = f'Bearer {new_access_token}'
-    return response
+    identity = get_jwt_identity()
+    access_token = create_access_token(identity=identity)
+    return jsonify({'access_token': access_token}), 200
+
+# @auth_blueprint.route("/refresh", methods=["POST"])
+# @jwt_required(refresh=True)
+# def refresh():
+#     current_user = get_jwt_identity()
+#     new_access_token = create_access_token(identity=current_user)
+#     response = jsonify({"refresh": True})
+#     response.headers['Authorization'] = f'Bearer {new_access_token}'
+#     return response
 
 @auth_blueprint.after_request
 def refresh_expiring_jwts(response):

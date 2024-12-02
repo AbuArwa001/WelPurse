@@ -36,13 +36,15 @@ body {
   display: grid;
   grid-template-columns: 1fr 1fr;
   grid-template-rows: 60px 1fr 60px;
-  align-items: start; /* Changed from center to start */
+  align-items: start;
+  /* Changed from center to start */
   grid-template-areas:
     "header header"
     "sidebar main"
     "footer footer";
   gap: 1em;
-  height: 100vh; /* This will make sure that .body-div-2 is full viewport height */
+  height: 100vh;
+  /* This will make sure that .body-div-2 is full viewport height */
 }
 
 
@@ -83,27 +85,35 @@ body {
 
 /* Required fields */
 .is-invalid {
-  border-color: #dc3545; /* Red border to indicate error */
-  padding-right: calc(1.5em + 0.75rem); /* Space for error icon */
-  background-image: url('error-icon.svg'); /* Replace with your error icon */
+  border-color: #dc3545;
+  /* Red border to indicate error */
+  padding-right: calc(1.5em + 0.75rem);
+  /* Space for error icon */
+  background-image: url('error-icon.svg');
+  /* Replace with your error icon */
   background-repeat: no-repeat;
   background-position: right calc(0.375em + 0.1875rem) center;
   background-size: calc(0.75em + 0.375rem) calc(0.75em + 0.375rem);
 }
 
 .invalid-feedback {
-  display: block; /* Show the feedback message */
+  display: block;
+  /* Show the feedback message */
   width: 100%;
   margin-top: 0.25rem;
   font-size: 80%;
-  color: #dc3545; /* Red text to match the input border */
+  color: #dc3545;
+  /* Red text to match the input border */
 }
 
 /* Main theme colors */
 :root {
-  --primary-color: #d0b997; /* Beige */
-  --secondary-color:#2a5b87; /* Blue */
-  --accent-color: rgba(171, 0, 0, 0.73); /* Red with transparency */
+  --primary-color: #d0b997;
+  /* Beige */
+  --secondary-color: #2a5b87;
+  /* Blue */
+  --accent-color: rgba(171, 0, 0, 0.73);
+  /* Red with transparency */
 }
 
 /* Apply the theme colors to the body and text */
@@ -132,7 +142,8 @@ body {
 .btn-success.btn-round {
   background-color: var(--accent-color);
   color: var(--primary-color);
-  border-radius: 20px; /* Rounded corners for the button */
+  border-radius: 20px;
+  /* Rounded corners for the button */
   border: none;
   padding: 10px 20px;
 }
@@ -160,13 +171,14 @@ a, button {
 a:hover, button:hover {
   color: var(--secondary-color);
 }
+
 /* 
 FLASH MESSAGES
 */
 .flash-message {
   position: fixed;
   top: 20px;
-  right: 30%;
+  right: 70%;
   /* margin: auto; */
   z-index: 1000;
 }

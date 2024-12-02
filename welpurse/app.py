@@ -1,10 +1,11 @@
-from flask import Flask
+from flask import Flask, session, redirect, url_for, flash
 
 from welpurse.config import Config
 # from .celery_config import make_celery
 from flask_jwt_extended import JWTManager
 # from os import getenv
 from datetime import datetime
+from .utils import refresh_token
 
 # Add the filter to the app's Jinja2 environment
 
@@ -21,6 +22,17 @@ def create_app(config_class=Config):
     app.jinja_env.filters["parse_datetime"] = parse_datetime
     # print(type(app.config['JWT_TOKEN_LOCATION']))
     jwt.init_app(app)
+    @app.before_request
+    def refresh_token_on_activity():
+        if "access_token" in session:
+            # Attempt to refresh the token if it's close to expiring
+            token_refreshed = refresh_token()
+            if not token_refreshed:
+                # Handle cases where refresh fails
+                session.pop("access_token", None)
+                session.pop("refresh_token", None)
+                flash("Your session has expired. Please log in again.", "warning")
+                return redirect(url_for("members.login"))
 
     from welpurse.main.route import main
     from welpurse.members.route import members
